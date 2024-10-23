@@ -6,7 +6,7 @@ import Footer from "../components/Footer"
 export default function Home() {
   return (
  
-  <div> 
+  <div className="container max-w-[1440px] m-auto"> 
      <Button>Click me</Button>
      <Header/>
      <Footer/>
