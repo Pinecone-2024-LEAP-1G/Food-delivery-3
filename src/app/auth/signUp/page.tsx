@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label";
 
 const signUp = () => {
   return (
-    <div>
+    <div className="bg-red-400">
       <div className="w-[448px] h-[772px] mt-[131px] mx-auto rounded-2xl p-8 gap-12 flex flex-col">
         <h1 className="text-center font-bold text-3xl w-[384px] h-[33px]">
           Бүртгүүлэх
