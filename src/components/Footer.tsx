@@ -1,9 +1,9 @@
 import React from 'react';
-import FacebookIcon from "../../public/icons/FacebookIcon"
-import WhitePineIcon from "../../public/icons/WhitePineIcon"
-import InstaIcon from "../../public/icons/InstaIcons"
-import Twitter from "../../public/icons/Twitter"
-import SingleLine from '../../public/icons/SingleLine';
+import FacebookIcon from "./icons/FacebookIcon"
+import WhitePineIcon from "./icons/WhitePineIcon"
+import InstaIcon from "./icons/InstaIcons"
+import Twitter from "./icons/Twitter"
+import SingleLine from './icons/SingleLine';
 
 
 const Footer: React.FC = () => {

@@ -1,8 +1,8 @@
 "use client";
-import PineIcon from "../../public/icons/PineIcon";
-import SearchIcon from "../../public/icons/SearchIcon";
-import Basket from "../../public/icons/Basket";
-import UserIcon from "../../public/icons/UserIcon";
+import PineIcon from "./icons/PineIcon";
+import SearchIcon from "./icons/SearchIcon";
+import Basket from "./icons/Basket";
+import UserIcon from "./icons/UserIcon";
 import { useState } from "react";
 
 const Header: React.FC = () => {
