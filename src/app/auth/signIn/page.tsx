@@ -21,6 +21,7 @@ const Page = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   return (
     <div className="">
       <div className="w-[448px] h-[772px] mt-[131px] mx-auto rounded-2xl p-8 gap-2  flex flex-col">
@@ -56,6 +57,7 @@ const Page = () => {
               {showPassword ? <FaEye /> : <FaEyeSlash />}
             </button>
           </div>
+          <p className="ml-auto">Нууц үг сэргээх</p>
         </div>
         <Button
           onClick={signIn}
