@@ -1,11 +1,12 @@
 "use client";
+
 import PineIcon from "./icons/PineIcon";
 import SearchIcon from "./icons/SearchIcon";
 import Basket from "./icons/Basket";
 import UserIcon from "./icons/UserIcon";
 import { useState } from "react";
 
-const Header: React.FC = () => {
+const Header = () => {
   const [activeText, setActiveText] = useState<string>("НҮҮР");
 
   const handleHeaderTextColor = (name: string) => {
