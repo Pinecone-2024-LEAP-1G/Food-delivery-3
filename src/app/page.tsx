@@ -1,11 +1,12 @@
-import Card from "@/components/card";
-import Discount from "@/components/Discount";
-import { Edit } from "lucide-react";
+import Admin from "@/components/Admin";
+import Card from "@/components/Card";
+import Delivery from "@/components/Delivery";
+import FastDelivery from "@/components/FastDelivery";
 
 const Home = () => {
   return (
     <div>
-      <Card />
+      <FastDelivery />
     </div>
   );
 };
