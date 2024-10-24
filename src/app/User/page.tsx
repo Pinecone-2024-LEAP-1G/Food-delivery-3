@@ -40,7 +40,7 @@ const Page = () => {
           <p className="w-[120px] h-[120px] rounded-full border bg-blue-300 flex justify-center items-center">
             <span className="text-3xl">👤</span>
           </p>
-          <p className="w-[24px] h-[24px] rounded-full bg-green-300 absolute bottom-0 right-0 flex justify-center items-center">
+          <p className="w-[34px] h-[34px] rounded-full bg-green-300 absolute bottom-0 right-0 flex justify-center items-center">
             <GoPencil />
           </p>
         </div>
