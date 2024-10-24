@@ -70,9 +70,23 @@ const OrderDetail: React.FC = () => {
               <input
                 type="text"
                 placeholder="Орц, давхар, орцны код ..."
-                className="w-[384px] h-[112px] bg-[#ECEDF0] flex items-start rounded-sm placeholder:pl-[14px] pb-[80px]"
+                className="w-[384px] h-[112px] bg-[#ECEDF0] flex items-start rounded-sm pl-4 placeholder: pb-[80px]"
               />
             </div>
+          </div>
+          <div>
+            <p>Утасны дугаар*</p>
+            <div>
+              <input
+                type="text"
+                placeholder="Утасны дугаараа оруулна уу"
+                className="w-[384px] h-[48px] rounded-sm border-[1px] bg-[#ECEDF0] pl-[8px] "
+              />
+            </div>
+          </div>
+          <div>
+            <p>Төлбөр төлөх </p>
+            <div></div>
           </div>
         </div>
       </div>
