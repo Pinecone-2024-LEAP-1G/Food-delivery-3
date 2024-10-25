@@ -1,51 +1,87 @@
-import { Label } from "../components/ui/label";
-import { Input } from "../components/ui/input";
-import { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+"use client";
+
+import { z } from "zod";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+
+const formSchema = z.object({
+  username: z.string().min(2).max(50),
+  email: z.string().email(),
+});
 
 export const ForgotStepThree = () => {
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+    },
+  });
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
+  // 2. Define a submit handler.
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values);
+  }
   return (
-    <div className="flex flex-col gap-2  ">
-      <div className="grid grid-cols w-full max-w-sm items-center gap-1.5 justify-center">
-        <Label htmlFor="email">Нууц үг</Label>
-        <div className="flex h-12 w-[384px] p-2 bg-[#F7F7F8] items-center justify-center border border-[#ECEDF0] rounded">
-          <Input
-            className="bg-[#F7F7F8] grow border-none"
-            type={showPassword ? "text" : "password"}
-            id="email"
-            placeholder="Нууц үг оруулна уу"
-          />
-          <button
-            onClick={togglePasswordVisibility}
-            className="ml-auto flex items-center justify-center"
+    <div>
+      <div>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-3"
           >
-            {showPassword ? <FaEye /> : <FaEyeSlash />}
-          </button>
-        </div>
-      </div>
-      <div className="grid grid-cols w-full max-w-sm items-center gap-1.5 justify-center">
-        <Label htmlFor="email">Нууц үг дахин</Label>
-        <div className="flex h-12 w-[384px] p-2 bg-[#F7F7F8] items-center justify-center border border-[#ECEDF0] rounded">
-          <Input
-            className="bg-[#F7F7F8] grow border-none"
-            type={showPassword ? "text" : "password"}
-            id="email"
-            placeholder="Нууц үг дахин оруулна уу"
-          />
-          <button
-            onClick={togglePasswordVisibility}
-            className="ml-auto flex items-center justify-center"
-          >
-            {showPassword ? <FaEye /> : <FaEyeSlash />}
-          </button>
-        </div>
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Нууц үг</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded"
+                      placeholder="Нэрээ оруулна уу"
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Нууц үг дахин</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded"
+                      placeholder="Нууц үг дахин оруулна уу"
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
       </div>
     </div>
   );
