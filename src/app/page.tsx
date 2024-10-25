@@ -1,10 +1,10 @@
-// import { EditableCard } from "@/components/EditableCard";
-import OrderDetail from "../components/OrderDetail";
+import { DiscountedProducts } from "@/components/DiscountedProducts";
+import { EditableCard } from "@/components/EditableCard";
 
 const Home = () => {
   return (
     <div>
-      <OrderDetail />
+      <DiscountedProducts />
     </div>
   );
 };
