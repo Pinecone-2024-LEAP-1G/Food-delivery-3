@@ -1,4 +1,4 @@
-const StatusIcon = () => {
+export const StatusIcon = () => {
   return (
     <svg
       width="29"
@@ -14,5 +14,3 @@ const StatusIcon = () => {
     </svg>
   );
 };
-
-export default StatusIcon;

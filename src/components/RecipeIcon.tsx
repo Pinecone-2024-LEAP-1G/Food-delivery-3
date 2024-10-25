@@ -1,4 +1,4 @@
-const RecipeIcon = () => {
+export const RecipeIcon = () => {
   return (
     <svg
       width="31"
@@ -14,5 +14,3 @@ const RecipeIcon = () => {
     </svg>
   );
 };
-
-export default RecipeIcon;

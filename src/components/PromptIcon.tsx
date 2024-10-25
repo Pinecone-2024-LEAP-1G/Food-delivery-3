@@ -1,4 +1,4 @@
-const PromptIcon = () => {
+export const PromptIcon = () => {
   return (
     <svg
       width="30"
@@ -14,5 +14,3 @@ const PromptIcon = () => {
     </svg>
   );
 };
-
-export default PromptIcon;

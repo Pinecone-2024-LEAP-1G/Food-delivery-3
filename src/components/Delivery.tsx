@@ -4,7 +4,7 @@ type DeliveryType = {
   text: string;
 };
 
-const Delivery = ({ icon, title, text }: DeliveryType) => {
+export const Delivery = ({ icon, title, text }: DeliveryType) => {
   return (
     <div className="w-[264px] h-[156px] rounded-2xl border border-gray-200 p-4">
       <div className="flex flex-col gap-4">
@@ -17,5 +17,3 @@ const Delivery = ({ icon, title, text }: DeliveryType) => {
     </div>
   );
 };
-
-export default Delivery;

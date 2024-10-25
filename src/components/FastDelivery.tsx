@@ -1,7 +1,7 @@
-import Delivery from "./Delivery";
-import PromptIcon from "./PromptIcon";
-import RecipeIcon from "./RecipeIcon";
-import StatusIcon from "./StatusIcon";
+import { Delivery } from "./Delivery";
+import { PromptIcon } from "./PromptIcon";
+import { RecipeIcon } from "./RecipeIcon";
+import { StatusIcon } from "./StatusIcon";
 
 const status = [
   {
@@ -26,7 +26,7 @@ const status = [
   },
 ];
 
-const FastDelivery = () => {
+export const FastDelivery = () => {
   return (
     <div className="flex gap-4">
       {status.map((item, index) => {
@@ -42,5 +42,3 @@ const FastDelivery = () => {
     </div>
   );
 };
-
-export default FastDelivery;
