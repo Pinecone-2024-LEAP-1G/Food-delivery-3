@@ -39,7 +39,7 @@ const formSchema = z
   });
 
 type Type = {
-  handleNextStep?: () => void;
+  handleNextStep: () => void;
 };
 
 export const ForgotStepThree = ({ handleNextStep }: Type) => {
