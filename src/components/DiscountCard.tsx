@@ -1,4 +1,4 @@
-const Discount = () => {
+export const DiscountCard = () => {
   return (
     <div className="w-[282px] h-[253px] p-4">
       <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative ">
@@ -21,5 +21,3 @@ const Discount = () => {
     </div>
   );
 };
-
-export default Discount;

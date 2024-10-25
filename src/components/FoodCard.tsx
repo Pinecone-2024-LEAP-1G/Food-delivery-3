@@ -1,4 +1,4 @@
-const Card = () => {
+export const FoodCard = () => {
   return (
     <div className="w-[282px] h-[253px] p-4">
       <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300"></div>
@@ -9,5 +9,3 @@ const Card = () => {
     </div>
   );
 };
-
-export default Card;

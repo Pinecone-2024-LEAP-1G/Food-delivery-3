@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 
-const Admin = () => {
+export const EditableCard = () => {
   return (
     <div className="w-[282px] h-[253px] p-4">
       <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative">
         <Button
-          className="absolute top-16 left-14 w-[166px] h-[40px]"
+          className="absolute top-16 left-14 w-[166px] h-[40px] opacity-0 hover:opacity-55"
           variant="outline"
         >
           <p className="font-semibold text-2xl ">Edit</p>
@@ -18,5 +18,3 @@ const Admin = () => {
     </div>
   );
 };
-
-export default Admin;

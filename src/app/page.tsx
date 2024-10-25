@@ -1,12 +1,9 @@
-import Admin from "@/components/Admin";
-import Card from "@/components/Card";
-import Delivery from "@/components/Delivery";
-import FastDelivery from "@/components/FastDelivery";
+import { EditableCard } from "@/components/EditableCard";
 
 const Home = () => {
   return (
     <div>
-      <FastDelivery />
+      <EditableCard />
     </div>
   );
 };
