@@ -15,13 +15,32 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ForgotStepOne } from "@/components/ForgotPassStepOne";
-import { ForgotStepThree } from "@/components/ForgotStepThree";
 
-const formSchema = z.object({
-  username: z.string().min(2).max(50),
-  email: z.string().email(),
-});
+const formSchema = z
+  .object({
+    username: z.string().min(2).max(50),
+    email: z.string().email(),
+    address: z.string().min(2).max(50),
+    password: z
+      .string()
+      .min(8, "Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.")
+      .max(50, "Нууц үг хамгийн ихдээ 50 тэмдэгт байх ёстой.")
+      .regex(/[A-Z]/, "Нууц үг нэг том үсэг агуулсан байх ёстой.")
+      .regex(/[0-9]/, "Нууц үг нэг тоо агуулсан байх ёстой."),
+    repassword: z
+      .string()
+      .min(8, "Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.")
+      .max(50, "Нууц үг хамгийн ихдээ 50 тэмдэгт байх ёстой."),
+  })
+  .superRefine((data, ctx) => {
+    if (data.password !== data.repassword) {
+      ctx.addIssue({
+        path: ["repassword"],
+        code: z.ZodIssueCode.custom,
+        message: "Нууц үг давхцаж байх ёстой.",
+      });
+    }
+  });
 
 export function HomePage() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -29,15 +48,13 @@ export function HomePage() {
     defaultValues: {
       username: "",
       email: "",
+      address: "",
+      password: "",
+      repassword: "",
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
+  function onSubmit(values: z.infer<typeof formSchema>) {}
   return (
     <div>
       <div className="w-[448px] h-[772px] mt-[131px] mx-auto rounded-2xl p-8 gap-2  flex flex-col">
@@ -69,7 +86,7 @@ export function HomePage() {
             />
             <FormField
               control={form.control}
-              name="username"
+              name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>И-мэйл</FormLabel>
@@ -87,7 +104,7 @@ export function HomePage() {
             />
             <FormField
               control={form.control}
-              name="username"
+              name="password"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Нууц үг</FormLabel>
@@ -98,14 +115,13 @@ export function HomePage() {
                       {...field}
                     />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name="username"
+              name="repassword"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Нууц үг дахин</FormLabel>
@@ -116,7 +132,6 @@ export function HomePage() {
                       {...field}
                     />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}

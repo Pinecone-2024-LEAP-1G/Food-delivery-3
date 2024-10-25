@@ -1,7 +1,6 @@
 "use client";
 
 import { z } from "zod";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -20,7 +19,11 @@ const formSchema = z.object({
   email: z.string().email(),
 });
 
-export const ForgotStepOne = () => {
+type Type = {
+  handleNextStep: () => void;
+};
+
+export const ForgotStepOne = ({ handleNextStep }: Type) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -28,14 +31,16 @@ export const ForgotStepOne = () => {
     },
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+
+    handleNextStep();
   }
+
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="">
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
             control={form.control}
             name="email"
@@ -53,6 +58,13 @@ export const ForgotStepOne = () => {
               </FormItem>
             )}
           />
+          <Button
+            className="mt-8 h-12 w-full bg-[#F7F7F8] rounded"
+            variant="outline"
+            type="submit"
+          >
+            Үргэлжлүүлэх
+          </Button>
         </form>
       </Form>
     </div>
