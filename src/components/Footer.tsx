@@ -10,7 +10,7 @@ import {
 const Footer: React.FC = () => {
   return (
     <div
-      className=" h-[545px]  bg-[#18BA51] bottom-0"
+      className="h-[545px] bg-[#18BA51]  w-full"
       style={{
         backgroundImage: "url('Footer.png')",
         backgroundRepeat: 'no-repeat',
