@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -11,29 +11,29 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 
 const formSchema = z
   .object({
     password: z
       .string()
-      .min(8, "Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.")
-      .max(50, "Нууц үг хамгийн ихдээ 50 тэмдэгт байх ёстой.")
-      .regex(/[A-Z]/, "Нууц үг нэг том үсэг агуулсан байх ёстой.")
-      .regex(/[0-9]/, "Нууц үг нэг тоо агуулсан байх ёстой."),
+      .min(8, 'Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.')
+      .max(50, 'Нууц үг хамгийн ихдээ 50 тэмдэгт байх ёстой.')
+      .regex(/[A-Z]/, 'Нууц үг нэг том үсэг агуулсан байх ёстой.')
+      .regex(/[0-9]/, 'Нууц үг нэг тоо агуулсан байх ёстой.'),
 
     repassword: z
       .string()
-      .min(8, "Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.")
-      .max(50, "Нууц үг хамгийн ихдээ 50 тэмдэгт байх ёстой."),
+      .min(8, 'Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.')
+      .max(50, 'Нууц үг хамгийн ихдээ 50 тэмдэгт байх ёстой.'),
   })
   .superRefine((data, ctx) => {
     if (data.password !== data.repassword) {
       ctx.addIssue({
-        path: ["repassword"],
+        path: ['repassword'],
         code: z.ZodIssueCode.custom,
-        message: "Нууц үг давхцаж байх ёстой.",
+        message: 'Нууц үг давхцаж байх ёстой.',
       });
     }
   });
@@ -46,8 +46,8 @@ export const ForgotStepThree = ({ handleNextStep }: Type) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      password: "",
-      repassword: "",
+      password: '',
+      repassword: '',
     },
   });
 
@@ -61,8 +61,7 @@ export const ForgotStepThree = ({ handleNextStep }: Type) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col gap-3"
-        >
+          className="flex flex-col gap-3">
           <FormField
             control={form.control}
             name="password"
@@ -75,7 +74,7 @@ export const ForgotStepThree = ({ handleNextStep }: Type) => {
                     placeholder="Нууц үг оруулна уу"
                     type="password"
                     {...field}
-                    onFocus={() => form.clearErrors("password")}
+                    onFocus={() => form.clearErrors('password')}
                   />
                 </FormControl>
                 <FormMessage />
@@ -94,7 +93,7 @@ export const ForgotStepThree = ({ handleNextStep }: Type) => {
                     placeholder="Нууц үг дахин оруулна уу"
                     type="password"
                     {...field}
-                    onFocus={() => form.clearErrors("repassword")}
+                    onFocus={() => form.clearErrors('repassword')}
                   />
                 </FormControl>
                 <FormMessage />
@@ -104,8 +103,7 @@ export const ForgotStepThree = ({ handleNextStep }: Type) => {
           <Button
             className="mt-8 h-12 w-full bg-[#F7F7F8] rounded"
             variant="outline"
-            type="submit"
-          >
+            type="submit">
             Үргэлжлүүлэх
           </Button>
         </form>

@@ -1,4 +1,4 @@
-import { EditableCard } from "@/components/EditableCard";
+import { EditableCard } from '@/components/EditableCard';
 
 const Home = () => {
   return (
