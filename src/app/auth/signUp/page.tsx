@@ -1,110 +1,156 @@
 "use client";
 
+import { z } from "zod";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useState } from "react";
-import { toast } from "react-toast";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import ForgotStepOne from "@/components/ForgotPassStepOne";
-import { ForgotStepThree } from "@/components/ForgotStepThree";
 
-const Page = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordAgain, setPasswordAgain] = useState("");
-  const [termsAccepted, setTermsAccepted] = useState(false);
-  const [passwordValid, setPasswordValid] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const resetValues = () => {
-    setName("");
-    setEmail("");
-    setAddress("");
-    setPassword("");
-    setPasswordAgain("");
-    setTermsAccepted(false);
-  };
-  const validatePassword = (password: string) => {
-    const regex =
-      /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+[\]{}|;:,.<>?])[A-Za-z0-9!@#$%^&*()_+[\]{}|;:,.<>?]{8,}$/;
-    return regex.test(password);
-  };
-
-  const signUp = async () => {
-    if (!name || !email || !address || !password || !passwordAgain) {
-      toast.error("Бүх талбарыг бөглөх шаардлагатай.");
-      return;
+const formSchema = z
+  .object({
+    username: z.string().min(2).max(50),
+    email: z.string().email(),
+    address: z.string().min(2).max(50),
+    password: z
+      .string()
+      .min(8, "Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.")
+      .max(50, "Нууц үг хамгийн ихдээ 50 тэмдэгт байх ёстой.")
+      .regex(/[A-Z]/, "Нууц үг нэг том үсэг агуулсан байх ёстой.")
+      .regex(/[0-9]/, "Нууц үг нэг тоо агуулсан байх ёстой."),
+    repassword: z
+      .string()
+      .min(8, "Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.")
+      .max(50, "Нууц үг хамгийн ихдээ 50 тэмдэгт байх ёстой."),
+  })
+  .superRefine((data, ctx) => {
+    if (data.password !== data.repassword) {
+      ctx.addIssue({
+        path: ["repassword"],
+        code: z.ZodIssueCode.custom,
+        message: "Нууц үг давхцаж байх ёстой.",
+      });
     }
+  });
 
-    if (password !== passwordAgain) {
-      toast.error("Нууц үгс таарахгүй байна");
-      return;
-    }
+export function HomePage() {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      address: "",
+      password: "",
+      repassword: "",
+    },
+  });
 
-    if (!termsAccepted) {
-      toast.error("Үйлчилгээний нөхцөлийг зөвшөөрнө үү");
-      return;
-    }
-
-    resetValues();
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
-    setPasswordValid(validatePassword(newPassword));
-  };
+  function onSubmit(values: z.infer<typeof formSchema>) {}
   return (
     <div>
-      <div className="w-[448px] h-[772px] mt-[131px] mx-auto rounded-2xl p-8 gap-2 flex flex-col">
-        <h1 className="text-center font-bold text-3xl w-[384px] h-[33px]">
+      <div className="w-[448px] h-[772px] mt-[131px] mx-auto rounded-2xl p-8 gap-2  flex flex-col">
+        <h1 className="text-center font-bold text-3xl w-[384px] h-[33px] mb-12">
           Бүртгүүлэх
         </h1>
-        <div className="grid grid-cols w-full max-w-sm items-center gap-1.5 mt-12">
-          <Label htmlFor="email">Нэр</Label>
-          <Input
-            onChange={(e) => setName(e.target.value)}
-            className="h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded"
-            type="text"
-            id="email"
-            placeholder="И-мэйл оруулна уу"
-          />
-        </div>
-        <ForgotStepOne />
-        <div className="grid grid-cols w-full max-w-sm items-center gap-1.5">
-          <Label htmlFor="email">Хаяг</Label>
-          <Input
-            onChange={(e) => setAddress(e.target.value)}
-            className="h-12 w-[384px] p-2 bg-[#F7F7F8] hover:border-green-500 rounded"
-            type="email"
-            id="email"
-            placeholder="Хаяг оруулна уу"
-          />
-        </div>
-        <ForgotStepThree />
-        <div className="flex items-center gap-2 mt-12">
-          <input
-            type="checkbox"
-            onChange={() => setTermsAccepted(!termsAccepted)}
-          />
-          <p>Үйлчилгээний нөхцөл зөвшөөрөх</p>
-        </div>
-        <Button
-          onClick={signUp}
-          className="mt-8 h-12 bg-[#F7F7F8] rounded"
-          variant="outline"
-        >
-          Бүртгүүлэх
-        </Button>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className=" flex flex-col gap-3"
+          >
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Нэр</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded"
+                      placeholder="Нэрээ оруулна уу"
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>И-мэйл</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded"
+                      placeholder="Нэрээ оруулна уу"
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Нууц үг</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded"
+                      placeholder="Нууц үг оруулна уу"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="repassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Нууц үг дахин</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded"
+                      placeholder="Нууц үг дахин оруулна уу"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="flex items-center gap-2 mt-12">
+              <input type="checkbox" />
+              <p>Үйлчилгээний нөхцөл зөвшөөрөх</p>
+            </div>
+            <Button
+              className="mt-8 h-12 bg-[#F7F7F8] rounded w-[384px]"
+              type="submit"
+            >
+              Бүртгүүлэх
+            </Button>
+          </form>
+        </Form>
       </div>
     </div>
   );
-};
-export default Page;
+}
+
+export default HomePage;

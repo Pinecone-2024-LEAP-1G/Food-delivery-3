@@ -8,7 +8,7 @@ import SingleLine from "./icons/SingleLine";
 const Footer: React.FC = () => {
   return (
     <div
-      className=" h-[545px]  bg-[#18BA51] "
+      className=" h-[545px]  bg-[#18BA51] bottom-0"
       style={{
         backgroundImage: "url('Footer.png')",
         backgroundRepeat: "no-repeat",
