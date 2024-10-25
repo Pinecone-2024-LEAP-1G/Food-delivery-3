@@ -28,7 +28,7 @@ const Header = () => {
                 color: activeText === 'ХООЛНЫ ЦЭС' ? '#18BA51' : 'black',
               }}
               className="w-[137px] text-center text-base">
-              ХООЛНЫ ЦЭС
+              ХООЛНЫ
             </p>
             <p
               onClick={() => handleHeaderTextColor('ХҮРГЭЛТИЙН БҮС')}
