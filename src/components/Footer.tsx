@@ -1,9 +1,11 @@
-import React from "react";
-import FacebookIcon from "./icons/FacebookIcon";
-import WhitePineIcon from "./icons/WhitePineIcon";
-import InstaIcon from "./icons/InstaIcons";
-import Twitter from "./icons/Twitter";
-import SingleLine from "./icons/SingleLine";
+import React from 'react';
+import {
+  FacebookIcon,
+  WhitePineIcon,
+  InstaIcon,
+  Twitter,
+  SingleLine,
+} from './icons/index';
 
 const Footer: React.FC = () => {
   return (
@@ -11,12 +13,11 @@ const Footer: React.FC = () => {
       className=" h-[545px]  bg-[#18BA51] bottom-0"
       style={{
         backgroundImage: "url('Footer.png')",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-        margin: "auto",
-      }}
-    >
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        margin: 'auto',
+      }}>
       <div className="flex  h-[322px] justify-center m-auto pt-[114px] pb-[109px] ">
         <div className="flex flex-col">
           <div>
@@ -57,7 +58,7 @@ const Footer: React.FC = () => {
             <div className="flex items-center flex-col m-auto mt-[40px]">
               <p className="text-white">© 2024 Pinecone Foods LLC </p>
               <p className="text-white">
-                Зохиогчийн эрх хуулиар хамгаалагдсан.{" "}
+                Зохиогчийн эрх хуулиар хамгаалагдсан.{' '}
               </p>
             </div>
           </div>
