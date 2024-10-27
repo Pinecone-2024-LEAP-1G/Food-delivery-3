@@ -1,10 +1,10 @@
-import { EditableCard } from "@/components/EditableCard";
+// import { EditableCard } from "@/components/EditableCard";
+import OrderDetail from "../components/OrderDetail";
 
 const Home = () => {
   return (
     <div>
-      <EditableCard />
-      <div>{/* <OrderDetail /> */}</div>
+      <OrderDetail />
     </div>
   );
 };
