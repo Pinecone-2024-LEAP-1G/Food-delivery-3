@@ -1,21 +1,22 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { OrderSelectOptions } from '../order-detail/OrderDetail';
 
-const CheckboxComponent: React.FC = () => {
-  const [checked, setChecked] = useState<string | null>(null);
+type OrderDetailCheckBoxProps = Pick<OrderSelectOptions, 'paymentType'> & {
+  onChange: (type: string, value: string) => void;
+};
 
-  const handleChange = (value: string) => {
-    setChecked(checked === value ? null : value);
-  };
+export const CheckboxComponent = (props: OrderDetailCheckBoxProps) => {
+  const { paymentType, onChange } = props;
 
   return (
     <div className="flex mt-2 gap-8">
       <label className="flex items-center cursor-pointer w-[175px]">
         <input
           type="checkbox"
-          checked={checked === "option1"}
-          onChange={() => handleChange("option1")}
+          checked={paymentType === 'CASH'}
+          onChange={() => onChange('paymentType', 'CASH')}
           className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
         />
         <span className="ml-2">Бэлнээр </span>
@@ -23,8 +24,8 @@ const CheckboxComponent: React.FC = () => {
       <label className="flex items-center cursor-pointer w-[175px]">
         <input
           type="checkbox"
-          checked={checked === "option2"}
-          onChange={() => handleChange("option2")}
+          checked={paymentType === 'CART'}
+          onChange={() => onChange('paymentType', 'CART')}
           className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
         />
         <span className="ml-2">Картаар </span>
@@ -32,5 +33,3 @@ const CheckboxComponent: React.FC = () => {
     </div>
   );
 };
-
-export default CheckboxComponent;

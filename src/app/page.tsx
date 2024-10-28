@@ -1,10 +1,12 @@
-import { DessertProducts } from "@/components/DessertProducts";
-import { DiscountedProducts } from "@/components/DiscountedProducts";
-import { FoodCard } from "@/components/FoodCard";
-import { MainProducts } from "@/components/MainProducts";
-import { SaladsProducts } from "@/components/SaladProducts";
+// import { EditableCard } from "@/components/EditableCard";
+
+import { OrderDetail } from '../components/order-detail';
 
 const Home = () => {
-  return <div></div>;
+  return (
+    <div className="container mx-auto">
+      <OrderDetail />
+    </div>
+  );
 };
 export default Home;
