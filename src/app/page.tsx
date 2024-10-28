@@ -5,10 +5,6 @@ import { MainProducts } from "@/components/MainProducts";
 import { SaladsProducts } from "@/components/SaladProducts";
 
 const Home = () => {
-  return (
-    <div>
-      <DiscountedProducts />
-    </div>
-  );
+  return <div></div>;
 };
 export default Home;
