@@ -1,11 +1,10 @@
+import { DessertProducts } from "@/components/DessertProducts";
 import { DiscountedProducts } from "@/components/DiscountedProducts";
-import { EditableCard } from "@/components/EditableCard";
+import { FoodCard } from "@/components/FoodCard";
+import { MainProducts } from "@/components/MainProducts";
+import { SaladsProducts } from "@/components/SaladItems";
 
 const Home = () => {
-  return (
-    <div>
-      <DiscountedProducts />
-    </div>
-  );
+  return <div></div>;
 };
 export default Home;
