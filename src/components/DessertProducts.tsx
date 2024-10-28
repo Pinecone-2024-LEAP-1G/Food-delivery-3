@@ -1,6 +1,6 @@
 import { IoIosArrowForward } from "react-icons/io";
 import { FoodCard } from "./FoodCard";
-import { Star } from "./icons/Star";
+import { StarIcon } from "./icons/StarIcon";
 
 export const dessert = [
   {
@@ -34,7 +34,7 @@ export const DessertProducts = () => {
     <div className="pb-20">
       <div className="flex py-4 justify-between px-[120px]">
         <div className="flex gap-2 items-center">
-          <Star />
+          <StarIcon />
           <p className="font-bold text-[22px] leading-[33px] font-poppins w-[1039px]">
             Амттан
           </p>

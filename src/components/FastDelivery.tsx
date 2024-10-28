@@ -1,7 +1,7 @@
 import { Delivery } from "./Delivery";
-import { PromptIcon } from "./PromptIcon";
-import { RecipeIcon } from "./RecipeIcon";
-import { StatusIcon } from "./StatusIcon";
+import { PromptIcon } from "./icons/PromptIcon";
+import { RecipeIcon } from "./icons/RecipeIcon";
+import { StatusIcon } from "./icons/StatusIcon";
 
 const status = [
   {
