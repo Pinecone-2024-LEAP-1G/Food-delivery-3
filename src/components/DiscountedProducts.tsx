@@ -1,6 +1,6 @@
-import { StarIcon } from "lucide-react";
 import { IoIosArrowForward } from "react-icons/io";
 import { DiscountCard } from "./DiscountCard";
+import { Star } from "./icons/Star";
 
 const discountedProductItems = [
   {
@@ -38,7 +38,7 @@ export const DiscountedProducts = () => {
     <div className="pb-20">
       <div className="flex py-4 justify-between px-[120px]">
         <div className="flex gap-2 items-center">
-          <StarIcon />
+          <Star />
           <p className="font-bold text-[22px] leading-[33px] font-poppins w-[1039px]">
             Хямдралтай
           </p>
