@@ -14,8 +14,5 @@ export * from "./StarIcon";
 export * from "./PromptIcon";
 export * from "./RecipeIcon";
 export * from "./StatusIcon";
-<<<<<<< HEAD
 export * from "./Plus";
-=======
 export * from "./CloseIcon";
->>>>>>> 863b99f (s)
