@@ -1,14 +1,16 @@
 import React from "react";
-import FacebookIcon from "./icons/FacebookIcon";
-import WhitePineIcon from "./icons/WhitePineIcon";
-import InstaIcon from "./icons/InstaIcons";
-import Twitter from "./icons/Twitter";
-import SingleLine from "./icons/SingleLine";
+import {
+  FacebookIcon,
+  WhitePineIcon,
+  InstaIcon,
+  Twitter,
+  SingleLine,
+} from "./icons/index";
 
 const Footer: React.FC = () => {
   return (
     <div
-      className=" h-[545px]  bg-[#18BA51] "
+      className="h-[545px] bg-[#18BA51]  w-full "
       style={{
         backgroundImage: "url('Footer.png')",
         backgroundRepeat: "no-repeat",
@@ -20,11 +22,11 @@ const Footer: React.FC = () => {
       <div className="flex  h-[322px] justify-center m-auto pt-[114px] pb-[109px] ">
         <div className="flex flex-col">
           <div>
-            <div className="flex gap-2 justify-center ">
+            <div className="flex gap-2 justify-center items-center">
               <WhitePineIcon />
               <p className="font-bold text-[20px] text-white">Food Delivery</p>
             </div>
-            <div className="flex text-white text-[16px] gap-[96px] mt-[40px] max-w-[1200px]">
+            <div className="flex text-white text-[16px] gap-[96px] mt-[40px] max-w-screen-xl justify-center">
               <p>
                 <u>Нүүр</u>
               </p>

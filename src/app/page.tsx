@@ -1,9 +1,10 @@
-import { EditableCard } from "@/components/EditableCard";
+// import { EditableCard } from "@/components/EditableCard";
+import OrderDetail from "../components/OrderDetail";
 
 const Home = () => {
   return (
     <div>
-      <EditableCard />
+      <OrderDetail />
     </div>
   );
 };

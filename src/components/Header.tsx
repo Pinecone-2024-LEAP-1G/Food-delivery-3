@@ -1,47 +1,41 @@
-"use client";
+'use client';
 
-import PineIcon from "./icons/PineIcon";
-import SearchIcon from "./icons/SearchIcon";
-import Basket from "./icons/Basket";
-import UserIcon from "./icons/UserIcon";
-import { useState } from "react";
+import { PineIcon, SearchIcon, Basket, UserIcon } from './icons/index';
+import { useState } from 'react';
 
 const Header = () => {
-  const [activeText, setActiveText] = useState<string>("НҮҮР");
+  const [activeText, setActiveText] = useState<string>('НҮҮР');
 
   const handleHeaderTextColor = (name: string) => {
     setActiveText(name);
   };
 
   return (
-    <div className="w-[1440px] m-auto flex justify-center">
-      <div className="flex w-[1440px]">
+    <div className="w-[1440px] m-auto flex ">
+      <div className="flex w-[1440px] items-center justify-center">
         <div className="w-[453px] flex items-center mr-[255px]">
           <PineIcon />
           <div className="flex w-[388px] font-bold px-4 py-2 gap-2">
             <p
-              onClick={() => handleHeaderTextColor("НҮҮР")}
-              style={{ color: activeText === "НҮҮР" ? "#18BA51" : "black" }}
-              className="w-[74px] text-center text-base"
-            >
+              onClick={() => handleHeaderTextColor('НҮҮР')}
+              style={{ color: activeText === 'НҮҮР' ? '#18BA51' : 'black' }}
+              className="w-[74px] text-center text-base">
               НҮҮР
             </p>
             <p
-              onClick={() => handleHeaderTextColor("ХООЛНЫ ЦЭС")}
+              onClick={() => handleHeaderTextColor('ХООЛНЫ ЦЭС')}
               style={{
-                color: activeText === "ХООЛНЫ ЦЭС" ? "#18BA51" : "black",
+                color: activeText === 'ХООЛНЫ ЦЭС' ? '#18BA51' : 'black',
               }}
-              className="w-[137px] text-center text-base"
-            >
+              className="w-[137px] text-center text-base">
               ХООЛНЫ ЦЭС
             </p>
             <p
-              onClick={() => handleHeaderTextColor("ХҮРГЭЛТИЙН БҮС")}
+              onClick={() => handleHeaderTextColor('ХҮРГЭЛТИЙН БҮС')}
               style={{
-                color: activeText === "ХҮРГЭЛТИЙН БҮС" ? "#18BA51" : "black",
+                color: activeText === 'ХҮРГЭЛТИЙН БҮС' ? '#18BA51' : 'black',
               }}
-              className="w-[164px] text-center text-base"
-            >
+              className="w-[170px] text-center text-base">
               ХҮРГЭЛТИЙН БҮС
             </p>
           </div>
