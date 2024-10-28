@@ -15,6 +15,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+import { useState } from "react";
 
 const formSchema = z
   .object({
@@ -43,6 +46,7 @@ const formSchema = z
   });
 
 export function HomePage() {
+  const [showPassword, setShowPassword] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,6 +57,10 @@ export function HomePage() {
       repassword: "",
     },
   });
+
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   function onSubmit(values: z.infer<typeof formSchema>) {}
   return (
@@ -108,12 +116,23 @@ export function HomePage() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Нууц үг</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded"
-                      placeholder="Нууц үг оруулна уу"
-                      {...field}
-                    />
+                  <FormControl className="relative ">
+                    <div className="flex items-center h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded">
+                      <Input
+                        className="grow bg-[#F7F7F8] border-none"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Нууц үг оруулна уу"
+                        {...field}
+                      />
+                      <button
+                        type="button"
+                        onClick={togglePassword}
+                        className="ml-auto p-2"
+                        aria-label="Toggle password visibility"
+                      >
+                        {showPassword ? <FaEye /> : <FaEyeSlash />}
+                      </button>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -121,16 +140,27 @@ export function HomePage() {
             />
             <FormField
               control={form.control}
-              name="repassword"
+              name="password"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Нууц үг дахин</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded"
-                      placeholder="Нууц үг дахин оруулна уу"
-                      {...field}
-                    />
+                  <FormControl className="relative ">
+                    <div className="flex items-center h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded">
+                      <Input
+                        className="grow bg-[#F7F7F8] border-none"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Нууц үг дахин оруулна уу "
+                        {...field}
+                      />
+                      <button
+                        type="button"
+                        onClick={togglePassword}
+                        className="ml-auto p-2"
+                        aria-label="Toggle password visibility"
+                      >
+                        {showPassword ? <FaEye /> : <FaEyeSlash />}
+                      </button>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

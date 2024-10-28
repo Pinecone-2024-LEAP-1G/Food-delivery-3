@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useState } from "react";
 
 const formSchema = z
   .object({
@@ -43,7 +45,8 @@ const formSchema = z
     }
   });
 
-export function HomePage() {
+const SignInPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -56,10 +59,14 @@ export function HomePage() {
     },
   });
 
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   function onSubmit(values: z.infer<typeof formSchema>) {}
   return (
     <div>
-      <div className="w-[448px] h-[772px] mt-[131px] mx-auto rounded-2xl p-8 gap-2  flex flex-col">
+      <div className="w-[448px]  mt-[131px] mx-auto rounded-2xl p-8 gap-2  flex flex-col bg-[white]">
         <h1 className="text-center font-bold text-3xl w-[384px] h-[33px] mb-12">
           Нэвтрэх
         </h1>
@@ -91,13 +98,33 @@ export function HomePage() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Нууц үг</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded"
-                      placeholder="Нууц үг оруулна уу"
-                      {...field}
-                    />
+                  <FormLabel>Нууц үг дахин</FormLabel>
+                  <FormControl className="relative ">
+                    <div>
+                      <div className="flex items-center h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded">
+                        <Input
+                          className="grow bg-[#F7F7F8] border-none"
+                          type={showPassword ? "text" : "password"}
+                          placeholder="Нууц үг дахин оруулна уу "
+                          {...field}
+                        />
+
+                        <button
+                          type="button"
+                          onClick={togglePassword}
+                          className="ml-auto p-2"
+                          aria-label="Toggle password visibility"
+                        >
+                          {showPassword ? <FaEye /> : <FaEyeSlash />}
+                        </button>
+                      </div>
+                      <p
+                        onClick={() => router.push("/auth/forgotPass")}
+                        className="pl-64"
+                      >
+                        Нууц үг сэргээх
+                      </p>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -109,10 +136,10 @@ export function HomePage() {
             >
               Нэвтрэх
             </Button>
-            <p className="text-xm text-center mt-8">Эсвэл</p>
+            <p className="text-xm text-center mt-4">Эсвэл</p>
             <Button
-              className="mt-8 h-12  rounded w-[384px] border border-green-500"
-              type="submit"
+              className="mt-4 h-12  rounded w-[384px] border border-green-500"
+              type="button"
               onClick={() => router.push("/auth/signUp")}
             >
               Бүртгүүлэх
@@ -122,6 +149,6 @@ export function HomePage() {
       </div>
     </div>
   );
-}
+};
 
-export default HomePage;
+export default SignInPage;
