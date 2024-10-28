@@ -1,9 +1,10 @@
 // import { EditableCard } from "@/components/EditableCard";
-import OrderDetail from "../components/OrderDetail";
+
+import { OrderDetail } from '../components/order-detail';
 
 const Home = () => {
   return (
-    <div>
+    <div className="container mx-auto">
       <OrderDetail />
     </div>
   );
