@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   FacebookIcon,
@@ -6,8 +8,10 @@ import {
   Twitter,
   SingleLine,
 } from "./icons/index";
+import { useRouter } from "next/navigation";
 
 const Footer: React.FC = () => {
+  const router = useRouter();
   return (
     <div
       className="h-[545px] bg-[#18BA51]  w-full "
@@ -37,13 +41,17 @@ const Footer: React.FC = () => {
                 <u>Хоолны цэс</u>
               </p>
               <p>
-                <u>Үйлчилгээний нөхцөл</u>
+                <u onClick={() => router.push("/termsOfService")}>
+                  Үйлчилгээний нөхцөл
+                </u>
               </p>
               <p>
                 <u>Хүргэлтийн бүс</u>
               </p>
               <p>
-                <u>Нууцлалын бодлого</u>
+                <u onClick={() => router.push("/privacyPolicy")}>
+                  Нууцлалын бодлого
+                </u>
               </p>
             </div>
           </div>
