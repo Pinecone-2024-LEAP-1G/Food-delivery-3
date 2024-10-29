@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { SetStateAction, useState } from 'react';
-import OrderVerify from '../order-detail/OrderVerify';
-import { OrderDetailAddressInfo } from './OrderDetailAddressInfo';
+import { SetStateAction, useState } from "react";
+import OrderVerify from "../order-detail/OrderVerify";
+import { OrderDetailAddressInfo } from "./OrderDetailAddressInfo";
 
 export type OrderSelectOptions = {
   district: string;
@@ -10,16 +10,16 @@ export type OrderSelectOptions = {
   home: string;
   description: string;
   phoneNumber: string;
-  paymentType: 'CART' | 'CASH' | null;
+  paymentType: "CART" | "CASH" | null;
 };
 
 export const OrderDetail = () => {
   const [selectedOptions, setSelectedOptions] = useState<OrderSelectOptions>({
-    district: '',
-    street: '',
-    home: '',
-    description: '',
-    phoneNumber: '',
+    district: "",
+    street: "",
+    home: "",
+    description: "",
+    phoneNumber: "",
     paymentType: null,
   });
 
@@ -32,7 +32,7 @@ export const OrderDetail = () => {
   console.log({ selectedOptions });
 
   return (
-    <div className="flex justify-center gap-[180px] mt-12">
+    <div className="flex justify-center gap-48 mt-12 mx-auto">
       <OrderDetailAddressInfo
         district={selectedOptions.district}
         street={selectedOptions.street}
