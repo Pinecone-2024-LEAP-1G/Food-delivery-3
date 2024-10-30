@@ -1,6 +1,9 @@
 import { BlueDotIcon } from "../icons";
+import { useRouter } from "next/navigation";
 
 const OrderVerify = () => {
+  const router = useRouter();
+
   return (
     <div>
       <div className="max-w-[432px] flex items-center gap-4 h-[100px] py-6 px-4 ">
@@ -35,7 +38,10 @@ const OrderVerify = () => {
             <p className="font-bold text-[18px] text-[#121316]">34,800₮</p>
           </div>
           <div>
-            <button className="py-2 px-4 bg-[#EEEFF2] w-[187px] text-[#D6D8DB] flex justify-center items-center h-12  rounded hover:bg-[#18BA51]  ">
+            <button
+              onClick={() => router.push("/orderwaiting")}
+              className="py-2 px-4 bg-[#EEEFF2] w-[187px] text-[#D6D8DB] flex justify-center items-center h-12  rounded hover:bg-[#18BA51]  "
+            >
               Захиалах
             </button>
           </div>
