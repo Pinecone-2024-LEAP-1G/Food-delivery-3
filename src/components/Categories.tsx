@@ -1,6 +1,7 @@
 const name = ["Breakfast", "Soup", "Main Course", "Desserts"];
 
 import { Category } from "./Category";
+import { Plus } from "./icons";
 
 export const Categories = () => {
   return (
@@ -11,6 +12,12 @@ export const Categories = () => {
       {name.map((text) => {
         return <Category text={text} />;
       })}
+      <div className="flex w-[258px] h-10 rounded-lg gap-2 border px-4 py-2 mb-[26px]">
+        <Plus />
+        <p className="items-center justify-center flex font-medium text-lg text-[#5E6166]">
+          Create new category
+        </p>
+      </div>
     </div>
   );
 };
