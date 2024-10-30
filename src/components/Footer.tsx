@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
   const router = useRouter();
   return (
     <div
-      className="h-[545px] bg-[#18BA51] container mx-auto"
+      className="h-[545px] bg-[#18BA51] container mx-auto "
       style={{
         backgroundImage: "url('Footer.png')",
         backgroundRepeat: "no-repeat",
@@ -46,7 +46,9 @@ const Footer: React.FC = () => {
                 </u>
               </p>
               <p>
-                <u>Хүргэлтийн бүс</u>
+                <u onClick={() => router.push("/deliveryZone")}>
+                  Хүргэлтийн бүс
+                </u>
               </p>
               <p>
                 <u onClick={() => router.push("/privacyPolicy")}>
