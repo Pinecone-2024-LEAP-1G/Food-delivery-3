@@ -17,7 +17,7 @@ export const CreateFood = () => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger className="" asChild>
         <Button className="border-none" variant={"outline"}>
           Add Create Food
         </Button>

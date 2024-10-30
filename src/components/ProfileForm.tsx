@@ -81,14 +81,20 @@ export const ProfileForm = ({ className }: React.ComponentProps<"form">) => {
       </div>
       <div>
         <Label htmlFor="discounted">Хоолны зураг</Label>
-        <div className="bg-[#D6D7DC] w-[284px] h-[122px]">
-          <p className=" text-[#525252] flex items-center justify-center">
+        <div className="bg-[#D6D7DC] w-[284px] h-[122px] items-center justify-center mt-2 rounded-md p-4">
+          <p className=" text-[#525252] flex items-center justify-center ">
             Add image for the food
           </p>
-          <Button className="bg-[#393939] w-[114px] h-10">Add image</Button>
+          <Button className="bg-[#393939]  h-10 flex justify-center items-center mt-2 text-white">
+            Add image
+          </Button>
         </div>
       </div>
-      <Button type="submit">Save changes</Button>
+      <div className="flex ml-auto">
+        <Button className="bg-[#393939] text-white" type="submit">
+          Continue
+        </Button>
+      </div>
     </form>
   );
 };

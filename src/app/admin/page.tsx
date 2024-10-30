@@ -45,19 +45,23 @@ const Page = () => {
     <div className="flex container mx-auto p-4">
       <Categories />
       <div className="flex flex-col  bg-gray-50  w-full p-8">
-        <div className="flex mt-6 mb-8 justify-between px-8">
-          <h1 className="font-bold text-2xl ">Breakfast</h1>
-          <p
-            onClick={onclickAdd}
-            className="  h-[35px] bg-green-500 text-white py-2 px-4 items-center rounded justify-center flex mr-8"
-          >
-            <CreateFood />
-          </p>
-        </div>
-        <div className="grid grid-cols-3 gap-y-16 justify-end items-end">
-          {discountedProductItems.map((item) => {
-            return <EditableCard name={item.name} price={item.price} />;
-          })}
+        <div className="w-[894px]">
+          <div className="flex mt-6 mb-8 justify-between px-">
+            <h1 className="font-bold text-2xl ">Breakfast</h1>
+            <p
+              onClick={onclickAdd}
+              className="h-[35px] bg-green-500 text-white py-2 items-center rounded justify-center flex "
+            >
+              <CreateFood />
+            </p>
+          </div>
+          <div className="grid grid-cols-3 gap-y-[60px] justify-end items-end">
+            {discountedProductItems.map((item, index) => {
+              return (
+                <EditableCard key={index} name={item.name} price={item.price} />
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
