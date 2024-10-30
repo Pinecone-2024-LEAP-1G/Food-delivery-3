@@ -16,6 +16,15 @@
     "plugins": [
       {
         "name": "next"
+      },
+      {
+        "compilerOptions": {
+          "baseUrl": ".",
+          "paths": {
+            "@/*": ["src/*"]
+          }
+        },
+        "include": ["src", "@types"]
       }
     ],
     "paths": {
