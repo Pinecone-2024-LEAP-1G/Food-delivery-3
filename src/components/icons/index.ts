@@ -15,3 +15,4 @@ export * from "./PromptIcon";
 export * from "./RecipeIcon";
 export * from "./StatusIcon";
 export * from "./Plus";
+export * from "./CloseIcon";
