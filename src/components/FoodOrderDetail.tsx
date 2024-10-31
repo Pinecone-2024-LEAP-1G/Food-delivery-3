@@ -21,13 +21,11 @@ export function FoodOrderDetail() {
           </DialogHeader>
           <div className="flex flex-col gap-8">
             <DialogTitle>
-              {" "}
               <div className="flex flex-col gap-1">
                 <h3 className="font-bold text-[28px]"> Main Pizza</h3>
                 <p className="font-semibold text-lg text-green-500">34,800₮</p>
               </div>
             </DialogTitle>
-
             <div className="flex flex-col gap-2">
               <h3 className="font-semibold text-lg">Орц</h3>
               <p className="text-base font-normal bg-gray-100 text-gray-400 rounded-lg w-[368px] h-[54px]">

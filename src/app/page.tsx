@@ -1,5 +1,3 @@
-// import { EditableCard } from "@/components/EditableCard";
-
 import { OrderDetail } from "../components/order-detail";
 
 const Home = () => {
