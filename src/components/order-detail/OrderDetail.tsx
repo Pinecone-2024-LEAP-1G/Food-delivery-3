@@ -1,7 +1,7 @@
 "use client";
 
 import { SetStateAction, useState } from "react";
-import OrderVerify from "../order-detail/OrderVerify";
+import OrderVerify from "./OrderVerify";
 import { OrderDetailAddressInfo } from "./OrderDetailAddressInfo";
 
 export type OrderSelectOptions = {

@@ -1,8 +1,8 @@
 import { BlueDotIcon } from "@/components/icons";
-import moment from "moment";
+// import moment from "moment";
 
 const page = () => {
-  const tenDaysAgo = moment().format("L");
+  // const tenDaysAgo = moment().format("L");
 
   return (
     <div className="flex justify-center gap-44 mt-16 mb-20">
@@ -17,7 +17,7 @@ const page = () => {
                 Хүлээгдэж буй
               </p>
             </div>
-            <div>{tenDaysAgo}</div>
+            {/* <div>{tenDaysAgo}</div> */}
           </div>
           <div className="border-[1px] w-[384px] border-[#265295]  mx-auto mt-4 "></div>
         </div>
