@@ -18,11 +18,13 @@ import { Input } from "@/components/ui/input";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
+import NameInput from "@/components/NameInput";
+import { Email } from "@/components/EmailInput";
 
 const formSchema = z
   .object({
     username: z.string().min(2).max(50),
-    email: z.string().email(),
+    email: z.string().email("email buruu baina"),
     address: z.string().min(2).max(50),
     password: z
       .string()
@@ -46,6 +48,9 @@ const formSchema = z
   });
 
 export function HomePage() {
+  const [name, setName] = useState("");
+  console.log(name);
+
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -74,42 +79,8 @@ export function HomePage() {
             onSubmit={form.handleSubmit(onSubmit)}
             className=" flex flex-col gap-3"
           >
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Нэр</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded"
-                      placeholder="Нэрээ оруулна уу"
-                      {...field}
-                    />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>И-мэйл</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded"
-                      placeholder="Нэрээ оруулна уу"
-                      {...field}
-                    />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <NameInput onChange={(e) => setName(e.target.value)} />
+            <Email />
             <FormField
               control={form.control}
               name="password"
