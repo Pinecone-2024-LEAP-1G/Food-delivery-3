@@ -1,7 +1,7 @@
 import { OrderModel } from '../../model/order';
 import { Request, Response } from 'express';
 
-export const CreateUser = async (req: Request, res: Response) => {
+export const createOrder = async (req: Request, res: Response) => {
   const {
     userId,
     orderNumber,
