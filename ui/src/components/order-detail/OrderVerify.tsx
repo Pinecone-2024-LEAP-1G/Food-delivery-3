@@ -1,5 +1,6 @@
 import { BlueDotIcon } from "../icons";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const OrderVerify = () => {
   const router = useRouter();
@@ -20,7 +21,8 @@ const OrderVerify = () => {
         <div className="pt-6"></div>
         <div className="border-[1px] w-[384px] border-[#D6D8DB]  mx-auto "></div>
         <div className="w-[384px] h-[121px]  mt-4 flex gap-4 px-6 ">
-          <img src="pizza.png" className="w-[184px] h-[121px]"></img>
+          <Image src="/pizza.png" alt="pizza" className="w-[184px] h-[121px]" />
+
           <div className="w-[184px] h-[121px]">
             <h1 className="font-semibold text-[18px]">Main Pizza </h1>
             <p className="font-semibold text-[#18BA51] text-[18px]">34,800₮</p>

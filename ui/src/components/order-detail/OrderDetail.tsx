@@ -1,6 +1,6 @@
 "use client";
 
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import OrderVerify from "./OrderVerify";
 import { OrderDetailAddressInfo } from "./OrderDetailAddressInfo";
 

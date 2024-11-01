@@ -2,11 +2,10 @@ import { BlueDotIcon } from "../icons";
 import DownArrow from "../icons/DownArrow";
 import PinIcon from "../icons/PinIcon";
 import { CheckboxComponent } from "./CheckBox";
-import { Dispatch, SetStateAction, useState } from "react";
 import { OrderSelectOptions } from "./OrderDetail";
 
 type OrderDetailAddressInfoProps = OrderSelectOptions & {
-  onChange: (type: string, value: string) => void;
+  onChange: (_key: string, _value: string) => void;
 };
 
 export const OrderDetailAddressInfo = (props: OrderDetailAddressInfoProps) => {

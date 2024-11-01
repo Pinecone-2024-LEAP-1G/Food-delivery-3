@@ -1,5 +1,4 @@
 import { GoPencil } from "react-icons/go";
-import { MdMargin } from "react-icons/md";
 
 type News = {
   image: JSX.Element;
@@ -36,4 +35,3 @@ export const User = ({ image, name, text }: News) => {
     </div>
   );
 };
-// className="w-3 h-3 bg-white border rounded-full  flex items-center justify-center"

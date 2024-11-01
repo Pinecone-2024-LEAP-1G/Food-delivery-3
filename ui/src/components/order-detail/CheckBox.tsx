@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
 import { OrderSelectOptions } from "./OrderDetail";
 
 type OrderDetailCheckBoxProps = Pick<OrderSelectOptions, "paymentType"> & {
-  onChange: (type: string, value: string) => void;
+  onChange: (_type: string, _value: string) => void;
 };
 
 export const CheckboxComponent = (props: OrderDetailCheckBoxProps) => {

@@ -3,7 +3,6 @@
 import { SearchIcon } from "@/components/icons";
 import { PreviousNext } from "@/components/PreviousNext";
 import { TableTab } from "@/components/Table";
-import { Table } from "lucide-react";
 import { useState } from "react";
 
 const Page = () => {
