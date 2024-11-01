@@ -20,7 +20,7 @@ import { useState } from "react";
 // import { EmailInput } from "@/components/EmailInput";
 import { useCreationFormSchema } from "@/lib/form-schema/user";
 
-export function HomePage() {
+const HomePage = () => {
   const [name, setName] = useState("");
   console.log(name);
 
@@ -142,6 +142,6 @@ export function HomePage() {
       </div>
     </div>
   );
-}
+};
 
 export default HomePage;
