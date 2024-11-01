@@ -3,7 +3,6 @@
 import { ForgotStepOne } from "@/components/ForgotPassStepOne";
 import { ForgotStepThree } from "@/components/ForgotStepThree";
 import { ForgotStepTwo } from "@/components/ForgotStepTwo";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 const Page = () => {

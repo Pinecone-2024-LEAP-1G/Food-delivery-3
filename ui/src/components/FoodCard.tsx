@@ -5,7 +5,7 @@ type FoodCardType = {
   basePrice?: string;
 };
 
-export const FoodCard = ({ image, name, price, basePrice }: FoodCardType) => {
+export const FoodCard = ({ image, name, price }: FoodCardType) => {
   return (
     <div className="w-[282px] h-[253px] p-4">
       <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative ">

@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -19,31 +18,15 @@ import { useRouter } from "next/navigation";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 
-const formSchema = z
-  .object({
-    username: z.string().min(2).max(50),
-    email: z.string().email("И-мэйл хаяг буруу байна"),
-    address: z.string().min(2).max(50),
-    password: z
-      .string()
-      .min(8, "Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.")
-      .max(50, "Нууц үг хамгийн ихдээ 50 тэмдэгт байх ёстой.")
-      .regex(/[A-Z]/, "Нууц үг нэг том үсэг агуулсан байх ёстой.")
-      .regex(/[0-9]/, "Нууц үг нэг тоо агуулсан байх ёстой."),
-    repassword: z
-      .string()
-      .min(8, "Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.")
-      .max(50, "Нууц үг хамгийн ихдээ 50 тэмдэгт байх ёстой."),
-  })
-  .superRefine((data, ctx) => {
-    if (data.password !== data.repassword) {
-      ctx.addIssue({
-        path: ["repassword"],
-        code: z.ZodIssueCode.custom,
-        message: "Нууц үг давхцаж байх ёстой.",
-      });
-    }
-  });
+const formSchema = z.object({
+  email: z.string().email("И-мэйл хаяг буруу байна"),
+  password: z
+    .string()
+    .min(8, "Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.")
+    .max(50, "Нууц үг хамгийн ихдээ 50 тэмдэгт байх ёстой.")
+    .regex(/[A-Z]/, "Нууц үг нэг том үсэг агуулсан байх ёстой.")
+    .regex(/[0-9]/, "Нууц үг нэг тоо агуулсан байх ёстой."),
+});
 
 const SignInPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -51,11 +34,8 @@ const SignInPage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
       email: "",
-      address: "",
       password: "",
-      repassword: "",
     },
   });
 
@@ -63,7 +43,9 @@ const SignInPage = () => {
     setShowPassword(!showPassword);
   };
 
-  function onSubmit(values: z.infer<typeof formSchema>) {}
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+  }
   return (
     <div>
       <div className="w-[448px]  mt-[131px] mx-auto rounded-2xl p-8 gap-2  flex flex-col bg-[white]">
