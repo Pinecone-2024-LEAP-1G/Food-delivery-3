@@ -2,9 +2,15 @@ import { z } from "zod";
 
 export const useCreationFormSchema = z
   .object({
-    username: z.string().min(2).max(50),
+    username: z
+      .string()
+      .min(2, "Нэр хоосон байна")
+      .max(50),
     email: z.string().email("email buruu baina"),
-    address: z.string().min(2).max(50),
+    address: z
+      .string()
+      .min(2)
+      .max(50),
     password: z
       .string()
       .min(8, "Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.")

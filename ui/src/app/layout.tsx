@@ -2,7 +2,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-export const RootLayout = ({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -17,3 +17,4 @@ export const RootLayout = ({
     </html>
   );
 };
+export default RootLayout;
