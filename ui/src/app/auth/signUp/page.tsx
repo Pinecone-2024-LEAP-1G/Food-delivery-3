@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,42 +17,16 @@ import { Input } from "@/components/ui/input";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
-import NameInput from "@/components/NameInput";
-import { Email } from "@/components/EmailInput";
-
-const formSchema = z
-  .object({
-    username: z.string().min(2).max(50),
-    email: z.string().email("email buruu baina"),
-    address: z.string().min(2).max(50),
-    password: z
-      .string()
-      .min(8, "Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.")
-      .max(50, "Нууц үг хамгийн ихдээ 50 тэмдэгт байх ёстой.")
-      .regex(/[A-Z]/, "Нууц үг нэг том үсэг агуулсан байх ёстой.")
-      .regex(/[0-9]/, "Нууц үг нэг тоо агуулсан байх ёстой."),
-    repassword: z
-      .string()
-      .min(8, "Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.")
-      .max(50, "Нууц үг хамгийн ихдээ 50 тэмдэгт байх ёстой."),
-  })
-  .superRefine((data, ctx) => {
-    if (data.password !== data.repassword) {
-      ctx.addIssue({
-        path: ["repassword"],
-        code: z.ZodIssueCode.custom,
-        message: "Нууц үг давхцаж байх ёстой.",
-      });
-    }
-  });
+// import { EmailInput } from "@/components/EmailInput";
+import { useCreationFormSchema } from "@/lib/form-schema/user";
 
 export function HomePage() {
   const [name, setName] = useState("");
   console.log(name);
 
   const [showPassword, setShowPassword] = useState(false);
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof useCreationFormSchema>>({
+    resolver: zodResolver(useCreationFormSchema),
     defaultValues: {
       username: "",
       email: "",
@@ -67,7 +40,9 @@ export function HomePage() {
     setShowPassword(!showPassword);
   };
 
-  function onSubmit(values: z.infer<typeof formSchema>) {}
+  function onSubmit(values: z.infer<typeof useCreationFormSchema>) {
+    console.log(values);
+  }
   return (
     <div>
       <div className="w-[448px] h-[772px] mt-[131px] mx-auto rounded-2xl p-8 gap-2  flex flex-col">
@@ -79,13 +54,37 @@ export function HomePage() {
             onSubmit={form.handleSubmit(onSubmit)}
             className=" flex flex-col gap-3"
           >
-            <NameInput onChange={(e) => setName(e.target.value)} />
-            <Email />
             <FormField
               control={form.control}
-              name="password"
+              name="username"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex flex-col gap-2">
+                  <FormLabel>Нэр</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded"
+                      placeholder="Нэрээ оруулна уу"
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        setName(e.target.value);
+                      }}
+                    />
+                  </FormControl>
+                  <FormLabel>И-мэйл</FormLabel>
+                  <FormControl>{/* <EmailInput {...field} /> */}</FormControl>
+                  <FormLabel>Хаяг</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded"
+                      placeholder="Хаягаа оруулна уу"
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        setName(e.target.value);
+                      }}
+                    />
+                  </FormControl>
                   <FormLabel>Нууц үг</FormLabel>
                   <FormControl className="relative ">
                     <div className="flex items-center h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded">
@@ -105,15 +104,6 @@ export function HomePage() {
                       </button>
                     </div>
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="repassword"
-              render={({ field }) => (
-                <FormItem>
                   <FormLabel>Нууц үг дахин</FormLabel>
                   <FormControl className="relative ">
                     <div className="flex items-center h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded">
