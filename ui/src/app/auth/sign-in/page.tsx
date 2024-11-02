@@ -5,45 +5,27 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
-
-const formSchema = z.object({
-  email: z.string().email("И-мэйл хаяг буруу байна"),
-  password: z
-    .string()
-    .min(8, "Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.")
-    .max(50, "Нууц үг хамгийн ихдээ 50 тэмдэгт байх ёстой.")
-    .regex(/[A-Z]/, "Нууц үг нэг том үсэг агуулсан байх ёстой.")
-    .regex(/[0-9]/, "Нууц үг нэг тоо агуулсан байх ёстой."),
-});
+import { useCreationFormSchema } from "@/lib/form-schema/user";
+import { EmailInput } from "@/components/EmailInput";
+import { PasswordInput } from "@/components/PasswordInput";
 
 const SignInPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof useCreationFormSchema>>({
+    resolver: zodResolver(useCreationFormSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const togglePassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof useCreationFormSchema>) {
     console.log(values);
   }
   return (
@@ -57,61 +39,33 @@ const SignInPage = () => {
             onSubmit={form.handleSubmit(onSubmit)}
             className=" flex flex-col gap-3"
           >
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>И-мэйл</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded"
-                      placeholder="Нэрээ оруулна уу"
-                      {...field}
-                    />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
+            <EmailInput
+              text="И-мэйл"
+              email="email"
+              placeholder="И-мэйл хаягаа оруулна уу"
+              onChange={(e) => {
+                if (e) {
+                  setEmail(e.target.value);
+                }
+              }}
             />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Нууц үг дахин</FormLabel>
-                  <FormControl className="relative ">
-                    <div>
-                      <div className="flex items-center h-12 w-[384px] p-2 bg-[#F7F7F8] border border-[#ECEDF0] rounded">
-                        <Input
-                          className="grow bg-[#F7F7F8] border-none"
-                          type={showPassword ? "text" : "password"}
-                          placeholder="Нууц үг дахин оруулна уу "
-                          {...field}
-                        />
-
-                        <button
-                          type="button"
-                          onClick={togglePassword}
-                          className="ml-auto p-2"
-                          aria-label="Toggle password visibility"
-                        >
-                          {showPassword ? <FaEye /> : <FaEyeSlash />}
-                        </button>
-                      </div>
-                      <p
-                        onClick={() => router.push("/auth/forgotPass")}
-                        className="pl-64"
-                      >
-                        Нууц үг сэргээх
-                      </p>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+            <PasswordInput
+              onChange={(e) => {
+                if (e) {
+                  setPassword(e.target.value);
+                }
+              }}
+              password="password"
             />
+            <div>
+              <p
+                onClick={() => router.push("/auth/forgotPass")}
+                className="pl-64"
+              >
+                Нууц үг сэргээх
+              </p>
+            </div>
+
             <Button
               className="mt-8 h-12 bg-[#F7F7F8] rounded w-[384px]"
               type="submit"

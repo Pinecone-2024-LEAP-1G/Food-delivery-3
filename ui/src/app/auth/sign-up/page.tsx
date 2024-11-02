@@ -13,7 +13,10 @@ import { PasswordInput } from "@/components/PasswordInput";
 
 const HomePage = () => {
   const [name, setName] = useState("");
-  console.log(name);
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [password, setPassword] = useState("");
+  const [repassword, setRepassword] = useState("");
 
   const form = useForm<z.infer<typeof useCreationFormSchema>>({
     resolver: zodResolver(useCreationFormSchema),
@@ -57,7 +60,7 @@ const HomePage = () => {
               placeholder="И-мэйл хаягаа оруулна уу"
               onChange={(e) => {
                 if (e) {
-                  setName(e.target.value);
+                  setEmail(e.target.value);
                 }
               }}
             />
@@ -67,12 +70,26 @@ const HomePage = () => {
               placeholder="Хаягаа оруулна уу"
               onChange={(e) => {
                 if (e) {
-                  setName(e.target.value);
+                  setAddress(e.target.value);
                 }
               }}
             />
-            <PasswordInput password="password" />
-            <PasswordInput password="repassword" />
+            <PasswordInput
+              onChange={(e) => {
+                if (e) {
+                  setPassword(e.target.value);
+                }
+              }}
+              password="password"
+            />
+            <PasswordInput
+              onChange={(e) => {
+                if (e) {
+                  setRepassword(e.target.value);
+                }
+              }}
+              password="repassword"
+            />
             <FormMessage />
             <div className="flex items-center gap-2 mt-12">
               <input type="checkbox" />

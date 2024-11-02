@@ -6,10 +6,10 @@ export const useCreationFormSchema = z
       .string()
       .min(2, "Нэр хоосон байна")
       .max(50),
-    email: z.string().email("email buruu baina"),
+    email: z.string().email("И-мэйл хаяг буруу байна"),
     address: z
       .string()
-      .min(2)
+      .min(2, "Хаягаа оруулна уу!")
       .max(50),
     password: z
       .string()

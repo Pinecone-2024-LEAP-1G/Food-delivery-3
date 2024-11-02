@@ -13,7 +13,7 @@ const Page = () => {
   };
 
   return (
-    <div className=" flex flex-1">
+    <div className=" flex flex-1 mb-[131px]">
       <div className="w-[448px]  mt-[131px] mx-auto rounded-2xl p-8 gap-2 flex flex-col">
         <h1 className="text-center font-bold text-3xl w-[384px] h-[33px] mb-12">
           Нууц үг сэргээх код

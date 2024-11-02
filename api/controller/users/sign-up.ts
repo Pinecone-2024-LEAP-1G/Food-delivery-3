@@ -1,15 +1,19 @@
 import UserModel from "../../model/user";
 import { Request, Response } from "express";
+import bcrypt from "bcrypt";
 
 export const CreateUser = async (req: Request, res: Response) => {
-  const { email, firstName, password, phoneNumber, role } = req.body;
+  const { userName, email, address, password, role } = req.body;
+  const saltRounds = 10;
   try {
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     const user = await new UserModel({
-      email: email,
-      firstName: firstName,
-      password: password,
-      phoneNumber: phoneNumber,
-      role: role,
+      userName,
+      email,
+      address,
+      password: hashedPassword,
+      role,
     }).save();
 
     res.json({ user: user });
