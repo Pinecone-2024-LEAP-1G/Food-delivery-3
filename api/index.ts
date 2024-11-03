@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 import { connectDb } from "./database";
 import { UserRouter } from "./router/userRouter";
 import express from "express";
