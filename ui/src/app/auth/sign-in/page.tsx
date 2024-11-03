@@ -15,8 +15,8 @@ import { PasswordInput } from "@/components/PasswordInput";
 const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+
   const form = useForm<z.infer<typeof useCreationFormSchema>>({
     resolver: zodResolver(useCreationFormSchema),
     defaultValues: {
@@ -30,7 +30,7 @@ const SignInPage = () => {
   }
   return (
     <div>
-      <div className="w-[448px]  mt-[131px] mx-auto rounded-2xl p-8 gap-2  flex flex-col bg-[white]">
+      <div className="w-[448px]  mt-[131px] mx-auto rounded-2xl p-8 gap-2  flex flex-col bg-[white] mb-[131px]">
         <h1 className="text-center font-bold text-3xl w-[384px] h-[33px] mb-12">
           Нэвтрэх
         </h1>
@@ -76,7 +76,7 @@ const SignInPage = () => {
             <Button
               className="mt-4 h-12  rounded w-[384px] border border-green-500"
               type="button"
-              onClick={() => router.push("/auth/signUp")}
+              onClick={() => router.push("/auth/sign-up")}
             >
               Бүртгүүлэх
             </Button>
