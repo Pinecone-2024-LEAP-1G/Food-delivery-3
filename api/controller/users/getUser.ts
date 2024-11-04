@@ -8,7 +8,7 @@ export const GetUser = async (req: Request, res: Response) => {
 
   try {
     const hexstring = id;
-    const objectId = ObjectId.fromString(hexstring);
+    const objectId = new ObjectId(hexstring);
 
     const user = await UserModel.findById({ _id: objectId });
     res.json({ user: user });
