@@ -1,12 +1,14 @@
 import mongoose from "mongoose";
 import UserModel from "../../model/user";
 import { Request, Response } from "express";
+import { ObjectId } from "mongodb";
 
 export const GetUser = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-    const objectId = mongoose.Types.ObjectId.createFromHexString(id);
+    const hexstring = id;
+    const objectId = ObjectId.fromString(hexstring);
 
     const user = await UserModel.findById({ _id: objectId });
     res.json({ user: user });
