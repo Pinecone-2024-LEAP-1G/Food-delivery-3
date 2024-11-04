@@ -11,8 +11,8 @@ app.use(express.json());
 
 const port = 8000;
 
-app.use('/', UserRouter);
-app.use('/', OrderRouter);
+app.use('/users', UserRouter);
+app.use('/orders', OrderRouter);
 
 const server = async () => {
   await connectDb();
