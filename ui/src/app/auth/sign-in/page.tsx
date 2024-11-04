@@ -13,11 +13,13 @@ import { EmailInput } from "@/components/EmailInput";
 import { PasswordInput } from "@/components/PasswordInput";
 import { toast } from "sonner";
 import axios from "axios";
+import { useAuthcontext } from "@/providers/AuthProvider";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const { signin } = useAuthcontext();
 
   const form = useForm<z.infer<typeof useCreationFormSchema>>({
     resolver: zodResolver(useCreationFormSchema),
@@ -29,10 +31,14 @@ const SignInPage = () => {
 
   const signIn = async () => {
     try {
-      await axios.post("http://localhost:8000/sign-in", {
+      const user = await axios.post("http://localhost:8000/sign-in", {
         email: email,
         password: password,
       });
+      console.log(user);
+      signin(user.data._id);
+      toast.success("amjilttai newterlee");
+      router.push("/");
     } catch (error) {
       toast.error("email eswel pass buruu baina");
       console.log(error);
