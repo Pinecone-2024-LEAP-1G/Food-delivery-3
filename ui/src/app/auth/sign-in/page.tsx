@@ -11,6 +11,8 @@ import { useState } from "react";
 import { useCreationFormSchema } from "@/lib/form-schema/user";
 import { EmailInput } from "@/components/EmailInput";
 import { PasswordInput } from "@/components/PasswordInput";
+import { toast } from "sonner";
+import axios from "axios";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
@@ -24,6 +26,18 @@ const SignInPage = () => {
       password: "",
     },
   });
+
+  const signIn = async () => {
+    try {
+      await axios.post("http://localhost:8000/sign-in", {
+        email: email,
+        password: password,
+      });
+    } catch (error) {
+      toast.error("email eswel pass buruu baina");
+      console.log(error);
+    }
+  };
 
   function onSubmit(values: z.infer<typeof useCreationFormSchema>) {
     console.log(values);
@@ -67,6 +81,7 @@ const SignInPage = () => {
             </div>
 
             <Button
+              onClick={signIn}
               className="mt-8 h-12 bg-[#F7F7F8] rounded w-[384px]"
               type="submit"
             >
