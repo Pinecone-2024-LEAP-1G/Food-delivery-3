@@ -36,11 +36,12 @@ const HomePage = () => {
   });
 
   const createUser = async () => {
+    if (!termsAccepted) {
+      toast.error("Та үйлчилгээний нөхцлийг зөвшөөрөх ёстой.");
+    }
+
     try {
-      if (!termsAccepted) {
-        toast.error("Та үйлчилгээний нөхцлийг зөвшөөрөх ёстой.");
-      }
-      await axios.post("http://localhost:8000/createUser", {
+      await axios.post("http://localhost:8000/", {
         userName: name,
         email: email,
         address: address,

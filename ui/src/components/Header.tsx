@@ -65,7 +65,7 @@ const Header = () => {
           <div className="flex items-center w-[102px] h-[40px] justify-center gap-2">
             <UserIcon />
             <p
-              onClick={() => router.push("/auth/signIn")}
+              onClick={() => router.push("/auth/sign-in")}
               className="font-bold"
             >
               Нэвтрэх
