@@ -1,10 +1,15 @@
-import { OrderModel } from "../../model/order";
-import { Request, Response } from "express";
+import mongoose from 'mongoose';
+import { OrderModel } from '../../model/order';
+import { Request, Response } from 'express';
 
-export const getOrders = async (request: Request, response: Response) => {
+export const getOrder = async (response: Response, request: Request) => {
+  const { id } = request.params;
   try {
-    const orders = await OrderModel.find();
-    response.json({ orders: orders });
+    const orderId = mongoose.Types.ObjectId.createFromHexString(id);
+
+    const order = await OrderModel.findById({ _id: orderId });
+
+    response.json({ order: order });
   } catch (error) {
     response.json({ message: error });
   }

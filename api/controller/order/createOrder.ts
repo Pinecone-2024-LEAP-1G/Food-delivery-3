@@ -11,6 +11,8 @@ export const createOrder = async (req: Request, res: Response) => {
     khoroo,
     apartment,
   } = req.body;
+  console.log(req.body);
+
   try {
     const order = await new OrderModel({
       userId: userId,
