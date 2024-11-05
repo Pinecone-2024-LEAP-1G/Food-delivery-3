@@ -1,9 +1,10 @@
-require('dotenv').config();
-
+import dotenv from 'dotenv';
 import { connectDb } from './database';
 import { OrderRouter } from './router/OrderRouter';
 import { UserRouter } from './router/userRouter';
 import express from 'express';
+
+dotenv.config();
 
 const app = express();
 
@@ -13,6 +14,7 @@ const port = 8000;
 
 app.use('/users', UserRouter);
 app.use('/orders', OrderRouter);
+app.use(express.json());
 
 const server = async () => {
   await connectDb();
