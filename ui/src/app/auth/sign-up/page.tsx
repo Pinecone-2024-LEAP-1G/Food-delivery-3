@@ -36,10 +36,6 @@ const HomePage = () => {
   });
 
   const createUser = async () => {
-    if (!termsAccepted) {
-      toast.error("Та үйлчилгээний нөхцлийг зөвшөөрөх ёстой.");
-    }
-
     try {
       await axios.post("http://localhost:8000/users", {
         userName: name,
@@ -47,7 +43,9 @@ const HomePage = () => {
         address: address,
         password: password,
       });
-      router.push("/auth/sign-in");
+      if (!termsAccepted) {
+        toast.error("Та үйлчилгээний нөхцлийг зөвшөөрөх ёстой.");
+      } else return router.push("/auth/sign-in");
     } catch (error) {
       toast.error("error");
       console.log(error);

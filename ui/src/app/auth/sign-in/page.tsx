@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCreationFormSchema } from "@/lib/form-schema/user";
 import { EmailInput } from "@/components/EmailInput";
 import { PasswordInput } from "@/components/PasswordInput";
@@ -31,11 +31,12 @@ const SignInPage = () => {
 
   const signIn = async () => {
     try {
-      const user = await axios.post("http://localhost:8000/users", {
+      const user = await axios.post("http://localhost:8000/users/sign-in", {
         email: email,
         password: password,
       });
       console.log(user);
+
       signin(user.data._id);
       toast.success("amjilttai newterlee");
       router.push("/");

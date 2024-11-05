@@ -1,18 +1,26 @@
 import { Request, Response } from "express";
 import UserModel from "../../model/user";
 import bcrypt from "bcrypt";
+import { error } from "console";
 
 export const sigIn = async (req: Request, res: Response) => {
   const { email, password } = req.body;
+  console.log(req.body);
+
   try {
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email }).select("+password");
 
     if (!user) {
-      res.status(400).json({ message: "Хэрэглэгч олдсонгүй" });
+      res.json({ message: "Хэрэглэгч олдсонгүй" });
       return;
     }
 
-    const isMatchedPassword = bcrypt.compare(password, user.password);
+    const isMatchedPassword = await bcrypt
+      .compare(password, user.password)
+      .catch(error);
+    console.log(error);
+
+    console.log(isMatchedPassword);
 
     if (!isMatchedPassword) {
       res.status(400).json({ message: "email eswel pass buruu baina" });
@@ -20,6 +28,6 @@ export const sigIn = async (req: Request, res: Response) => {
     }
     res.json(user);
   } catch (error) {
-    res.send(error);
+    res.status(400).json({ error: error });
   }
 };

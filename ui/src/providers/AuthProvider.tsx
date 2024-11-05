@@ -26,22 +26,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
   console.log(currentUser);
 
-  useEffect(() => {
-    const user = localStorage.getItem("id");
-    if (user) {
-      const parsedUser = JSON.parse(user);
-      setCurrentUser(parsedUser);
-    }
-    setIsLoading(false);
-  }, [isLoading, currentUser]);
+  // useEffect(() => {
+  //   const user = localStorage.getItem("userid");
+  //   if (user) {
+  //     const parsedUser = JSON.parse(user);
+  //     setCurrentUser(parsedUser);
+  //   }
+  //   setIsLoading(false);
+  // }, [isLoading, currentUser]);
 
   const signin = async (_id: string) => {
+    localStorage.setItem("userid", JSON.stringify(_id));
     setCurrentUser(_id);
-    localStorage.setItem("id", JSON.stringify(_id));
+    setIsLoading(false);
   };
 
   return (
-    <Authcontext.Provider value={{ currentUser, signin }}>
+    <Authcontext.Provider value={{ currentUser, signin, isLoading }}>
       {children}
     </Authcontext.Provider>
   );
