@@ -5,7 +5,6 @@ import { error } from "console";
 
 export const sigIn = async (req: Request, res: Response) => {
   const { email, password } = req.body;
-  console.log(req.body);
 
   try {
     const user = await UserModel.findOne({ email }).select("+password");
@@ -18,9 +17,6 @@ export const sigIn = async (req: Request, res: Response) => {
     const isMatchedPassword = await bcrypt
       .compare(password, user.password)
       .catch(error);
-    console.log(error);
-
-    console.log(isMatchedPassword);
 
     if (!isMatchedPassword) {
       res.status(400).json({ message: "email eswel pass buruu baina" });

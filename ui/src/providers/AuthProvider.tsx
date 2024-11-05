@@ -1,11 +1,5 @@
 "use client";
-import {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  useEffect,
-} from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 
 type Auth = {
   currentUser: string | null;
@@ -22,9 +16,8 @@ const Authcontext = createContext<Auth>({
 export const useAuthcontext = () => useContext(Authcontext);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [currentUser, setCurrentUser] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  console.log(currentUser);
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   // useEffect(() => {
   //   const user = localStorage.getItem("userid");
@@ -36,7 +29,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // }, [isLoading, currentUser]);
 
   const signin = async (_id: string) => {
-    localStorage.setItem("userid", JSON.stringify(_id));
+    localStorage.setItem("useid", JSON.stringify(_id));
+    console.log(
+      "Local storage after setting ID:",
+      localStorage.getItem("useid")
+    );
     setCurrentUser(_id);
     setIsLoading(false);
   };
