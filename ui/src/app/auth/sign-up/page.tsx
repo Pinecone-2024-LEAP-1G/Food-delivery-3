@@ -10,13 +10,18 @@ import { useState } from "react";
 import { useCreationFormSchema } from "@/lib/form-schema/user";
 import { EmailInput } from "@/components/EmailInput";
 import { PasswordInput } from "@/components/PasswordInput";
+import axios from "axios";
+import { toast } from "sonner";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useRouter } from "next/navigation";
 
 const HomePage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
-  const [repassword, setRepassword] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof useCreationFormSchema>>({
     resolver: zodResolver(useCreationFormSchema),
@@ -29,6 +34,25 @@ const HomePage = () => {
     },
     mode: "onSubmit",
   });
+
+  const createUser = async () => {
+    if (!termsAccepted) {
+      toast.error("Та үйлчилгээний нөхцлийг зөвшөөрөх ёстой.");
+    }
+
+    try {
+      await axios.post("http://localhost:8000/", {
+        userName: name,
+        email: email,
+        address: address,
+        password: password,
+      });
+      router.push("/auth/sign-in");
+    } catch (error) {
+      toast.error("error");
+      console.log(error);
+    }
+  };
 
   function onSubmit(values: z.infer<typeof useCreationFormSchema>) {
     console.log(values);
@@ -82,20 +106,22 @@ const HomePage = () => {
               }}
               password="password"
             />
-            <PasswordInput
-              onChange={(e) => {
-                if (e) {
-                  setRepassword(e.target.value);
-                }
-              }}
-              password="repassword"
-            />
+            <PasswordInput password="repassword" />
             <FormMessage />
-            <div className="flex items-center gap-2 mt-12">
-              <input type="checkbox" />
-              <p>Үйлчилгээний нөхцөл зөвшөөрөх</p>
+            <div className="flex items-center space-x-2 mt-8">
+              <Checkbox
+                id="terms"
+                onClick={() => setTermsAccepted(!termsAccepted)}
+              />
+              <label
+                htmlFor="terms"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Үйлчилгээний нөхцөл зөвшөөрөх
+              </label>
             </div>
             <Button
+              onClick={createUser}
               className="mt-8 h-12 bg-[#F7F7F8] rounded w-[384px]"
               type="submit"
             >
