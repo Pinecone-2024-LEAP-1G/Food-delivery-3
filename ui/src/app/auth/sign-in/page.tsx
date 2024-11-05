@@ -11,12 +11,16 @@ import { useState } from "react";
 import { useCreationFormSchema } from "@/lib/form-schema/user";
 import { EmailInput } from "@/components/EmailInput";
 import { PasswordInput } from "@/components/PasswordInput";
+import { toast } from "sonner";
+import axios from "axios";
+import { useAuthcontext } from "@/providers/AuthProvider";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+  const { signin } = useAuthcontext();
+
   const form = useForm<z.infer<typeof useCreationFormSchema>>({
     resolver: zodResolver(useCreationFormSchema),
     defaultValues: {
@@ -25,12 +29,28 @@ const SignInPage = () => {
     },
   });
 
+  const signIn = async () => {
+    try {
+      const user = await axios.post("http://localhost:8000/sign-in", {
+        email: email,
+        password: password,
+      });
+      console.log(user);
+      signin(user.data._id);
+      toast.success("amjilttai newterlee");
+      router.push("/");
+    } catch (error) {
+      toast.error("email eswel pass buruu baina");
+      console.log(error);
+    }
+  };
+
   function onSubmit(values: z.infer<typeof useCreationFormSchema>) {
     console.log(values);
   }
   return (
     <div>
-      <div className="w-[448px]  mt-[131px] mx-auto rounded-2xl p-8 gap-2  flex flex-col bg-[white]">
+      <div className="w-[448px]  mt-[131px] mx-auto rounded-2xl p-8 gap-2  flex flex-col bg-[white] mb-[131px]">
         <h1 className="text-center font-bold text-3xl w-[384px] h-[33px] mb-12">
           Нэвтрэх
         </h1>
@@ -67,6 +87,7 @@ const SignInPage = () => {
             </div>
 
             <Button
+              onClick={signIn}
               className="mt-8 h-12 bg-[#F7F7F8] rounded w-[384px]"
               type="submit"
             >
@@ -76,7 +97,7 @@ const SignInPage = () => {
             <Button
               className="mt-4 h-12  rounded w-[384px] border border-green-500"
               type="button"
-              onClick={() => router.push("/auth/signUp")}
+              onClick={() => router.push("/auth/sign-up")}
             >
               Бүртгүүлэх
             </Button>
