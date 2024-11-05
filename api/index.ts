@@ -1,12 +1,11 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
-import { OrderRouter } from './router/OrderRouter';
-import { connectDb } from './database';
-import { categoryRouter } from './router/categoryRouter';
-import { UserRouter } from './router/userRouter';
-import express from 'express';
-import cors from 'cors';
+import dotenv from "dotenv";
+import { OrderRouter } from "./router/OrderRouter";
+import { connectDb } from "./database";
+import { categoryRouter } from "./router/categoryRouter";
+import { UserRouter } from "./router/userRouter";
+import express from "express";
+import cors from "cors";
+import { orderDetailRouter } from "./router/orderDetailRouter";
 
 dotenv.config();
 
@@ -16,8 +15,10 @@ app.use(express.json());
 app.use(cors());
 const port = 8000;
 
-app.use('/users', UserRouter);
-app.use('/orders', OrderRouter);
+app.use("/users", UserRouter);
+app.use("/orders", OrderRouter);
+app.use("/", orderDetailRouter);
+app.use("/category", categoryRouter);
 
 const server = async () => {
   await connectDb();
