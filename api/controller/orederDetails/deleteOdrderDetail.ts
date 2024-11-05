@@ -5,7 +5,6 @@ import mongoose from "mongoose";
 
 export const deleteOrderDetail = async (req: Request, res: Response) => {
   const { id } = req.params;
-  console.log(req.body);
 
   try {
     const objectId = mongoose.Types.ObjectId.createFromHexString(id);

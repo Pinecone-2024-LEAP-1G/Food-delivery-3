@@ -6,7 +6,6 @@ import mongoose from "mongoose";
 export const updateOrderDetail = async (req: Request, res: Response) => {
   const { foodId, quantity, amount, orderId } = req.body;
   const { id } = req.params;
-  console.log(req.body);
 
   try {
     const objectId = mongoose.Types.ObjectId.createFromHexString(id);
