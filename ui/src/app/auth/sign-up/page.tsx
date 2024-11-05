@@ -41,7 +41,7 @@ const HomePage = () => {
     }
 
     try {
-      await axios.post("http://localhost:8000/", {
+      await axios.post("http://localhost:8000/users", {
         userName: name,
         email: email,
         address: address,
@@ -107,7 +107,6 @@ const HomePage = () => {
               password="password"
             />
             <PasswordInput password="repassword" />
-            <FormMessage />
             <div className="flex items-center space-x-2 mt-8">
               <Checkbox
                 id="terms"
@@ -120,6 +119,8 @@ const HomePage = () => {
                 Үйлчилгээний нөхцөл зөвшөөрөх
               </label>
             </div>
+            <FormMessage />
+
             <Button
               onClick={createUser}
               className="mt-8 h-12 bg-[#F7F7F8] rounded w-[384px]"

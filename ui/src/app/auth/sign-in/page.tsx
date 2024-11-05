@@ -31,7 +31,7 @@ const SignInPage = () => {
 
   const signIn = async () => {
     try {
-      const user = await axios.post("http://localhost:8000/sign-in", {
+      const user = await axios.post("http://localhost:8000/users", {
         email: email,
         password: password,
       });
