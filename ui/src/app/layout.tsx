@@ -2,6 +2,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "@/providers/AuthProvider";
+import { Toaster } from "sonner";
 
 const RootLayout = ({
   children,
@@ -14,6 +15,7 @@ const RootLayout = ({
         <AuthProvider>
           <Header />
           <main className="flex-grow ">{children}</main>
+          <Toaster />
           <Footer />
         </AuthProvider>
       </body>

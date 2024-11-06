@@ -27,15 +27,21 @@ const SignInPage = () => {
       email: '',
       password: '',
     },
+    mode: "onChange",
   });
 
   const signIn = async () => {
     try {
+<<<<<<< HEAD
       const user = await axios.post('http://localhost:8000/users/sign-in', {
+=======
+      const user = await axios.post("http://localhost:8000/users/sign-in", {
+>>>>>>> 93de8adc11735e152871f0d5f2c5e31bb4d5f161
         email: email,
         password: password,
       });
       console.log(user);
+
       signin(user.data._id);
       toast.success('amjilttai newterlee');
       router.push('/');
@@ -88,12 +94,16 @@ const SignInPage = () => {
 
             <Button
               onClick={signIn}
-              className="mt-8 h-12 bg-[#F7F7F8] rounded w-[384px]"
               type="submit"
+              className={`mt-8 h-12 rounded w-[384px]  transition-colors duration-300 ${
+                email && password
+                  ? "bg-green-500 text-white"
+                  : "bg-gray-300 text-gray-500"
+              }`}
             >
               Нэвтрэх
             </Button>
-            <p className="text-xm text-center mt-4">Эсвэл</p>
+            <p className={`text-xm text-center mt-4`}>Эсвэл</p>
             <Button
               className="mt-4 h-12  rounded w-[384px] border border-green-500"
               type="button"

@@ -1,5 +1,5 @@
-import { OrderModel } from '../../model/order';
-import { Request, Response } from 'express';
+import { OrderModel } from "../../model/order";
+import { Request, Response } from "express";
 
 export const createOrder = async (req: Request, res: Response) => {
   const {
@@ -12,7 +12,6 @@ export const createOrder = async (req: Request, res: Response) => {
     apartment,
     phoneNumber,
   } = req.body;
-  console.log(req.body);
 
   try {
     const order = await new OrderModel({

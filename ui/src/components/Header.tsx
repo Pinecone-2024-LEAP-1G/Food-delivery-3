@@ -3,6 +3,7 @@
 import { PineIcon, SearchIcon, Basket, UserIcon } from "./icons/index";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Button } from "./ui/button";
 
 const Header = () => {
   const router = useRouter();
@@ -64,12 +65,12 @@ const Header = () => {
           </div>
           <div className="flex items-center w-[102px] h-[40px] justify-center gap-2">
             <UserIcon />
-            <p
+            <Button
               onClick={() => router.push("/auth/sign-in")}
               className="font-bold"
             >
               Нэвтрэх
-            </p>
+            </Button>
           </div>
         </div>
       </div>
