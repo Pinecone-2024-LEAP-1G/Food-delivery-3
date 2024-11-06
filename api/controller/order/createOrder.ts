@@ -10,6 +10,7 @@ export const createOrder = async (req: Request, res: Response) => {
     district,
     khoroo,
     apartment,
+    phoneNumber,
   } = req.body;
 
   try {
@@ -21,6 +22,7 @@ export const createOrder = async (req: Request, res: Response) => {
       district: district,
       khoroo: khoroo,
       apartment: apartment,
+      phoneNumber: phoneNumber,
     }).save();
 
     res.json({ order: order });
