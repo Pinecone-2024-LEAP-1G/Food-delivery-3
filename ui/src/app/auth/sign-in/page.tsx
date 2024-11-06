@@ -27,16 +27,12 @@ const SignInPage = () => {
       email: '',
       password: '',
     },
-    mode: "onChange",
+    mode: 'onChange',
   });
 
   const signIn = async () => {
     try {
-<<<<<<< HEAD
       const user = await axios.post('http://localhost:8000/users/sign-in', {
-=======
-      const user = await axios.post("http://localhost:8000/users/sign-in", {
->>>>>>> 93de8adc11735e152871f0d5f2c5e31bb4d5f161
         email: email,
         password: password,
       });
@@ -97,8 +93,8 @@ const SignInPage = () => {
               type="submit"
               className={`mt-8 h-12 rounded w-[384px]  transition-colors duration-300 ${
                 email && password
-                  ? "bg-green-500 text-white"
-                  : "bg-gray-300 text-gray-500"
+                  ? 'bg-green-500 text-white'
+                  : 'bg-gray-300 text-gray-500'
               }`}
             >
               Нэвтрэх
