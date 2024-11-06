@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   createContext,
@@ -6,7 +6,7 @@ import {
   useState,
   ReactNode,
   useEffect,
-} from 'react';
+} from "react";
 
 export type User = {
   _id: string;
@@ -31,9 +31,10 @@ export const useAuthcontext = () => useContext(Authcontext);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  console.log(currentUser);
 
   useEffect(() => {
-    const user = localStorage.getItem('user');
+    const user = localStorage.getItem("user");
     if (user) {
       const parsedUser = JSON.parse(user);
       setCurrentUser(parsedUser);
@@ -42,7 +43,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [isLoading]);
 
   const signin = async (user: User) => {
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(user));
 
     setCurrentUser(user);
     setIsLoading(false);
