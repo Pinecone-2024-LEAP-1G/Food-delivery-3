@@ -19,27 +19,32 @@ export const useUserContext = () => useContext(UserContext);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User>(null);
 
-  const getUser = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/users/me",
-        { email: "tuul@gmail.com" },
-        {
-          headers: { authorization: `Bearer ${token}` },
-        }
-      );
+  // const getUser = async () => {
+  //   const token = localStorage.getItem("token");
+  //   console.log(token);
+  //   if (!token) {
+  //     toast.error("token alga");
+  //   }
 
-      setUser(response.data);
-    } catch (error) {
-      toast.error("User not authenticated");
-      console.error(error);
-    }
-  };
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:8000/users/me",
+  //       { email: "tuul@gmail.com" },
+  //       {
+  //         headers: { authorization: `Bearer ${token}` },
+  //       }
+  //     );
 
-  useEffect(() => {
-    getUser();
-  }, []);
+  //     setUser(response.data);
+  //   } catch (error) {
+  //     toast.error("User not authenticated");
+  //     console.error(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getUser();
+  // }, []);
 
   return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
 };

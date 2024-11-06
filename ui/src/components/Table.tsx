@@ -6,6 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Image from "next/image";
 import { IoMdMore } from "react-icons/io";
 
 const invoices = [
@@ -69,12 +70,28 @@ export const TableTab = () => {
       <TableBody className="bg-[white] rounded-b-xl ">
         {invoices.map((invoice) => (
           <TableRow className="h-[72px]" key={invoice.invoice}>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
-            <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell className="text-right w-fit">
-              {invoice.totalAmount}
+            <div className="px-4 flex w-[259px] gap-2">
+              <Image src="/pizza.png" alt="" width={40} height={40} />
+              <div className="flex flex-col">
+                <p>food number</p>
+                <p className="text-[#3F4145]">food name</p>
+              </div>
+              <div></div>
+            </div>
+            <TableCell>
+              <p>phone number</p>
+              <p className="text-[#3F4145]">username</p>
             </TableCell>
+            <TableCell>
+              <div className="flex gap-4">
+                <div className="flex flex-col">
+                  <p>price</p>
+                  <p>moment</p>
+                </div>
+                <p className="flex items-center ">tuluw</p>
+              </div>
+            </TableCell>
+            <TableCell className="text-right w-fit">address</TableCell>
             <TableCell className="text-right ">
               <p className="w-[73px] h-[24px] rounded-lg min-w-[24px] bg-green-200 flex justify-center items-center ml-24 ">
                 progress
