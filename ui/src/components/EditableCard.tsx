@@ -7,8 +7,8 @@ type EditCard = {
 
 export const EditableCard = ({ name, price }: EditCard) => {
   return (
-    <div className="flex flex-col p-4">
-      <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative">
+    <div className="flex flex-col p-4 ">
+      <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative justify-center items-center">
         <Button
           className="absolute top-16 left-14 w-[166px] h-[40px] opacity-0 hover:opacity-55"
           variant="outline"
@@ -16,7 +16,7 @@ export const EditableCard = ({ name, price }: EditCard) => {
           <p className="font-semibold text-2xl ">Edit</p>
         </Button>
       </div>
-      <div className="mt-4">
+      <div className="mt-4 items-start p-2">
         <p className="font-semibold text-xl leading-5">{name}</p>
         <p className="font-semibold text-lg text-green-500 leading-7 mt-[2px]">
           {price}

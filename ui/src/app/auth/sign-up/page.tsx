@@ -35,19 +35,19 @@ const HomePage = () => {
     mode: "onSubmit",
   });
 
-  const createUser = async () => {
-    if (!termsAccepted) {
-      toast.error("Та үйлчилгээний нөхцлийг зөвшөөрөх ёстой.");
-    }
+  const { isValid } = form.formState;
 
+  const createUser = async () => {
     try {
-      await axios.post("http://localhost:8000/", {
+      await axios.post("http://localhost:8000/users", {
         userName: name,
         email: email,
         address: address,
         password: password,
       });
-      router.push("/auth/sign-in");
+      if (!termsAccepted) {
+        toast.error("Та үйлчилгээний нөхцлийг зөвшөөрөх ёстой.");
+      } else return router.push("/auth/sign-in");
     } catch (error) {
       toast.error("error");
       console.log(error);
@@ -56,6 +56,7 @@ const HomePage = () => {
 
   function onSubmit(values: z.infer<typeof useCreationFormSchema>) {
     console.log(values);
+    createUser();
   }
   return (
     <div>
@@ -107,7 +108,6 @@ const HomePage = () => {
               password="password"
             />
             <PasswordInput password="repassword" />
-            <FormMessage />
             <div className="flex items-center space-x-2 mt-8">
               <Checkbox
                 id="terms"
@@ -120,9 +120,14 @@ const HomePage = () => {
                 Үйлчилгээний нөхцөл зөвшөөрөх
               </label>
             </div>
+            <FormMessage />
+
             <Button
-              onClick={createUser}
-              className="mt-8 h-12 bg-[#F7F7F8] rounded w-[384px]"
+              className={`mt-8 h-12 w-[384px] rounded transition-colors duration-300 ${
+                isValid && termsAccepted
+                  ? "bg-green-500 text-white"
+                  : "bg-gray-300 text-gray-500"
+              }`}
               type="submit"
             >
               Бүртгүүлэх

@@ -45,7 +45,7 @@ const Page = () => {
     <div className="flex container mx-auto p-4">
       <Categories />
       <div className="flex flex-col  bg-gray-50  w-full p-8">
-        <div className="w-[894px]">
+        <div className="">
           <div className="flex mt-6 mb-8 justify-between px-">
             <h1 className="font-bold text-2xl ">Breakfast</h1>
             <p
@@ -55,7 +55,7 @@ const Page = () => {
               <CreateFood />
             </p>
           </div>
-          <div className="grid grid-cols-3 gap-y-[60px] justify-end items-end">
+          <div className="grid grid-cols-3 gap-y-[60px] justify-center items-center w-full">
             {discountedProductItems.map((item, index) => {
               return (
                 <EditableCard key={index} name={item.name} price={item.price} />

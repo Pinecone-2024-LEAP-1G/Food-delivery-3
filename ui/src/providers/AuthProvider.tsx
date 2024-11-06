@@ -22,12 +22,11 @@ const Authcontext = createContext<Auth>({
 export const useAuthcontext = () => useContext(Authcontext);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [currentUser, setCurrentUser] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  console.log(currentUser);
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const user = localStorage.getItem("id");
+    const user = localStorage.getItem("userid");
     if (user) {
       const parsedUser = JSON.parse(user);
       setCurrentUser(parsedUser);
@@ -36,12 +35,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [isLoading, currentUser]);
 
   const signin = async (_id: string) => {
+    localStorage.setItem("useid", JSON.stringify({ _id }));
+    console.log(
+      "Local storage after setting ID:",
+      localStorage.getItem("useid")
+    );
     setCurrentUser(_id);
-    localStorage.setItem("id", JSON.stringify(_id));
+    setIsLoading(false);
   };
 
   return (
-    <Authcontext.Provider value={{ currentUser, signin }}>
+    <Authcontext.Provider value={{ currentUser, signin, isLoading }}>
       {children}
     </Authcontext.Provider>
   );

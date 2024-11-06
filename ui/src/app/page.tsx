@@ -1,4 +1,3 @@
-// import { EditableCard } from "@/components/EditableCard";
 "use client";
 
 import { useAuthcontext } from "@/providers/AuthProvider";
@@ -10,9 +9,11 @@ const Home = () => {
   const { currentUser, isLoading } = useAuthcontext();
   const router = useRouter();
 
-  if (!currentUser && !isLoading) {
-    router.push("/auth/sign-in");
-  }
+  useEffect(() => {
+    if (!currentUser && !isLoading) {
+      router.push("/auth/sign-in");
+    }
+  }, [currentUser, isLoading]);
 
   useEffect(() => {}, [router, currentUser, isLoading]);
 

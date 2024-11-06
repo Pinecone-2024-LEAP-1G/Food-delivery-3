@@ -34,7 +34,7 @@ const Person = [
 
 const Page = () => {
   return (
-    <div className="container mx-auto w-[432px]">
+    <div className="container mx-auto w-[432px] mb-[131px]">
       <div className="flex flex-col justify-center items-center mx-auto mt-[133px] mb-10">
         <div className="relative mb-4">
           <p className="w-[120px] h-[120px] rounded-full border bg-blue-300 flex justify-center items-center">
