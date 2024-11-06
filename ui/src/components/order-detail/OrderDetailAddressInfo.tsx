@@ -1,8 +1,8 @@
-import { BlueDotIcon } from "../icons";
-import DownArrow from "../icons/DownArrow";
-import PinIcon from "../icons/PinIcon";
-import { CheckboxComponent } from "./CheckBox";
-import { OrderSelectOptions } from "./OrderDetail";
+import { BlueDotIcon } from '../icons';
+import DownArrow from '../icons/DownArrow';
+import PinIcon from '../icons/PinIcon';
+import { CheckboxComponent } from './CheckBox';
+import { OrderSelectOptions } from './OrderDetail';
 
 type OrderDetailAddressInfoProps = OrderSelectOptions & {
   onChange: (_key: string, _value: string) => void;
@@ -11,8 +11,8 @@ type OrderDetailAddressInfoProps = OrderSelectOptions & {
 export const OrderDetailAddressInfo = (props: OrderDetailAddressInfoProps) => {
   const {
     district,
-    street,
-    home,
+    khoroo,
+    apartment,
     description,
     phoneNumber,
     paymentType,
@@ -39,10 +39,10 @@ export const OrderDetailAddressInfo = (props: OrderDetailAddressInfoProps) => {
 
           <div className="relative mt-4">
             <select
-              onChange={(e) => onChange("district", e.target.value)}
+              onChange={(e) => onChange('district', e.target.value)}
               style={{
-                background: district ? "#18BA51" : "#ECEDF0",
-                color: district ? "white" : "#000",
+                background: district ? '#18BA51' : '#ECEDF0',
+                color: district ? 'white' : '#000',
               }}
               className="w-[384px] h-[48px] border-[1px] bg-[#ECEDF0] pl-10 pr-4 appearance-none rounded"
               defaultValue=""
@@ -57,21 +57,21 @@ export const OrderDetailAddressInfo = (props: OrderDetailAddressInfoProps) => {
               <option>Чингэлтэй дүүрэг</option>
             </select>
             <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-              <PinIcon className={district ? "text-white" : "text-gray-500"} />
+              <PinIcon className={district ? 'text-white' : 'text-gray-500'} />
             </div>
             <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
               <DownArrow
-                className={district ? "text-white" : "text-gray-500"}
+                className={district ? 'text-white' : 'text-gray-500'}
               />
             </div>
           </div>
 
           <div className="relative mt-4">
             <select
-              onChange={(e) => onChange("street", e.target.value)}
+              onChange={(e) => onChange('khoroo', e.target.value)}
               style={{
-                background: street ? "#18BA51" : "#ECEDF0",
-                color: street ? "white" : "#000",
+                background: khoroo ? '#18BA51' : '#ECEDF0',
+                color: khoroo ? 'white' : '#000',
               }}
               className="w-[384px] h-[48px] border-[1px] bg-[#ECEDF0] pl-10 pr-4 appearance-none rounded"
               defaultValue=""
@@ -86,20 +86,20 @@ export const OrderDetailAddressInfo = (props: OrderDetailAddressInfoProps) => {
               <option>5-р хороо</option>
             </select>
             <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-              <PinIcon className={street ? "text-white" : "text-gray-500"} />
+              <PinIcon className={khoroo ? 'text-white' : 'text-gray-500'} />
             </div>
             <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-              <DownArrow className={street ? "text-white" : "text-gray-500"} />
+              <DownArrow className={khoroo ? 'text-white' : 'text-gray-500'} />
             </div>
             <div></div>
           </div>
 
           <div className="relative mt-4">
             <select
-              onChange={(e) => onChange("home", e.target.value)}
+              onChange={(e) => onChange('apartment', e.target.value)}
               style={{
-                background: home ? "#18BA51" : "#ECEDF0",
-                color: home ? "white" : "#000",
+                background: apartment ? '#18BA51' : '#ECEDF0',
+                color: apartment ? 'white' : '#000',
               }}
               className="w-[384px] h-[48px] border-[1px] bg-[#ECEDF0] pl-10 pr-4 appearance-none rounded"
               defaultValue=""
@@ -114,10 +114,12 @@ export const OrderDetailAddressInfo = (props: OrderDetailAddressInfoProps) => {
               <option>Зайсан хотхон</option>
             </select>
             <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-              <PinIcon className={home ? "text-white" : "text-gray-500"} />
+              <PinIcon className={apartment ? 'text-white' : 'text-gray-500'} />
             </div>
             <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-              <DownArrow className={home ? "text-white" : "text-gray-500"} />
+              <DownArrow
+                className={apartment ? 'text-white' : 'text-gray-500'}
+              />
             </div>
           </div>
 
@@ -128,7 +130,7 @@ export const OrderDetailAddressInfo = (props: OrderDetailAddressInfoProps) => {
             <input
               type="text"
               value={description}
-              onChange={(event) => onChange("description", event.target.value)}
+              onChange={(event) => onChange('description', event.target.value)}
               placeholder="Орц, давхар, орцны код ..."
               className="w-[384px] h-[112px] bg-[#ECEDF0] flex items-start rounded pl-4 placeholder: pb-[80px]"
             />
@@ -139,7 +141,7 @@ export const OrderDetailAddressInfo = (props: OrderDetailAddressInfoProps) => {
             <input
               type="text"
               value={phoneNumber}
-              onChange={(event) => onChange("phoneNumber", event.target.value)}
+              onChange={(event) => onChange('phoneNumber', event.target.value)}
               placeholder="Утасны дугаараа оруулна уу"
               className="w-[384px] h-[48px] rounded border-[1px] bg-[#ECEDF0] pl-[8px]"
             />

@@ -1,27 +1,48 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import OrderVerify from "./OrderVerify";
-import { OrderDetailAddressInfo } from "./OrderDetailAddressInfo";
+import { useState } from 'react';
+import OrderVerify from './OrderVerify';
+import { OrderDetailAddressInfo } from './OrderDetailAddressInfo';
+import axios from 'axios';
 
 export type OrderSelectOptions = {
+  userId: string;
   district: string;
-  street: string;
-  home: string;
+  khoroo: string;
+  apartment: string;
   description: string;
   phoneNumber: string;
-  paymentType: "CART" | "CASH" | null;
+  paymentType: 'CART' | 'CASH' | null;
 };
 
 export const OrderDetail = () => {
   const [selectedOptions, setSelectedOptions] = useState<OrderSelectOptions>({
-    district: "",
-    street: "",
-    home: "",
-    description: "",
-    phoneNumber: "",
+    userId: '',
+    district: '',
+    khoroo: '',
+    apartment: '',
+    description: '',
+    phoneNumber: '',
     paymentType: null,
   });
+
+  const userid = localStorage.getItem('userid');
+
+  const createOrder = async () => {
+    try {
+      const { data } = await axios.post('http://localhost:8000/orders', {
+        userId: userid,
+        district: selectedOptions.district,
+        khoroo: selectedOptions.khoroo,
+        apartment: selectedOptions.apartment,
+        phoneNumber: selectedOptions.phoneNumber,
+      });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(selectedOptions);
 
   const handleSelectColor = (type: string, value: string) => {
     setSelectedOptions((prev) => {
@@ -29,14 +50,13 @@ export const OrderDetail = () => {
     });
   };
 
-  console.log({ selectedOptions });
-
   return (
     <div className="flex justify-center gap-48 mt-12 mx-auto">
       <OrderDetailAddressInfo
+        userId={selectedOptions.userId}
         district={selectedOptions.district}
-        street={selectedOptions.street}
-        home={selectedOptions.home}
+        khoroo={selectedOptions.khoroo}
+        apartment={selectedOptions.apartment}
         description={selectedOptions.description}
         phoneNumber={selectedOptions.phoneNumber}
         paymentType={selectedOptions.paymentType}
@@ -45,6 +65,7 @@ export const OrderDetail = () => {
       <div>
         <OrderVerify />
       </div>
+      <button onClick={createOrder}>submit order</button>
     </div>
   );
 };
