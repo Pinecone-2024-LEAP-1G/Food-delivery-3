@@ -10,10 +10,14 @@ type OrderDetail = {
 };
 
 const OrderDEtailSchema = new Schema<OrderDetail>({
-  foodId: { type: mongoose.Schema.Types.ObjectId, ref: "Food" },
-  quantity: { type: Number },
-  amount: { type: String },
-  orderId: { type: mongoose.Schema.Types.ObjectId, ref: "Order" },
+  foodId: { type: mongoose.Schema.Types.ObjectId, ref: "Food", required: true },
+  quantity: { type: Number, required: true },
+  amount: { type: String, required: true },
+  orderId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Order",
+    required: true,
+  },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

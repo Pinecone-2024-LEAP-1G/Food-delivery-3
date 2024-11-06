@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import UserModel from "../../model/user";
 import bcrypt from "bcrypt";
-import { error } from "console";
 
 export const sigIn = async (req: Request, res: Response) => {
   const { email, password } = req.body;
@@ -14,9 +13,7 @@ export const sigIn = async (req: Request, res: Response) => {
       return;
     }
 
-    const isMatchedPassword = await bcrypt
-      .compare(password, user.password)
-      .catch(error);
+    const isMatchedPassword = await bcrypt.compare(password, user.password);
 
     if (!isMatchedPassword) {
       res.status(400).json({ message: "email eswel pass buruu baina" });
