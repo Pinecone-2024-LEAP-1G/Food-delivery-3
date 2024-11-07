@@ -1,15 +1,22 @@
-"use client";
+'use client';
+
 import {
   createContext,
   useContext,
   useState,
   ReactNode,
   useEffect,
-} from "react";
+} from 'react';
+
+export type User = {
+  _id: string;
+  userName: string;
+  email: string;
+};
 
 type Auth = {
-  currentUser: string | null;
-  signin: (_id: string) => void;
+  currentUser: User | null;
+  signin: (_user: User) => void;
   isLoading: boolean;
 };
 
@@ -22,25 +29,22 @@ const Authcontext = createContext<Auth>({
 export const useAuthcontext = () => useContext(Authcontext);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [currentUser, setCurrentUser] = useState<string | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const user = localStorage.getItem("userid");
+    const user = localStorage.getItem('user');
     if (user) {
       const parsedUser = JSON.parse(user);
       setCurrentUser(parsedUser);
     }
     setIsLoading(false);
-  }, [isLoading, currentUser]);
+  }, [isLoading]);
 
-  const signin = async (_id: string) => {
-    localStorage.setItem("useid", JSON.stringify({ _id }));
-    console.log(
-      "Local storage after setting ID:",
-      localStorage.getItem("useid")
-    );
-    setCurrentUser(_id);
+  const signin = async (user: User) => {
+    localStorage.setItem('user', JSON.stringify(user));
+
+    setCurrentUser(user);
     setIsLoading(false);
   };
 

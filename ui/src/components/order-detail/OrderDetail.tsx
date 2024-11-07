@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import axios from 'axios';
 import OrderVerify from './OrderVerify';
 import { OrderDetailAddressInfo } from './OrderDetailAddressInfo';
-import axios from 'axios';
+import { useAuthcontext } from '@/providers/AuthProvider';
 
 export type OrderSelectOptions = {
   userId: string;
@@ -16,6 +17,8 @@ export type OrderSelectOptions = {
 };
 
 export const OrderDetail = () => {
+  const { currentUser } = useAuthcontext();
+
   const [selectedOptions, setSelectedOptions] = useState<OrderSelectOptions>({
     userId: '',
     district: '',
@@ -26,12 +29,18 @@ export const OrderDetail = () => {
     paymentType: null,
   });
 
-  const userid = localStorage.getItem('userid');
-
   const createOrder = async () => {
+    // console.log({
+    //   userId: currentUser?._id,
+    //   district: selectedOptions.district,
+    //   khoroo: selectedOptions.khoroo,
+    //   apartment: selectedOptions.apartment,
+    //   phoneNumber: selectedOptions.phoneNumber,
+    // });
+
     try {
       const { data } = await axios.post('http://localhost:8000/orders', {
-        userId: userid,
+        userId: currentUser?._id,
         district: selectedOptions.district,
         khoroo: selectedOptions.khoroo,
         apartment: selectedOptions.apartment,

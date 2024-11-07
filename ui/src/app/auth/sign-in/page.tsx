@@ -13,7 +13,7 @@ import { EmailInput } from '@/components/EmailInput';
 import { PasswordInput } from '@/components/PasswordInput';
 import { toast } from 'sonner';
 import axios from 'axios';
-import { useAuthcontext } from '@/providers/AuthProvider';
+import { useAuthcontext, User } from '@/providers/AuthProvider';
 
 const SignInPage = () => {
   const [email, setEmail] = useState('');
@@ -32,13 +32,15 @@ const SignInPage = () => {
 
   const signIn = async () => {
     try {
-      const user = await axios.post('http://localhost:8000/users/sign-in', {
-        email: email,
-        password: password,
-      });
-      console.log(user);
+      const { data } = await axios.post<User>(
+        'http://localhost:8000/users/sign-in',
+        {
+          email: email,
+          password: password,
+        }
+      );
 
-      signin(user.data._id);
+      signin(data);
       toast.success('amjilttai newterlee');
       router.push('/');
     } catch (error) {
