@@ -31,7 +31,6 @@ export const useAuthcontext = () => useContext(Authcontext);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  console.log(currentUser);
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -42,8 +41,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(false);
   }, [isLoading]);
 
+<<<<<<< HEAD
   const signin = async (user: User) => {
     localStorage.setItem("user", JSON.stringify(user));
+=======
+  const signin = async (_id: string) => {
+    localStorage.setItem("userid", JSON.stringify({ _id }));
+>>>>>>> 8301613 (food modul)
 
     setCurrentUser(user);
     setIsLoading(false);

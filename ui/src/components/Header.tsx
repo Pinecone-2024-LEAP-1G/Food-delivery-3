@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <div className=" m-auto flex h-14  ">
-      <div className="flex py-2 justify-between w-[1440px]">
+      <div className="flex py-2 justify-between w-[1200px]">
         <div className=" flex items-center  ">
           <div className="w-[41px] h-[41px] flex items-center justify-center mr-6">
             <PineIcon />
@@ -63,11 +63,11 @@ const Header = () => {
             <Basket />
             <p className="font-bold">Сагс</p>
           </div>
-          <div className="flex items-center w-[102px] h-[40px] justify-center gap-2">
+          <div className="flex items-center  h-[40px] justify-center gap-2">
             <UserIcon />
             <Button
               onClick={() => router.push("/auth/sign-in")}
-              className="font-bold"
+              className="font-bold p-0"
             >
               Нэвтрэх
             </Button>

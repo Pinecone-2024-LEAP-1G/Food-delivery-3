@@ -28,7 +28,7 @@ const status = [
 
 export const FastDelivery = () => {
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 justify-between w-[1200px] py-[120px] ">
       {status.map((item, index) => {
         return (
           <Delivery
