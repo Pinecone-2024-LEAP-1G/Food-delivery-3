@@ -6,6 +6,7 @@ import { UserRouter } from "./router/userRouter";
 import express from "express";
 import cors from "cors";
 import { orderDetailRouter } from "./router/orderDetailRouter";
+import { foodRouter } from "./router/foodRouter";
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use("/users", UserRouter);
 app.use("/orders", OrderRouter);
 app.use("/", orderDetailRouter);
 app.use("/category", categoryRouter);
+app.use("/food", foodRouter);
 
 const server = async () => {
   await connectDb();
