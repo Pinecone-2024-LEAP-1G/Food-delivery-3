@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 type EditCard = {
   name: string;
-  price: number;
+  price: string;
 };
 
 export const EditableCard = ({ name, price }: EditCard) => {
