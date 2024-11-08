@@ -1,15 +1,16 @@
 import { OrderModel } from "../../model/order";
 import { Request, Response } from "express";
+import OrderDetailModel from "../../model/orderDetail";
 
 export const createOrder = async (req: Request, res: Response) => {
   const {
     userId,
     orderNumber,
-    totalPrice,
     process,
     district,
     khoroo,
     apartment,
+    totalPrice,
     phoneNumber,
   } = req.body;
 

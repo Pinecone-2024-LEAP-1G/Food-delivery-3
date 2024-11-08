@@ -1,10 +1,9 @@
-import mongoose from 'mongoose';
-import { Request, Response } from 'express';
-import { OrderModel } from '../../model/order';
+import mongoose from "mongoose";
+import { Request, Response } from "express";
+import { OrderModel } from "../../model/order";
 
 export const deleteOrder = async (req: Request, res: Response) => {
   const { id } = req.params;
-  console.log(id);
 
   try {
     const ObjectId = mongoose.Types.ObjectId.createFromHexString(id);

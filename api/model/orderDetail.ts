@@ -3,16 +3,16 @@ import mongoose, { Schema } from "mongoose";
 type OrderDetail = {
   foodId: mongoose.Schema.Types.ObjectId;
   quantity: number;
-  amount: string;
+  amount: number;
   orderId: mongoose.Schema.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 };
 
-const OrderDEtailSchema = new Schema<OrderDetail>({
+const OrderDetails = new Schema<OrderDetail>({
   foodId: { type: mongoose.Schema.Types.ObjectId, ref: "Food", required: true },
   quantity: { type: Number, required: true },
-  amount: { type: String, required: true },
+  amount: { type: Number, required: true },
   orderId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Order",
@@ -22,7 +22,7 @@ const OrderDEtailSchema = new Schema<OrderDetail>({
   updatedAt: { type: Date, default: Date.now },
 });
 const OrderDetailModel = mongoose.model<OrderDetail>(
-  "OrderDEtail",
-  OrderDEtailSchema
+  "OrderDetails",
+  OrderDetails
 );
 export default OrderDetailModel;
