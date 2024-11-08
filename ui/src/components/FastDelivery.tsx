@@ -2,6 +2,7 @@ import { Delivery } from "./Delivery";
 import { PromptIcon } from "./icons/PromptIcon";
 import { RecipeIcon } from "./icons/RecipeIcon";
 import { StatusIcon } from "./icons/StatusIcon";
+import MenuImage from "../components/MenuImage";
 
 const status = [
   {
