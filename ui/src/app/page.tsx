@@ -1,9 +1,11 @@
-'use client';
+"use client";
 
 // import { useAuthcontext } from '@/providers/AuthProvider';
-import { OrderDetail } from '../components/order-detail';
+// import { OrderDetail } from '../components/order-detail';
 // import { useRouter } from 'next/navigation';
 // import { useEffect } from 'react';
+// import MenuCategory from "../app/menuCategories/menusAll"
+import { FastDelivery } from "@/components/FastDelivery";
 
 const Home = () => {
   // const { currentUser, isLoading } = useAuthcontext();
@@ -19,7 +21,9 @@ const Home = () => {
 
   return (
     <div className="container mx-auto">
-      <OrderDetail />
+      {/* <OrderDetail /> */}
+      {/* <MenuCategory/> */}
+      <FastDelivery />
     </div>
   );
 };
