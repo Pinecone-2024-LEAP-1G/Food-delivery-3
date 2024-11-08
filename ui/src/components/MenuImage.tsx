@@ -1,7 +1,7 @@
 const MenuImage = () => {
   return (
     <div
-      className="h-[788px] bg-[#18BA51] container "
+      className="h-[790px] bg-[#18BA51] container"
       style={{
         backgroundImage: "url('Footer.png')",
         backgroundRepeat: "no-repeat",
