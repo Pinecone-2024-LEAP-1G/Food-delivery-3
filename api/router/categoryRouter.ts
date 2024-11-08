@@ -6,7 +6,7 @@ import { deleteCategory } from "../controller/categories/deleteCategory";
 
 export const categoryRouter = express.Router();
 
-categoryRouter.post("/category", createCategory);
-categoryRouter.get("/categories", getCategories);
-categoryRouter.put("/updateCategory", updateCategory);
-categoryRouter.delete("/deleteCategory", deleteCategory);
+categoryRouter.post("/", createCategory);
+categoryRouter.get("/", getCategories);
+categoryRouter.put("/", updateCategory);
+categoryRouter.delete("/", deleteCategory);

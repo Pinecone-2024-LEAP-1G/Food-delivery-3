@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import OrderDetailModel from "../../model/orderDetail";
+import { OrderModel } from "../../model/order";
 
 export const createOrderDetail = async (req: Request, res: Response) => {
   const { foodId, quantity, amount, orderId } = req.body;
@@ -12,7 +13,14 @@ export const createOrderDetail = async (req: Request, res: Response) => {
       orderId,
     }).save();
 
-    res.json({ orderDetail: orderDetail });
+    const { _id } = orderDetail;
+    const updatedOrder = await OrderModel.findByIdAndUpdate(
+      { _id: orderId },
+      { $push: { orderItem: _id } },
+      { new: true }
+    );
+
+    res.json({ orderDetail: orderDetail, updatedOrder: updatedOrder });
   } catch (error) {
     res.send(error);
   }

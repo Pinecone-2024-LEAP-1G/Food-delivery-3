@@ -1,12 +1,12 @@
 import mongoose, { Schema } from "mongoose";
 
-type User = {
+export type User = {
   firstName: string;
   userName: string;
   email: string;
   address: string;
   phoneNumber: string;
-  role: string;
+  role: "User" | "Admin";
   avatar?: string;
   password: string;
   createdAt: Date;
@@ -19,7 +19,7 @@ const UserSchema = new Schema<User>({
   address: { type: String },
   password: { type: String, min: 8 },
   phoneNumber: { type: String, min: 8 },
-  role: { type: String },
+  role: { type: String, enum: ["Admin", "User"], default: "User" },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

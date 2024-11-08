@@ -1,16 +1,14 @@
-import mongoose from 'mongoose';
-import { OrderModel } from '../../model/order';
-import { Request, Response } from 'express';
+import path from "path";
+import { OrderModel } from "../../model/order";
+import { Request, Response } from "express";
 
 export const getOrder = async (request: Request, response: Response) => {
-  const { id } = request.params;
-
-  console.log(id);
+  const { orderId } = request.body;
 
   try {
-    const orderId = mongoose.Types.ObjectId.createFromHexString(id);
-
-    const order = await OrderModel.findById({ _id: orderId });
+    const order = await OrderModel.findById({
+      _id: orderId,
+    }).populate({ path: "orderItem", populate: { path: "foodId" } });
 
     response.json({ order: order });
   } catch (error) {
