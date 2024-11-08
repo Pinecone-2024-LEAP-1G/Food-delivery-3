@@ -12,10 +12,16 @@ import axios from "axios";
 import { useState } from "react";
 import { toast } from "sonner";
 
+export type Category= {
+  _id: string ;
+  categoryName: string;
+  object: string | null;
+}
+
 export const AddCategory = () => {
   const [name, setName] = useState("");
 
-  const getCategory = async () => {
+  const createCategory = async () => {
     try {
       const category = await axios.post("http://localhost:8000/category", {
         categoryName: name,
@@ -31,7 +37,7 @@ export const AddCategory = () => {
   const clickAddCategory = () => {
     if (!name) {
       toast.error("category ner hooson baina ");
-    } else getCategory();
+    } else createCategory();
   };
 
   return (

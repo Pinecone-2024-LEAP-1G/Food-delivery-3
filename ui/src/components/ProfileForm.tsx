@@ -4,17 +4,74 @@ import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
+import * as React from "react"
+import { Category } from "./AddCategory";
+import axios from "axios";
+import { toast } from "sonner";
 
 export const ProfileForm = ({ className }: React.ComponentProps<"form">) => {
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [price, setPrice] = useState("");
   const [discounted, setDiscounted] = useState(false);
+  const [percent, setPercent] = useState("")
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [categoryId, setCategoryId] = useState("")
+
+  const getCategories = async () => {
+      try {
+        const response = await axios.get<Category[]>(
+          "http://localhost:8000/category"
+        );
+        setCategories(response.data);
+        console.log(response.data);
+        
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    React.useEffect(() => {
+      getCategories();
+    }, []);
+
+    const resetValues = () => {
+      setName("");
+      setIngredients("");
+      setPrice("");
+      setPercent("");
+    };
+
+    const createFood=async()=>{
+      try {
+       const response =  await axios.post("http://localhost:8000/food", {
+          name: name,
+          image: "",
+          ingredient: ingredients,
+          price:price,
+          categoryId:categoryId,
+          salePercent: percent
+        })
+      toast.success("amjilttai burtgegdlee")
+console.log(response);
+resetValues()
+      } catch (error) {
+        console.log(error);
+        toast.error("medeelel buruu baina")
+      }
+
+    }
+
+    const clickAdd=()=>{
+      if(!name || !ingredients|| !price|| !categories ){
+        toast.error("bugluugui medeelel uldsen baina")
+      }else createFood()
+    }
+  
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ name, category, ingredients, price, discounted });
+    clickAdd()
   };
 
   return (
@@ -34,13 +91,12 @@ export const ProfileForm = ({ className }: React.ComponentProps<"form">) => {
       </div>
       <div className="grid gap-2">
         <Label htmlFor="category">Хоолны ангилал</Label>
-        <Input
-          className="h-[56px] w- bg-[#F4F4F4] rounded-xl"
-          type="text"
-          id="category"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        />
+        <select onChange={(e)=> setCategoryId(e.target.value)}  className="h-[56px] w- bg-[#F4F4F4] rounded-xl p-2" name="Select category">
+        <option defaultChecked> choose category</option>
+          {categories.map((category)=>{
+            return <option value={category._id}  key={category._id}>{category.categoryName}</option>
+          })}
+        </select>
       </div>
       <div className="grid gap-2">
         <Label htmlFor="ingredients">Хоолны орц</Label>
@@ -74,9 +130,9 @@ export const ProfileForm = ({ className }: React.ComponentProps<"form">) => {
         <Input
           className="h-[56px] w- bg-[#F4F4F4] rounded-xl"
           type="number"
-          id="price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
+          id="percent"
+          value={percent}
+          onChange={(e) => setPercent(e.target.value)}
         />
       </div>
       <div>
@@ -91,7 +147,7 @@ export const ProfileForm = ({ className }: React.ComponentProps<"form">) => {
         </div>
       </div>
       <div className="flex ml-auto">
-        <Button className="bg-[#393939] text-white" type="submit">
+        <Button  className="bg-[#393939] text-white" type="submit">
           Continue
         </Button>
       </div>

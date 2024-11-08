@@ -13,22 +13,22 @@ interface Category {
 
 export const Categories = () => {
   const [categories, setCategories] = useState<Category[]>([]);
-  console.log(categories);
 
-  const getCategories = async () => {
-    try {
-      const response = await axios.get<Category[]>(
-        "http://localhost:8000/category"
-      );
-      setCategories(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getCategories();
-  }, []);
+    const getCategories = async () => {
+        try {
+          const response = await axios.get<Category[]>(
+            "http://localhost:8000/category"
+          );
+          setCategories(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    
+      useEffect(() => {
+        getCategories();
+      }, []);
+ 
 
   return (
     <div className="w-[402px] h-[100%] bg-white ml-[40px]">
