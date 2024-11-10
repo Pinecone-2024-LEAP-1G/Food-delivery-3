@@ -14,7 +14,7 @@ import Image from "next/image";
 
 export const OrderSheet = () => {
   const [quantity, setQuantity] = useState(0);
-  const totalPrice = quantity * price;
+  //   const totalPrice = quantity * price;
 
   return (
     <Sheet>
@@ -40,7 +40,7 @@ export const OrderSheet = () => {
             />
             <div className="flex-1">
               <h1 className="font-bold text-black">Main pizza</h1>
-              <p className="text-[#18BA51]">{price}</p>
+              <p className="text-[#18BA51]"></p>
               <p className="text-[#767676] mt-2">orts</p>
               <div className="flex items-center mt-2">
                 <Button
@@ -67,7 +67,7 @@ export const OrderSheet = () => {
         <SheetFooter className="border-t mt-auto pt-4">
           <div className="w-1/2">
             <p className="text-[#5E6166]">Нийт төлөх дүн</p>
-            <p className="text-lg font-semibold">{totalPrice} ₮</p>
+            <p className="text-lg font-semibold"> ₮</p>
           </div>
           <SheetClose asChild>
             <Button

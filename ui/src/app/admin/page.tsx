@@ -17,7 +17,7 @@ export type Food = {
   };
   createdAt: Date;
   updatedAt: Date;
-  salePercent?: string;
+  salePercent: number;
 };
 
 interface Category {
