@@ -1,14 +1,25 @@
+import { cn } from "@/lib/utils";
 import { IoMdMore } from "react-icons/io";
 
-type CategoryType = { text: string };
+type CategoryType = {
+  text: string;
+  onclick: React.ButtonHTMLAttributes<HTMLButtonElement>["onClick"];
+  className: string;
+};
 
-export const Category = ({ text }: CategoryType) => {
+export const Category = ({ text, onclick, className }: CategoryType) => {
   return (
     <div className=" flex felx-col ">
-      <div className="flex w-[258px] h-10 rounded-lg border items-center justify-center px-4 py-2 mb-[26px]">
-        <p className="items-center font-medium text-lg">{text}</p>
+      <button
+        onClick={onclick}
+        className={cn(
+          "flex w-[258px] h-10 rounded-lg border font-medium text-lg items-center justify-center px-4 py-2 mb-[26px]",
+          className
+        )}
+      >
+        {text}
         <IoMdMore className="flext items-center ml-auto justify-center " />
-      </div>
+      </button>
     </div>
   );
 };

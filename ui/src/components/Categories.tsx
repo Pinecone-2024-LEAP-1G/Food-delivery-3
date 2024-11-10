@@ -1,21 +1,49 @@
-const name = ["Breakfast", "Soup", "Main Course", "Desserts"];
+"use client";
 
 import { AddCategory } from "./AddCategory";
-import { Category } from "./Category";
 import { Plus } from "./icons";
+import { Category } from "./Category";
 
-export const Categories = () => {
+type Category = {
+  _id: string;
+  categoryName: string;
+};
+
+interface CategoriesProps {
+  categories: Category[];
+  setCategoryName: (_categoryName: string) => void;
+  categoryName: string;
+}
+
+export const Categories = ({
+  categories,
+  setCategoryName,
+  categoryName,
+}: CategoriesProps) => {
+  console.log(categories);
+
   return (
-    <div className="w-[402px] h-[100%] bg-white ml-[40px]">
+    <div className=" h-[100%] bg-white px-10">
       <div className="mt-[26px] mb-10">
         <h1 className="font-bold text-2xl">Food Menu</h1>
       </div>
-      {name.map((text, index) => {
-        return <Category key={index} text={text} />;
-      })}
-      <div className="flex w-[258px] h-10 rounded-lg gap-2 border px-4 py-2 mb-[26px]">
-        <Plus />
-        <AddCategory />
+      <div>
+        {categories.map((category) => (
+          <Category
+            className={`${
+              categoryName === category.categoryName
+                ? "bg-[#18BA51]"
+                : "bg-white"
+            }`}
+            key={category._id}
+            text={category.categoryName}
+            onclick={() => setCategoryName(category.categoryName)}
+          />
+        ))}
+        <div className="flex w-[258px] items-center h-10 rounded-lg gap-2 border px-4 py-2 mb-[26px]">
+          <Plus />
+          <AddCategory />
+        </div>
       </div>
     </div>
   );
