@@ -12,11 +12,11 @@ import axios from "axios";
 import { useState } from "react";
 import { toast } from "sonner";
 
-export type Category= {
-  _id: string ;
+export type Category = {
+  _id: string;
   categoryName: string;
   object: string | null;
-}
+};
 
 export const AddCategory = () => {
   const [name, setName] = useState("");
@@ -27,11 +27,15 @@ export const AddCategory = () => {
         categoryName: name,
       });
       toast.success("amjilttai burtgegdlee");
-      setName("");
+      resetValues();
       console.log(category);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const resetValues = () => {
+    setName("");
   };
 
   const clickAddCategory = () => {

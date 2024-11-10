@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Categories } from "@/components/Categories";
 
-type Food = {
+export type Food = {
   _id: string;
   name: string;
   image: string;
@@ -30,9 +30,7 @@ const Page = () => {
   const [foods, setFoods] = useState<Food[]>([]);
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null
-  );
+  const [categoryName, setCategoryName] = useState("All foods");
 
   const getCategories = async () => {
     try {
@@ -41,7 +39,7 @@ const Page = () => {
       );
       setCategories(response.data);
     } catch (error) {
-      console.log("Error fetching categories:", error);
+      console.log(error);
     }
   };
 
@@ -53,7 +51,7 @@ const Page = () => {
       );
       setFoods(response.data.food);
     } catch (error) {
-      console.log("Error fetching foods:", error);
+      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -64,26 +62,34 @@ const Page = () => {
     getCategories();
   }, []);
 
+  const filteredCategories = categories.filter((category) => {
+    if (category.categoryName === categoryName) {
+      return categoryName;
+    }
+    return categories;
+  });
+
   const onclickAdd = () => {
     setShowCategory(!showCategory);
   };
 
-  const onCategoryClick = (category: Category) => {
-    setSelectedCategory(category);
-  };
-
-  const categoryFoods = foods.filter((food) =>
-    selectedCategory ? food.categoryId._id === selectedCategory._id : true
-  );
+  const categoryFoods = foods.filter((food) => {
+    if (categoryName === "All foods") {
+      return foods;
+    }
+    if (food.categoryId.categoryName === categoryName) return foods;
+  });
 
   return (
-    <div className="flex container mx-auto p-4">
-      <Categories categories={categories} onCategoryClick={onCategoryClick} />
-      <div className="flex flex-col bg-gray-50 w-full p-8">
-        <div className="flex mt-6 mb-8 justify-between">
-          <h1 className="font-bold text-2xl">
-            {selectedCategory ? selectedCategory.categoryName : "All Foods"}
-          </h1>
+    <div className="flex mx-auto w-[1440px] ">
+      <Categories
+        categories={filteredCategories}
+        setCategoryName={setCategoryName}
+        categoryName={categoryName}
+      />
+      <div className="flex flex-col bg-gray-50 w-full ">
+        <div className="flex mt-6 mb-8 justify-between px-4">
+          <h1 className="font-bold text-2xl">{categoryName}</h1>
           <p
             onClick={onclickAdd}
             className="h-[35px] bg-green-500 text-white py-2 items-center rounded justify-center flex cursor-pointer"

@@ -1,9 +1,8 @@
 "use client";
 
-import { IoMdMore } from "react-icons/io";
 import { AddCategory } from "./AddCategory";
-import { Category } from "./Category"; // Assuming you are using this component elsewhere
 import { Plus } from "./icons";
+import { Category } from "./Category";
 
 type Category = {
   _id: string;
@@ -12,36 +11,39 @@ type Category = {
 
 interface CategoriesProps {
   categories: Category[];
-  onCategoryClick: (category: Category) => void;
+  setCategoryName: (_categoryName: string) => void;
+  categoryName: string;
 }
 
 export const Categories = ({
   categories,
-  onCategoryClick,
+  setCategoryName,
+  categoryName,
 }: CategoriesProps) => {
+  console.log(categories);
+
   return (
-    <div className="w-[402px] h-[100%] bg-white ml-[40px]">
+    <div className=" h-[100%] bg-white px-10">
       <div className="mt-[26px] mb-10">
         <h1 className="font-bold text-2xl">Food Menu</h1>
       </div>
       <div>
         {categories.map((category) => (
-          <div className="flex flex-col" key={category._id}>
-            <div className="flex w-[258px] h-10 rounded-lg border items-center justify-between px-4 py-2 mb-[26px]">
-              <button
-                onClick={() => onCategoryClick(category)}
-                className="category-button"
-              >
-                {category.categoryName}
-              </button>
-              <IoMdMore className="flex items-center justify-center" />{" "}
-            </div>
-          </div>
+          <Category
+            className={`${
+              categoryName === category.categoryName
+                ? "bg-[#18BA51]"
+                : "bg-white"
+            }`}
+            key={category._id}
+            text={category.categoryName}
+            onclick={() => setCategoryName(category.categoryName)}
+          />
         ))}
-      </div>
-      <div className="flex w-[258px] items-center h-10 rounded-lg gap-2 border px-4 py-2 mb-[26px]">
-        <Plus />
-        <AddCategory />
+        <div className="flex w-[258px] items-center h-10 rounded-lg gap-2 border px-4 py-2 mb-[26px]">
+          <Plus />
+          <AddCategory />
+        </div>
       </div>
     </div>
   );

@@ -11,11 +11,12 @@ const Header = () => {
 
   const handleHeaderTextColor = (name: string) => {
     setActiveText(name);
+    router.push("/");
   };
 
   return (
     <div className=" m-auto flex h-14  ">
-      <div className="flex py-2 justify-between w-[1200px]">
+      <div className="flex py-2 justify-between w-[1440px]">
         <div className=" flex items-center  ">
           <div className="w-[41px] h-[41px] flex items-center justify-center mr-6">
             <PineIcon />
