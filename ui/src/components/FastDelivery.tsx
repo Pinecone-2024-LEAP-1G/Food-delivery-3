@@ -2,7 +2,6 @@ import { Delivery } from "./Delivery";
 import { PromptIcon } from "./icons/PromptIcon";
 import { RecipeIcon } from "./icons/RecipeIcon";
 import { StatusIcon } from "./icons/StatusIcon";
-import MenuImage from "../components/MenuImage";
 
 const status = [
   {
@@ -30,9 +29,7 @@ const status = [
 export const FastDelivery = () => {
   return (
     <div className="container">
-      <div>
-        <MenuImage />
-      </div>
+      <div></div>
       <div className="flex gap-4 justify-between w-[1200px] py-[120px] mx-auto ">
         {status.map((item, index) => {
           return (

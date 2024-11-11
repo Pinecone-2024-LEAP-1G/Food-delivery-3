@@ -7,15 +7,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Image from "next/image";
-// import { Quantity } from "./Quantity";
+import { Quantity } from "./Quantity";
 
 type FoodDetail = {
-  foods: Food[];
+  foods?: Food;
 };
 
 export const OrderDialog = ({ foods }: FoodDetail) => {
-  console.log(foods);
-
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -26,32 +24,40 @@ export const OrderDialog = ({ foods }: FoodDetail) => {
           Edit
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-[981px] h-[564px] flex bg-white">
-        <Image src="/pizza.png" alt="" width={500} height={500} />
+      <DialogContent
+        style={{ width: "981px" }}
+        className="w-[981px] h-[564px] bg-white flex"
+      >
         <div className="">
-          {/* {foods.map((food) => {
-            return (
-              <div key={food._id}>
-                <h1>{food.name}</h1>
-                <p>{food.price}</p>
-                <div>
-                  <p>Орц</p>
-                  <p>{food.ingredient}</p>
-                </div>
-              </div>
-            );
-          })} */}
-          {/* <div>
+          <Image src="/pizza.png" alt="" width={500} height={500} />
+        </div>
+
+        <div className=" flex flex-col gap-8">
+          <div>
+            <div>
+              <h1 className="font-bold">{foods?.name}</h1>
+              <p className="text-[#18BA51]">{foods?.price}₮</p>
+            </div>
+            <div className="flex flex-col gap-1 mt-8">
+              Орц
+              <p className="text-[#767676] bg-[#F6F6F6] p-2 rounded-sm">
+                {foods?.ingredient}
+              </p>
+            </div>
+          </div>
+          <div>
             <p>Тоо</p>
             <Quantity />
           </div>
-          <Button className="w-[384px] h-[48px] bg-[#18BA51] py-2 px-4">
-            Сагслах
-          </Button> */}
+          <DialogFooter>
+            <Button
+              type="submit"
+              className="w-[384px] h-[48px] bg-[#18BA51] py-2 px-4"
+            >
+              Сагслах
+            </Button>
+          </DialogFooter>
         </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

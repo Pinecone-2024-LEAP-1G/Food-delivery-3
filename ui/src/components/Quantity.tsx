@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 export const Quantity = () => {
   const [quantity, setQuantity] = useState(0);
   return (
-    <div className="flex items-center mt-2">
+    <div className="flex items-center mt-2 justify-between mb-4">
       <Button
         className="bg-[#18BA51] w-[45px] h-10 rounded-md"
         aria-label="Decrease quantity"

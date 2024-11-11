@@ -1,12 +1,22 @@
+import { Food } from "@/app/admin/page";
+import { OrderDialog } from "./OrderDialog";
+
 type FoodCardType = {
   name: string;
   image?: string;
   price: string;
   basePrice?: string;
   onclick: () => void;
+  foodDetail?: Food;
 };
 
-export const FoodCard = ({ image, name, price, onclick }: FoodCardType) => {
+export const FoodCard = ({
+  image,
+  name,
+  price,
+  onclick,
+  foodDetail,
+}: FoodCardType) => {
   return (
     <div className="w-[282px] h-[253px] p-4">
       <div
@@ -14,6 +24,7 @@ export const FoodCard = ({ image, name, price, onclick }: FoodCardType) => {
         className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative "
       >
         {image}
+        <OrderDialog foods={foodDetail} />
       </div>
       <div className="mt-4">
         <p className="font-semibold text-xl leading-5">{name}</p>
