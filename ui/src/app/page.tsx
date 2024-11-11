@@ -11,79 +11,105 @@ import MenuImage from "@/components/MenuImage";
 
 const Home = () => {
   const [foods, setFoods] = useState<Food[]>([]);
-  const [foodId, setFoodId] = useState("");
-  const [foodDetail, setFoodDetail] = useState<Food>();
+  const [foodDetail, setFoodDetail] = useState<Food | undefined>(undefined);
 
-  const getFood = async () => {
+
+  const getFood = async (id: string) => {
     try {
-      const response = await axios.get<{ food: Food }>(
-        `http://localhost:8000/food/${foodId}`
-      );
+      const response = await axios.get<{ food: Food }>(`http://localhost:8000/food/${id}`);
       setFoodDetail(response.data.food);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching food detail:", error);
     }
   };
 
   const getFoods = async () => {
     try {
-      const response = await axios.get<{ food: Food[] }>(
-        "http://localhost:8000/food"
-      );
-
+      const response = await axios.get<{ food: Food[] }>("http://localhost:8000/food");
       setFoods(response.data.food);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching foods:", error);
     }
   };
+
+  const saleFoods = foods.filter(food => food.salePercent > 0);
+  const mainCourses = foods.filter(food => food.categoryId.categoryName === "Main Course");
+  const soups = foods.filter(food => food.categoryId.categoryName === "Soup");
+  const desserts = foods.filter(food => food.categoryId.categoryName === "Dessert");
+
   useEffect(() => {
     getFoods();
   }, []);
 
-  const saleFoods = foods.filter((food) => {
-    if (food.salePercent > 0) return foods;
-  });
-
-  const mainCours = foods.filter((food) => {
-    if (food.categoryId.categoryName === "Main Course") return foods;
-  });
-
   return (
-    <div className="container mx-auto  ">
+    <div className="container mx-auto">
       <MenuImage />
       <div className="w-[1200px] mx-auto">
         <FastDelivery />
-        <FoodCategory category=" Хямдралтай" />
-        <div onClick={getFood} className="flex mb-20 gap-4">
-          {saleFoods.map((food) => {
-            return (
-              <DiscountCard
-                onclick={() => setFoodId(food._id)}
-                key={food._id}
-                discount={food.salePercent}
-                price={food.price}
-                name={food.name}
-                foods={foodDetail}
-              />
-            );
-          })}
+
+        <FoodCategory category="Хямдралтай" />
+        <div className="flex mb-20 gap-4">
+          {saleFoods.map(food => (
+            <DiscountCard
+              key={food._id}
+              discount={food.salePercent}
+              price={food.price}
+              name={food.name}
+              onclick={() => 
+                getFood(food._id)
+              }
+              foods={foodDetail} 
+            />
+          ))}
         </div>
-        <FoodCategory category="Үндсэн хоол " />
-        <div onClick={getFood} className="mb-20 flex gap-4 ">
-          {mainCours.map((main) => {
-            return (
-              <FoodCard
-                foodDetail={foodDetail}
-                onclick={() => setFoodId(main._id)}
-                key={main._id}
-                name={main.name}
-                price={main.price}
-              />
-            );
-          })}
+
+        <FoodCategory category="Үндсэн хоол" />
+        <div className="mb-20 flex gap-4">
+          {mainCourses.map(food => (
+            <FoodCard
+              key={food._id}
+              name={food.name}
+              price={food.price}
+              onclick={() => 
+                getFood(food._id)
+              }
+              foodDetail={foodDetail} 
+            />
+          ))}
+        </div>
+
+        <FoodCategory category="Салад ба зууш" />
+        <div className="mb-20 flex gap-4">
+          {soups.map(food => (
+            <FoodCard
+              key={food._id}
+              name={food.name}
+              price={food.price}
+              onclick={() => 
+                getFood(food._id)
+              }
+              foodDetail={foodDetail} 
+            />
+          ))}
+        </div>
+
+        <FoodCategory category="Амттан" />
+        <div className="mb-20 flex gap-4">
+          {desserts.map(food => (
+            <FoodCard
+              key={food._id}
+              name={food.name}
+              price={food.price}
+              onclick={() => 
+                getFood(food._id)
+              }
+              foodDetail={foodDetail} 
+            />
+          ))}
         </div>
       </div>
     </div>
   );
 };
+
 export default Home;
