@@ -12,9 +12,12 @@ import {
 import { Basket } from "./icons/index";
 import Image from "next/image";
 
-export const OrderSheet = () => {
+export const OrderSheet = ({
+  name = "Main pizza",
+  imageSrc = "/pizza.png",
+  price = 10000,
+}) => {
   const [quantity, setQuantity] = useState(0);
-  //   const totalPrice = quantity * price;
 
   return (
     <Sheet>
@@ -33,15 +36,15 @@ export const OrderSheet = () => {
         <div className="flex flex-col flex-grow">
           <div className="flex py-12 gap-2">
             <Image
-              src="/pizza.png"
-              alt="Pizza image"
+              src={imageSrc}
+              alt={`${name} image`}
               width={245}
               height={150}
             />
             <div className="flex-1">
-              <h1 className="font-bold text-black">Main pizza</h1>
-              <p className="text-[#18BA51]"></p>
-              <p className="text-[#767676] mt-2">orts</p>
+              <h1 className="font-bold text-black">{name}</h1>
+              <p className="text-[#18BA51]">{price}₮</p>
+              <p className="text-[#767676] mt-2">Орц: example ingredients</p>
               <div className="flex items-center mt-2">
                 <Button
                   className="bg-[#18BA51] w-[45px] h-10 rounded-md"
@@ -64,8 +67,8 @@ export const OrderSheet = () => {
             </div>
           </div>
         </div>
-        <SheetFooter className="border-t mt-auto pt-4">
-          <div className="w-1/2">
+        <SheetFooter className="border-t mt-auto pt-4 flex justify-between">
+          <div>
             <p className="text-[#5E6166]">Нийт төлөх дүн</p>
             <p className="text-lg font-semibold"> ₮</p>
           </div>

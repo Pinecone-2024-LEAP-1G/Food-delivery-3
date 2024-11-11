@@ -8,12 +8,16 @@ import {
 } from "@/components/ui/dialog";
 import Image from "next/image";
 import { Quantity } from "./Quantity";
+import { Description, DialogTitle } from "@radix-ui/react-dialog";
 
 type FoodDetail = {
   foods?: Food;
 };
 
 export const OrderDialog = ({ foods }: FoodDetail) => {
+  const orderDEtails = () => {
+    localStorage.setItem("user", JSON.parse("OrderDetail"));
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -35,14 +39,14 @@ export const OrderDialog = ({ foods }: FoodDetail) => {
         <div className=" flex flex-col gap-8">
           <div>
             <div>
-              <h1 className="font-bold">{foods?.name}</h1>
+              <DialogTitle className="font-bold">{foods?.name}</DialogTitle>
               <p className="text-[#18BA51]">{foods?.price}₮</p>
             </div>
             <div className="flex flex-col gap-1 mt-8">
               Орц
-              <p className="text-[#767676] bg-[#F6F6F6] p-2 rounded-sm">
+              <Description className="text-[#767676] bg-[#F6F6F6] p-2 rounded-sm">
                 {foods?.ingredient}
-              </p>
+              </Description>
             </div>
           </div>
           <div>
@@ -51,6 +55,7 @@ export const OrderDialog = ({ foods }: FoodDetail) => {
           </div>
           <DialogFooter>
             <Button
+              onClick={orderDEtails}
               type="submit"
               className="w-[384px] h-[48px] bg-[#18BA51] py-2 px-4"
             >
