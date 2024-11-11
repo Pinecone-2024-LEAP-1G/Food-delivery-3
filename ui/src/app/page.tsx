@@ -19,14 +19,8 @@ const Home = () => {
   // useEffect(() => {}, [router, currentUser, isLoading]);
 
   return (
-    <div className="container mx-auto justify-center w-[1200px]">
+    <div className="container mx-auto  ">
       <FastDelivery />
-      <div className="">
-        <div className="flex">
-          <StarIcon />
-          <h1 className="font-bold text-xl"> Хямдралтай</h1>
-        </div>
-      </div>
     </div>
   );
 };

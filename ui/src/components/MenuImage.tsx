@@ -7,7 +7,6 @@ const MenuImage = () => {
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         backgroundSize: "cover",
-        margin: "auto",
       }}
     >
       <div className="flex">

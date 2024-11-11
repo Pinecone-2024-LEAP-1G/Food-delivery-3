@@ -29,17 +29,22 @@ const status = [
 
 export const FastDelivery = () => {
   return (
-    <div className="flex gap-4 justify-between w-[1200px] py-[120px] ">
-      {status.map((item, index) => {
-        return (
-          <Delivery
-            key={index}
-            icon={item.icon}
-            title={item.title}
-            text={item.text}
-          />
-        );
-      })}
+    <div className="container">
+      <div>
+        <MenuImage />
+      </div>
+      <div className="flex gap-4 justify-between w-[1200px] py-[120px] mx-auto ">
+        {status.map((item, index) => {
+          return (
+            <Delivery
+              key={index}
+              icon={item.icon}
+              title={item.title}
+              text={item.text}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };
