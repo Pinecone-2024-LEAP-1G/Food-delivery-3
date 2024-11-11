@@ -4,11 +4,11 @@ type Food = {
   name: string;
   image: string;
   ingredient: string;
-  price: string;
+  price: number;
   categoryId: Schema.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
-  salePercent?: string
+  salePercent?: number;
 };
 
 const FoodSchema = new Schema<Food>({
@@ -17,8 +17,8 @@ const FoodSchema = new Schema<Food>({
   ingredient: {
     type: String,
   },
-  price: { type: String },
-  salePercent: {type: String},
+  price: { type: Number },
+  salePercent: { type: Number },
   categoryId: { type: Schema.Types.ObjectId, ref: "Category" },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

@@ -12,7 +12,6 @@ export const createFood = async (req: Request, res: Response) => {
       salePercent,
       categoryId,
     }).save();
-
     res.json({ food: food });
   } catch (error) {
     res.json({ message: error });

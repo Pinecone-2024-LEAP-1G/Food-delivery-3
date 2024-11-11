@@ -1,9 +1,10 @@
 "use client";
 
-import { PineIcon, SearchIcon, Basket, UserIcon } from "./icons/index";
+import { PineIcon, SearchIcon, UserIcon } from "./icons/index";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
+import { OrderSheet } from "./OrderSheet";
 
 const Header = () => {
   const router = useRouter();
@@ -60,10 +61,7 @@ const Header = () => {
               <SearchIcon />
             </div>
           </div>
-          <div className="flex items-center w-[102px] h-[40px] justify-center gap-2">
-            <Basket />
-            <p className="font-bold">Сагс</p>
-          </div>
+          <OrderSheet />
           <div className="flex items-center  h-[40px] justify-center gap-2">
             <UserIcon />
             <Button

@@ -1,9 +1,9 @@
-type FoodCardType = {
+type Food = {
   name: string;
-  image: string;
+  image?: string;
   discount?: number;
-  price: number;
-  basePrice?: number;
+  price: string;
+  basePrice?: string;
 };
 
 export const DiscountCard = ({
@@ -12,7 +12,8 @@ export const DiscountCard = ({
   name,
   price,
   basePrice,
-}: FoodCardType) => {
+}: Food) => {
+  // const salePrice = basePrice /100 * discount
   return (
     <div className="w-[282px] h-[253px] p-4">
       <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative ">
