@@ -1,6 +1,12 @@
-import { createContext, useState, useEffect, useContext, ReactNode } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  ReactNode,
+} from "react";
 
-type OrderItem = {
+export type OrderItem = {
   _id: string;
   name: string;
   image: string;
@@ -26,7 +32,7 @@ const CartContext = createContext<{
   removeFromCart: (_orderId: string) => void;
   clearCart: () => void;
 }>({
-  order: { orderItems: [] }, 
+  order: { orderItems: [] },
   addOrderItem: () => {},
   removeFromCart: () => {},
   clearCart: () => {},
@@ -36,19 +42,14 @@ const useOrder = () => useContext(CartContext);
 
 const OrderProvider = ({ children }: { children: ReactNode }) => {
   const [order, setOrder] = useState<Order>({ orderItems: [] });
-  console.log(order);
-  
+
   useEffect(() => {
     const orderedItems = localStorage.getItem("orderDetails");
     if (orderedItems) {
       try {
-        const parsedItems = JSON.parse(orderedItems);
-        if (parsedItems && Array.isArray(parsedItems.orderItems)) {
-          setOrder(parsedItems);
-        }
-      } catch (error) {
-        console.error("Error parsing localStorage data:", error);
-        setOrder({ orderItems: [] });
+        setOrder(JSON.parse(orderedItems));
+      } catch (e) {
+        console.error("Failed to parse order items from localStorage:", e);
       }
     }
   }, []);
@@ -96,7 +97,9 @@ const OrderProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <CartContext.Provider value={{ order, addOrderItem, removeFromCart, clearCart }}>
+    <CartContext.Provider
+      value={{ order, addOrderItem, removeFromCart, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   );
