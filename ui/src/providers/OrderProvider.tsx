@@ -36,17 +36,28 @@ const useOrder = () => useContext(CartContext);
 
 const OrderProvider = ({ children }: { children: ReactNode }) => {
   const [order, setOrder] = useState<Order>({ orderItems: [] });
-
+  console.log(order);
+  
   useEffect(() => {
-    const storedOrderItems = localStorage.getItem("orderDetails");
-    if (storedOrderItems) {
-      setOrder({ orderItems: JSON.parse(storedOrderItems) });
+    const orderedItems = localStorage.getItem("orderDetails");
+    if (orderedItems) {
+      try {
+        const parsedItems = JSON.parse(orderedItems);
+        if (parsedItems && Array.isArray(parsedItems.orderItems)) {
+          setOrder(parsedItems);
+        }
+      } catch (error) {
+        console.error("Error parsing localStorage data:", error);
+        setOrder({ orderItems: [] });
+      }
     }
   }, []);
 
   useEffect(() => {
     if (order.orderItems.length > 0) {
-      localStorage.setItem("orderDetails", JSON.stringify(order.orderItems));
+      localStorage.setItem("orderDetails", JSON.stringify(order));
+    } else {
+      localStorage.removeItem("orderDetails");
     }
   }, [order]);
 

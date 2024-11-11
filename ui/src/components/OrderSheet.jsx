@@ -9,14 +9,18 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Basket } from "./icons/index";
-import Image from "next/image";
-import { Quantity } from "./Quantity";
+// import Image from "next/image";
+// import { Quantity } from "./Quantity";
+import { useOrder } from "@/providers/OrderProvider";
 
 // type OrderDEtail ={
 
 // }
 
 export const OrderSheet = () => {
+  const {order} = useOrder()
+console.log(order);
+
 
   return (
     <Sheet>
@@ -33,7 +37,8 @@ export const OrderSheet = () => {
           <SheetTitle className="text-center">Таны сагс</SheetTitle>
         </SheetHeader>
         <div className="flex flex-col flex-grow">
-          <div className="flex py-12 gap-2">
+          {/* {order.map((item)=>{
+            return <div key={item._id} className="flex py-12 gap-2">
             <Image
               src="/pizza.png"
               alt=""
@@ -41,12 +46,13 @@ export const OrderSheet = () => {
               height={150}
             />
             <div className="flex-1">
-              <h1 className="font-bold text-black"></h1>
-              <p className="text-[#18BA51]">₮</p>
-              <p className="text-[#767676] mt-2">Орц: example ingredients</p>
+              <h1 className="font-bold text-black">{item.name}</h1>
+              <p className="text-[#18BA51]">{item.price}₮</p>
+              <p className="text-[#767676] mt-2">{item.ingredient}</p>
               <Quantity/>
             </div>
           </div>
+          })} */}
         </div>
         <SheetFooter className="border-t mt-auto pt-4 flex justify-between">
           <div>
