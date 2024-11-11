@@ -14,6 +14,8 @@ type FoodDetail = {
 };
 
 export const OrderDialog = ({ foods }: FoodDetail) => {
+  console.log(foods);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
