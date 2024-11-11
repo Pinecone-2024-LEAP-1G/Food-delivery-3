@@ -1,20 +1,17 @@
-import { Button } from "@/components/ui/button";
+import { Food } from "@/app/admin/page";
+import { OrderDialog } from "./OrderDialog";
 
 type EditCard = {
   name: string;
   price: string;
+  foods: Food[];
 };
 
-export const EditableCard = ({ name, price }: EditCard) => {
+export const EditableCard = ({ name, price, foods }: EditCard) => {
   return (
     <div className="flex flex-col p-4 ">
       <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative justify-center items-center">
-        <Button
-          className="absolute top-16 left-14 w-[166px] h-[40px] opacity-0 hover:opacity-55"
-          variant="outline"
-        >
-          <p className="font-semibold text-2xl ">Edit</p>
-        </Button>
+        <OrderDialog foods={foods} />
       </div>
       <div className="mt-4 items-start p-2">
         <p className="font-semibold text-xl leading-5">{name}</p>

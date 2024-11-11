@@ -2,8 +2,8 @@ type Food = {
   name: string;
   image?: string;
   discount?: number;
-  price?: string;
-  basePrice: string;
+  price: string;
+  basePrice?: string;
 };
 
 export const DiscountCard = ({

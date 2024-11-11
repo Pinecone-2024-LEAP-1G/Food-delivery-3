@@ -1,15 +1,18 @@
 type FoodCardType = {
   name: string;
-  image: string;
-  price: number;
+  image?: string;
+  price: string;
   basePrice?: string;
+  onclick: () => void;
 };
 
-export const FoodCard = ({ image, name, price }: FoodCardType) => {
+export const FoodCard = ({ image, name, price, onclick }: FoodCardType) => {
   return (
     <div className="w-[282px] h-[253px] p-4">
-      <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative ">
-        {" "}
+      <div
+        onClick={onclick}
+        className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative "
+      >
         {image}
       </div>
       <div className="mt-4">
