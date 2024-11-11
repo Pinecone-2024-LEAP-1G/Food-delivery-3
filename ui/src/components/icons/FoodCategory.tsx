@@ -1,4 +1,3 @@
-import { Button } from "../ui/button";
 import { ArrowRight } from "./ArrowRight";
 import { StarIcon } from "./StarIcon";
 

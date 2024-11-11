@@ -4,7 +4,7 @@ import { OrderDialog } from "./OrderDialog";
 type EditCard = {
   name: string;
   price: string;
-  foods: Food[];
+  foods: Food;
 };
 
 export const EditableCard = ({ name, price, foods }: EditCard) => {

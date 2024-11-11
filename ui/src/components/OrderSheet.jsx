@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -11,10 +10,13 @@ import {
 } from "@/components/ui/sheet";
 import { Basket } from "./icons/index";
 import Image from "next/image";
+import { Quantity } from "./Quantity";
+
+// type OrderDEtail ={
+
+// }
 
 export const OrderSheet = () => {
-  const [quantity, setQuantity] = useState(0);
-  //   const totalPrice = quantity * price;
 
   return (
     <Sheet>
@@ -34,38 +36,20 @@ export const OrderSheet = () => {
           <div className="flex py-12 gap-2">
             <Image
               src="/pizza.png"
-              alt="Pizza image"
+              alt=""
               width={245}
               height={150}
             />
             <div className="flex-1">
-              <h1 className="font-bold text-black">Main pizza</h1>
-              <p className="text-[#18BA51]"></p>
-              <p className="text-[#767676] mt-2">orts</p>
-              <div className="flex items-center mt-2">
-                <Button
-                  className="bg-[#18BA51] w-[45px] h-10 rounded-md"
-                  aria-label="Decrease quantity"
-                  onClick={() => setQuantity(quantity > 0 ? quantity - 1 : 0)}
-                >
-                  -
-                </Button>
-                <p className="w-[45px] h-10 text-center flex justify-center items-center">
-                  {quantity}
-                </p>
-                <Button
-                  className="bg-[#18BA51] w-[45px] h-10 rounded-md"
-                  aria-label="Increase quantity"
-                  onClick={() => setQuantity(quantity + 1)}
-                >
-                  +
-                </Button>
-              </div>
+              <h1 className="font-bold text-black"></h1>
+              <p className="text-[#18BA51]">₮</p>
+              <p className="text-[#767676] mt-2">Орц: example ingredients</p>
+              <Quantity/>
             </div>
           </div>
         </div>
-        <SheetFooter className="border-t mt-auto pt-4">
-          <div className="w-1/2">
+        <SheetFooter className="border-t mt-auto pt-4 flex justify-between">
+          <div>
             <p className="text-[#5E6166]">Нийт төлөх дүн</p>
             <p className="text-lg font-semibold"> ₮</p>
           </div>
