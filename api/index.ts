@@ -18,7 +18,7 @@ const port = 8000;
 
 app.use("/users", UserRouter);
 app.use("/orders", OrderRouter);
-app.use("/", orderDetailRouter);
+app.use("/details", orderDetailRouter);
 app.use("/category", categoryRouter);
 app.use("/food", foodRouter);
 
