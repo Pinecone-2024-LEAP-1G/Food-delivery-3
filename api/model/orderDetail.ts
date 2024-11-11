@@ -16,7 +16,6 @@ const OrderDetails = new Schema<OrderDetail>({
   orderId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Order",
-    required: true,
   },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

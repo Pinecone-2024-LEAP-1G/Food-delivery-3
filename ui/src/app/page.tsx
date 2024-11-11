@@ -7,6 +7,7 @@ import { Food } from "./admin/page";
 import { FoodCategory } from "@/components/icons/FoodCategory";
 import { DiscountCard } from "@/components/DiscountCard";
 import { FoodCard } from "@/components/FoodCard";
+import MenuCategory from "../app/menuCategories/menusAll";
 // import { useAuthcontext } from "@/providers/AuthProvider";
 // import { useRouter } from "next/navigation";
 // import { useEffect } from "react";
@@ -64,7 +65,8 @@ const Home = () => {
 
   return (
     <div className="container mx-auto  ">
-      <FastDelivery />
+      <MenuCategory />
+      {/* <FastDelivery />
       <FoodCategory category=" Хямдралтай" />
       <div onClick={getFood} className="flex mb-20 gap-4">
         {saleFoods.map((food) => {
@@ -90,7 +92,7 @@ const Home = () => {
             />
           );
         })}
-      </div>
+      </div> */}
     </div>
   );
 };
