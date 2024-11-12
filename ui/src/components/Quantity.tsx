@@ -4,10 +4,14 @@ import { cn } from "@/lib/utils";
 type QuantityProps = {
   quantity: number;
   setQuantity: (_newQuantity: number) => void;
-  className: string;
+  className?: string;
 };
 
-export const Quantity = ({ quantity, setQuantity, className }: QuantityProps) => {
+export const Quantity = ({
+  quantity,
+  setQuantity,
+  className,
+}: QuantityProps) => {
   return (
     <div className={cn(`flex items-center mt-2 mb-4`, className)}>
       <Button

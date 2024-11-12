@@ -78,9 +78,13 @@ const OrderProvider = ({ children }: { children: ReactNode }) => {
           }),
         };
       }
+      console.log(";ssss", prevOrder);
       return {
         ...prevOrder,
-        orderItems: [...prevOrder.orderItems, { ...newOrderItem, quantity: 1 }],
+        orderItems: [
+          ...prevOrder.orderItems,
+          { ...newOrderItem, quantity: newOrderItem.quantity },
+        ],
       };
     });
   };

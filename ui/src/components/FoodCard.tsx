@@ -1,4 +1,3 @@
-import { Food } from "@/app/admin/page";
 import { OrderDialog } from "./OrderDialog";
 
 type FoodCardType = {
@@ -6,25 +5,25 @@ type FoodCardType = {
   image?: string;
   price: string;
   basePrice?: string;
-  onclick?: () => void;
-  foodDetail?: Food;
+
+  foodId: string;
 };
 
 export const FoodCard = ({
   image,
   name,
   price,
-  onclick,
-  foodDetail,
+
+  foodId,
 }: FoodCardType) => {
   return (
     <div className="w-[282px] h-[253px] py-4">
-      <div
-        onClick={onclick}
-        className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative "
-      >
+      <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative ">
         {image}
-        <OrderDialog foods={foodDetail} />
+        <OrderDialog
+          // orderDetails={orderDetails}
+          foodId={foodId}
+        />
       </div>
       <div className="mt-4">
         <p className="font-semibold text-xl leading-5">{name}</p>

@@ -13,6 +13,7 @@ const OrderDetails = new Schema<OrderDetail>(
   {
     foodId: [{ type: Schema.Types.ObjectId, required: true, ref: "Food" }],
     quantity: [{ type: Number, required: true }],
+    amount: { type: Number },
     orderId: { type: Schema.Types.ObjectId, ref: "Order" },
   },
   {

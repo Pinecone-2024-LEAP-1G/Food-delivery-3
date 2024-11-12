@@ -14,18 +14,25 @@ import { Quantity } from "./Quantity";
 import { useOrder } from "@/providers/OrderProvider";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Description } from "@radix-ui/react-dialog";
 
 export const OrderSheet = () => {
   const { order } = useOrder();
   const router = useRouter();
-  const [totalPrice, setTotalPrice] = useState();
+  const [totalPrice, setTotalPrice] = useState(0);
+  // const [quantity, setQuantity] = useState(0);
+  const { removeFromCart } = useOrder();
 
   useEffect(() => {
-    const sum = order.orderItems.reduce((acc, item) => {
+    const sum: number = order.orderItems.reduce((acc, item) => {
       return acc + Number(item.price) * item.quantity;
     }, 0);
     setTotalPrice(sum);
   }, [order]);
+
+  const updateQuantity = (_quantity: number) => {
+    // setQuantity(quantity);
+  };
 
   return (
     <Sheet>
@@ -44,14 +51,23 @@ export const OrderSheet = () => {
         <div className="flex flex-col flex-grow">
           {order.orderItems.map((item) => {
             return (
-              <div key={item._id} className="flex py-12 gap-2">
-                <Image src="/pizza.png" alt="" width={245} height={150} />
-                <div className="flex-1">
+              <div key={item._id} className="flex py-12 gap-4">
+                <div>
+                  <Image src="/pizza.png" alt="" width={245} height={150} />
+                </div>
+                <div className="flex-1 gap-4">
                   <h1 className="font-bold text-black">{item.name}</h1>
                   <p className="text-[#18BA51]">{item.price}₮</p>
-                  <p className="text-[#767676] mt-2">{item.ingredient}</p>
-                  <Quantity />
+                  <Description className="text-[#767676] mt-4 p-2">
+                    {item.ingredient}
+                  </Description>
+                  <Quantity
+                    className="mt-2"
+                    quantity={item.quantity}
+                    setQuantity={updateQuantity}
+                  />
                 </div>
+                <Button onClick={() => removeFromCart(item._id)}>x</Button>
               </div>
             );
           })}

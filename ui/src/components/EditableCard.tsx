@@ -5,13 +5,20 @@ type EditCard = {
   name: string;
   price: string;
   foods: Food;
+  updateQuantity: (_quantity: number) => void;
+  quantity: number;
 };
 
-export const EditableCard = ({ name, price, foods }: EditCard) => {
+export const EditableCard = ({
+  name,
+  price,
+  quantity,
+  updateQuantity,
+}: EditCard) => {
   return (
     <div className="flex flex-col p-4 ">
       <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative justify-center items-center">
-        <OrderDialog foods={foods} />
+        <OrderDialog quantity={quantity} updateQuantity={updateQuantity} />
       </div>
       <div className="mt-4 items-start p-2">
         <p className="font-semibold text-xl leading-5">{name}</p>
