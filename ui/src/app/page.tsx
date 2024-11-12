@@ -12,21 +12,12 @@ import MenuImage from "@/components/MenuImage";
 const Home = () => {
   const [foods, setFoods] = useState<Food[]>([]);
   const [foodDetail, setFoodDetail] = useState<Food | undefined>(undefined);
-
-<<<<<<< HEAD
-=======
   const [loading, setLoading] = useState(false);
-
->>>>>>> 8171db1 (addOrderItem)
   const getFood = async (id: string) => {
     try {
       const response = await axios.get<{ food: Food }>(
         `http://localhost:8000/food/${id}`
       );
-<<<<<<< HEAD
-=======
-
->>>>>>> 8171db1 (addOrderItem)
       setFoodDetail(response.data.food);
     } catch (error) {
       console.error("Error fetching food detail:", error);

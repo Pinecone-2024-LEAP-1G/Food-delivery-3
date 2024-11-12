@@ -26,7 +26,7 @@ const OrderSchema = new Schema<Order>(
       default: "Ordered",
       required: true,
     },
-    totalPrice: { type: String, required: true },
+    // totalPrice: { type: String, required: true },
     orderItem: [{ type: Schema.Types.ObjectId, ref: "OrderDetails" }],
   },
   {

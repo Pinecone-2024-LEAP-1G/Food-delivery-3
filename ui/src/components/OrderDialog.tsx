@@ -14,7 +14,7 @@ import { Description, DialogClose, DialogTitle } from "@radix-ui/react-dialog";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useOrder } from "@/providers/OrderProvider";
+import { OrderItem, useOrder } from "@/providers/OrderProvider";
 
 export type FoodDetail = {
   orderDetails?: () => void;
@@ -22,12 +22,13 @@ export type FoodDetail = {
   foodId: string;
 };
 
+
+
 export const OrderDialog = ({ onclick, foodId }: FoodDetail) => {
   const [foodById, setFoodById] = useState<Food | undefined>(undefined);
   const [quantity, setQuantity] = useState(0);
   const { addOrderItem } = useOrder();
 
-  console.log(quantity);
   const updateQuantity = (newQuantity: number) => {
     setQuantity(newQuantity);
   };
@@ -65,8 +66,16 @@ export const OrderDialog = ({ onclick, foodId }: FoodDetail) => {
       );
     }
 
-    const orderItem = {
-      foodById,
+    const orderItem: OrderItem = {
+      _id: foodById._id,
+      name: foodById.name,
+      image: foodById.image || "/pizza.png", 
+      ingredient: foodById.ingredient,
+      price: foodById.price,
+      categoryId: foodById.categoryId,
+      createdAt: foodById.createdAt,
+      updatedAt: foodById.updatedAt,
+      salePercent: foodById.salePercent || 0, 
       quantity: quantity,
     };
 

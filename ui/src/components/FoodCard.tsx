@@ -13,7 +13,6 @@ export const FoodCard = ({
   image,
   name,
   price,
-
   foodId,
 }: FoodCardType) => {
   return (
@@ -21,7 +20,6 @@ export const FoodCard = ({
       <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative ">
         {image}
         <OrderDialog
-          // orderDetails={orderDetails}
           foodId={foodId}
         />
       </div>

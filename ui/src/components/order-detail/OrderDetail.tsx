@@ -23,9 +23,12 @@ export const OrderDetail = () => {
   const { order } = useOrder();
   console.log(order);
 
-  const foodId = order.orderItems.map((item) => item._id);
-  const quantity = order.orderItems.map((order) => order.quantity);
-
+  const orderItem = order.orderItems.map((item) => {
+    return {
+      foodId:item._id,
+      quantity:item.quantity
+    }
+  });
   const [totalPrice, setTotalPrice] = useState(0);
 
   const [selectedOptions, setSelectedOptions] = useState<OrderSelectOptions>({
@@ -46,13 +49,7 @@ export const OrderDetail = () => {
         khoroo: selectedOptions.khoroo,
         apartment: selectedOptions.apartment,
         phoneNumber: selectedOptions.phoneNumber,
-        orderItems: [
-          {
-            foodId: foodId,
-            quantity: quantity,
-          },
-        ],
-        totalPrice: totalPrice,
+        orderItems: orderItem
       });
       toast.success("Huselt amjilttai");
       console.log(response);

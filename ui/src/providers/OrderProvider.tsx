@@ -63,31 +63,34 @@ const OrderProvider = ({ children }: { children: ReactNode }) => {
   }, [order]);
 
   const addOrderItem = (newOrderItem: OrderItem) => {
+
+    
     setOrder((prevOrder) => {
       const existingItem = prevOrder.orderItems.find(
         (order) => order._id === newOrderItem._id
       );
+  
       if (existingItem) {
         return {
           ...prevOrder,
-          orderItems: prevOrder.orderItems.map((order) => {
-            if (order._id === newOrderItem._id) {
-              return { ...order, quantity: order.quantity + 1 };
-            }
-            return order;
-          }),
+          orderItems: prevOrder.orderItems.map((order) =>
+            order._id === newOrderItem._id
+              ? { ...order, quantity: order.quantity + newOrderItem.quantity }
+              : order 
+          ),
+        };
+      } else {
+        return {
+          ...prevOrder,
+          orderItems: [
+            ...prevOrder.orderItems,
+            { ...newOrderItem, quantity: newOrderItem.quantity },
+          ],
         };
       }
-      console.log(";ssss", prevOrder);
-      return {
-        ...prevOrder,
-        orderItems: [
-          ...prevOrder.orderItems,
-          { ...newOrderItem, quantity: newOrderItem.quantity },
-        ],
-      };
     });
   };
+  
 
   const removeFromCart = (orderId: string) => {
     setOrder((prevOrder) => ({
