@@ -1,9 +1,14 @@
-type Food = {
+import { Food } from "@/app/admin/page";
+import { OrderDialog } from "./OrderDialog";
+
+type FoodDiscount = {
   name: string;
   image?: string;
   discount?: number;
   price: string;
   basePrice?: string;
+  onclick?: () => void;
+  foods?: Food;
 };
 
 export const DiscountCard = ({
@@ -12,13 +17,14 @@ export const DiscountCard = ({
   name,
   price,
   basePrice,
-}: Food) => {
-  // const salePrice = basePrice /100 * discount
+  onclick,
+  foods,
+}: FoodDiscount) => {
   return (
-    <div className="w-[282px] h-[253px] p-4">
+    <div onClick={onclick} className="w-[282px] h-[253px] py-4">
       <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative ">
-        {" "}
         {image}
+        <OrderDialog foods={foods} />
         <div className="w-[69px] h-[35px] bg-green-500 border border-white rounded-2xl z-50 absolute right-4 top-4 ">
           <p className="font-semibold text-white text-lg items-center justify-center flex ">
             {discount}%

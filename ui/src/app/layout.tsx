@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "@/providers/AuthProvider";
 import { Toaster } from "sonner";
-// import { UserProvider } from "@/providers/UserProvider";
+import { OrderProvider } from "@/providers/OrderProvider";
 
 const RootLayout = ({
   children,
@@ -15,12 +15,12 @@ const RootLayout = ({
     <html lang="en">
       <body className="flex flex-col min-h-screen">
         <AuthProvider>
-          {/* <UserProvider> */}
+          <OrderProvider>
           <Header />
           <main className="flex-grow ">{children}</main>
           <Toaster />
           <Footer />
-          {/* </UserProvider> */}
+          </OrderProvider>
         </AuthProvider>
       </body>
     </html>

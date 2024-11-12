@@ -1,11 +1,15 @@
-"use client";
-import { useState } from "react";
 import { Button } from "./ui/button";
+import { cn } from "@/lib/utils";
 
-export const Quantity = () => {
-  const [quantity, setQuantity] = useState(0);
+type QuantityProps = {
+  quantity: number;
+  setQuantity: (_newQuantity: number) => void;
+  className: string;
+};
+
+export const Quantity = ({ quantity, setQuantity, className }: QuantityProps) => {
   return (
-    <div className="flex items-center mt-2">
+    <div className={cn(`flex items-center mt-2 mb-4`, className)}>
       <Button
         className="bg-[#18BA51] w-[45px] h-10 rounded-md"
         aria-label="Decrease quantity"
