@@ -21,13 +21,12 @@ export type OrderSelectOptions = {
 export const OrderDetail = () => {
   // const { currentUser } = useAuthcontext();
   const { order } = useOrder();
-  console.log(order);
 
   const orderItem = order.orderItems.map((item) => {
     return {
-      foodId:item._id,
-      quantity:item.quantity
-    }
+      foodId: item._id,
+      quantity: item.quantity,
+    };
   });
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -43,16 +42,15 @@ export const OrderDetail = () => {
 
   const createOrder = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/orders", {
+      await axios.post("http://localhost:8000/orders", {
         userId: "672c16f7bc261e4121551328",
         district: selectedOptions.district,
         khoroo: selectedOptions.khoroo,
         apartment: selectedOptions.apartment,
         phoneNumber: selectedOptions.phoneNumber,
-        orderItems: orderItem
+        orderItems: orderItem,
       });
       toast.success("Huselt amjilttai");
-      console.log(response);
     } catch (error) {
       console.log(error);
     }

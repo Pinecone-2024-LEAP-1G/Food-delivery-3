@@ -1,7 +1,7 @@
 import { OrderModel } from "../../model/order";
 import { Request, Response } from "express";
 import OrderDetailModel, { OrderDetail } from "../../model/orderDetail";
-import FoodModel from "../../model/food";
+import { Food } from "../../model/food";
 import currency from "currency.js";
 
 type BodyType = {
@@ -19,46 +19,44 @@ export const createOrder = async (
 ) => {
   const { userId, orderItems, district, khoroo, apartment, phoneNumber } =
     req.body;
-   
-  
-    
-
 
   try {
     const newOrderItems = await OrderDetailModel.insertMany<OrderDetail>(
       orderItems
     );
-    
-    const populatedOrderItems = await OrderDetailModel.find<OrderDetail>({
-      _id: { $in: orderItems.map((item) => item.foodId) },
-    }).populate("foodId");
 
-
-    console.log(populatedOrderItems);
-   
+    const populatedOrderItems = await OrderDetailModel.find({
+      _id: { $in: newOrderItems.map((item) => item._id) },
+    }).populate<{ foodId: Food }>("foodId");
 
     const newOrderItemsId = newOrderItems.map((item) => item._id);
 
-    // const totalPrice = populatedOrderItems.reduce((acc, curr) => {
- 
-    //   return currency(`${curr.foodId.price}`).multiply(`${curr.quantity}`).add(acc)
-    //     .value;
-    // }, 0);
+    const totalPrice = populatedOrderItems.reduce((acc, curr) => {
+      const basePrice = currency(curr.foodId.price);
+      const quantity = curr.quantity;
+
+      const discountedPrice = curr.foodId.salePercent
+        ? basePrice.multiply(1 - curr.foodId.salePercent / 100)
+        : basePrice;
+
+      const itemTotal = discountedPrice.multiply(quantity).value;
+      return currency(acc).add(itemTotal).value;
+    }, 0);
 
     const order = await new OrderModel({
-      userId: userId,
-      // totalPrice: totalPrice,
-      process: process,
-      district: district,
-      khoroo: khoroo,
-      apartment: apartment,
-      phoneNumber: phoneNumber,
+      userId,
+      totalPrice,
+      process: "Pending",
+      district,
+      khoroo,
+      apartment,
+      phoneNumber,
       orderItem: newOrderItemsId,
     }).save();
 
     res.status(200).json(order);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(400).json(error);
   }
 };

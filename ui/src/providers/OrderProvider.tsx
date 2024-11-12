@@ -63,20 +63,18 @@ const OrderProvider = ({ children }: { children: ReactNode }) => {
   }, [order]);
 
   const addOrderItem = (newOrderItem: OrderItem) => {
-
-    
     setOrder((prevOrder) => {
       const existingItem = prevOrder.orderItems.find(
         (order) => order._id === newOrderItem._id
       );
-  
+
       if (existingItem) {
         return {
           ...prevOrder,
           orderItems: prevOrder.orderItems.map((order) =>
             order._id === newOrderItem._id
               ? { ...order, quantity: order.quantity + newOrderItem.quantity }
-              : order 
+              : order
           ),
         };
       } else {
@@ -90,7 +88,12 @@ const OrderProvider = ({ children }: { children: ReactNode }) => {
       }
     });
   };
-  
+
+  //   const updateItemQuantity=(newOrderItem: OrderItem)=>{
+  // setOrder((prevOrder)=> {
+  //   const updateQuantity = prevOrder.orderItems.find((order)=> order._id === newOrderItem._id)
+  // })
+  //   }
 
   const removeFromCart = (orderId: string) => {
     setOrder((prevOrder) => ({

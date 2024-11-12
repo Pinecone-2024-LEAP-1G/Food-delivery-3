@@ -4,24 +4,15 @@ type FoodCardType = {
   name: string;
   image?: string;
   price: string;
-  basePrice?: string;
-
   foodId: string;
 };
 
-export const FoodCard = ({
-  image,
-  name,
-  price,
-  foodId,
-}: FoodCardType) => {
+export const FoodCard = ({ image, name, price, foodId }: FoodCardType) => {
   return (
     <div className="w-[282px] h-[253px] py-4">
       <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative ">
         {image}
-        <OrderDialog
-          foodId={foodId}
-        />
+        <OrderDialog foodId={foodId} />
       </div>
       <div className="mt-4">
         <p className="font-semibold text-xl leading-5">{name}</p>

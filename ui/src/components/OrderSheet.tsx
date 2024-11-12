@@ -20,8 +20,12 @@ export const OrderSheet = () => {
   const { order } = useOrder();
   const router = useRouter();
   const [totalPrice, setTotalPrice] = useState(0);
-  // const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(0);
   const { removeFromCart } = useOrder();
+
+  const updateQuantity = () => {
+    setQuantity(quantity);
+  };
 
   useEffect(() => {
     const sum: number = order.orderItems.reduce((acc, item) => {
@@ -29,10 +33,6 @@ export const OrderSheet = () => {
     }, 0);
     setTotalPrice(sum);
   }, [order]);
-
-  const updateQuantity = (_quantity: number) => {
-    // setQuantity(quantity);
-  };
 
   return (
     <Sheet>
@@ -44,7 +44,7 @@ export const OrderSheet = () => {
           </Button>
         </div>
       </SheetTrigger>
-      <SheetContent className="bg-white w-[500px] flex flex-col">
+      <SheetContent className="bg-white w-[500px] flex flex-col overflow-y-auto max-h-screen">
         <SheetHeader>
           <SheetTitle className="text-center">Таны сагс</SheetTitle>
         </SheetHeader>

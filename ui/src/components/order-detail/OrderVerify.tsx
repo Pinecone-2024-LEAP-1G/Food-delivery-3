@@ -19,9 +19,16 @@ const OrderVerify = ({
   const { order } = useOrder();
 
   useEffect(() => {
-    const sum: number = order.orderItems.reduce((acc, item) => {
-      return acc + Number(item.price) * item.quantity;
+    const sum = order.orderItems.reduce((acc, item) => {
+      const basePrice = Number(item.price);
+      const discountedPrice =
+        item.salePercent && item.salePercent > 0
+          ? basePrice * (1 - item.salePercent / 100)
+          : basePrice;
+
+      return acc + discountedPrice * item.quantity;
     }, 0);
+
     setTotalPrice(sum);
   }, [order, setTotalPrice]);
 
@@ -38,32 +45,32 @@ const OrderVerify = ({
         </div>
       </div>
 
-      <div className="w-[432px] h-[612px] shadow-custom rounded-lg mt-6">
+      <div className="w-[432px] h-[612px] shadow-custom rounded-lg mt-6 overflow-y-scroll">
         <div className="pt-6"></div>
-        <div className="border-[1px] w-[384px] border-[#D6D8DB]  mx-auto "></div>
+        <div className="border-[1px] w-[384px] border-[#D6D8DB] mx-auto"></div>
 
-        {order.orderItems.map((item) => {
-          return (
-            <div
-              key={item._id}
-              className="w-[384px] h-[121px] mt-4 flex gap-4 px-6 "
-            >
+        <div className="px-6">
+          {order.orderItems.map((item) => (
+            <div key={item._id} className="flex gap-4 mt-4">
               <Image src="/pizza.png" alt="pizza" width={184} height={121} />
-              <div className="w-[184px] h-[121px]">
+              <div className="w-[184px]">
                 <h1 className="font-semibold text-[18px]">{item.name}</h1>
-                <p className="font-semibold text-[#18BA51] text-[18px]"></p>
-                <p className="text-[#767676] w-[184px] h-[57px] font-normal text-[16px]">
+                <p className="font-semibold text-[#18BA51] text-[18px]">
+                  {item.price}₮
+                </p>
+                <p className="text-[#767676] font-normal text-[16px]">
                   {item.ingredient}
                 </p>
               </div>
             </div>
-          );
-        })}
+          ))}
+        </div>
 
-        <div className="border-[1px] w-[384px] border-[#D6D8DB]  mx-auto mt-4 "></div>
+        <div className="border-[1px] w-[384px] border-[#D6D8DB] mx-auto mt-4"></div>
 
-        <div className="w-[384px] h-[54px] items-end  mx-auto flex justify-end">
-          <div className="w-[187px] h-[54px]">
+        {/* Total Price Section */}
+        <div className="w-[384px] mx-auto flex justify-between py-4">
+          <div>
             <p className="font-normal text-[18px] text-[#5E6166]">
               Нийт төлөх дүн
             </p>
@@ -71,15 +78,12 @@ const OrderVerify = ({
               {totalPrice}₮
             </p>
           </div>
-
-          <div>
-            <button
-              onClick={createOrder}
-              className="py-2 px-4 bg-[#EEEFF2] w-[187px] text-[#D6D8DB] flex justify-center items-center h-12 rounded hover:bg-[#18BA51] "
-            >
-              Захиалах
-            </button>
-          </div>
+          <button
+            onClick={createOrder}
+            className="py-2 px-4 bg-[#EEEFF2] text-[#D6D8DB] rounded hover:bg-[#18BA51]"
+          >
+            Захиалах
+          </button>
         </div>
       </div>
     </div>

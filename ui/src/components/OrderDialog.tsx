@@ -22,8 +22,6 @@ export type FoodDetail = {
   foodId: string;
 };
 
-
-
 export const OrderDialog = ({ onclick, foodId }: FoodDetail) => {
   const [foodById, setFoodById] = useState<Food | undefined>(undefined);
   const [quantity, setQuantity] = useState(0);
@@ -46,7 +44,8 @@ export const OrderDialog = ({ onclick, foodId }: FoodDetail) => {
       }
     };
     getFood();
-  }, []);
+  }, [foodId]);
+
   const orderDetails = () => {
     if (quantity === 0) {
       return toast.error("Захиалгын тоог бөглөнү үү");
@@ -69,21 +68,16 @@ export const OrderDialog = ({ onclick, foodId }: FoodDetail) => {
     const orderItem: OrderItem = {
       _id: foodById._id,
       name: foodById.name,
-      image: foodById.image || "/pizza.png", 
+      image: foodById.image || "/pizza.png",
       ingredient: foodById.ingredient,
       price: foodById.price,
       categoryId: foodById.categoryId,
       createdAt: foodById.createdAt,
       updatedAt: foodById.updatedAt,
-      salePercent: foodById.salePercent || 0, 
+      salePercent: foodById.salePercent || 0,
       quantity: quantity,
     };
 
-    // if (orderItem) {
-    //   localStorage.setItem("orderDetails", JSON.stringify(orderItem));
-    // } else {
-    //   localStorage.removeItem("orderDetails");
-    // }
     addOrderItem(orderItem);
 
     toast.success("Захиалсан хоол нэмэгдлээ");

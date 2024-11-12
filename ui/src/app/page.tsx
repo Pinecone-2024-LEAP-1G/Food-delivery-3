@@ -11,18 +11,6 @@ import MenuImage from "@/components/MenuImage";
 
 const Home = () => {
   const [foods, setFoods] = useState<Food[]>([]);
-  const [foodDetail, setFoodDetail] = useState<Food | undefined>(undefined);
-  const [loading, setLoading] = useState(false);
-  const getFood = async (id: string) => {
-    try {
-      const response = await axios.get<{ food: Food }>(
-        `http://localhost:8000/food/${id}`
-      );
-      setFoodDetail(response.data.food);
-    } catch (error) {
-      console.error("Error fetching food detail:", error);
-    }
-  };
 
   const getFoods = async () => {
     try {
@@ -47,7 +35,6 @@ const Home = () => {
   useEffect(() => {
     getFoods();
   }, []);
-  if (!foods && !foodDetail) return null;
   return (
     <div className="container mx-auto">
       <MenuImage />
@@ -62,7 +49,7 @@ const Home = () => {
               discount={food.salePercent}
               price={food.price}
               name={food.name}
-              onclick={() => getFood(food._id)}
+              foodId={food._id}
             />
           ))}
         </div>
@@ -86,8 +73,7 @@ const Home = () => {
               key={food._id}
               name={food.name}
               price={food.price}
-              onclick={() => getFood(food._id)}
-              foodDetail={foodDetail}
+              foodId={food._id}
             />
           ))}
         </div>
@@ -99,8 +85,7 @@ const Home = () => {
               key={food._id}
               name={food.name}
               price={food.price}
-              onclick={() => getFood(food._id)}
-              foods={foodDetail}
+              foodId={food._id}
             />
           ))}
         </div>
