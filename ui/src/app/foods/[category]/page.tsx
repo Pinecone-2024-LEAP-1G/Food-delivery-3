@@ -38,12 +38,12 @@ const FoodCategoryPage = () => {
   }, []);
 
   return (
-    <div className="container h-[107px] flex items-center mx-auto flex-col mt-8 ">
+    <div className="container h-[107px] flex items-center mx-auto flex-col mt-8 flex-grow  ">
       <div className=" flex container justify-center gap-7 ">
         <Link href="/foods/breakfast">
           <p
             className={`px-4 py-2 w-[280px] h-11  border-[2px] border-[#D6D8DB] flex justify-center items-center rounded-lg ${category ===
-              "breakfast" && "bg-green-500"}`}
+              "breakfast" && "bg-green-500  text-white"}`}
           >
             Breakfast
           </p>
@@ -51,7 +51,7 @@ const FoodCategoryPage = () => {
         <Link href="/foods/soup">
           <p
             className={`px-4 py-2 w-[280px] h-11  border-[2px] border-[#D6D8DB] flex justify-center items-center rounded-lg ${category ===
-              "soup" && "bg-green-500"}`}
+              "soup" && "bg-green-500  text-white"}`}
           >
             Soup
           </p>
@@ -59,7 +59,7 @@ const FoodCategoryPage = () => {
         <Link href="/foods/main">
           <p
             className={`px-4 py-2 w-[280px] h-11  border-[2px] border-[#D6D8DB] flex justify-center items-center rounded-lg ${category ===
-              "main" && "bg-green-500"}`}
+              "main" && "bg-green-500  text-white"}`}
           >
             Main Course
           </p>
@@ -67,14 +67,14 @@ const FoodCategoryPage = () => {
         <Link href="/foods/dessert">
           <p
             className={`px-4 py-2 w-[280px] h-11  border-[2px] border-[#D6D8DB] flex justify-center items-center rounded-lg ${category ===
-              "dessert" && "bg-green-500"}`}
+              "dessert" && "bg-green-500 text-white"}`}
           >
             Dessert
           </p>
         </Link>
       </div>
 
-      <div className="flex container gap-6 mt-9">
+      <div className="flex max-w-[1200px] flex-wrap items-center gap-6 mt-14 ">
         {foods?.map((food) => {
           return (
             <FoodCard

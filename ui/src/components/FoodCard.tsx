@@ -9,7 +9,7 @@ type FoodCardType = {
 
 export const FoodCard = ({ image, name, price, foodId }: FoodCardType) => {
   return (
-    <div className="w-[282px] h-[253px] py-4">
+    <div className="w-[282px] h-[253px] py-4 ">
       <div
         style={{
           backgroundImage: `url(${image})`,
