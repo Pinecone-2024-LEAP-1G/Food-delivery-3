@@ -10,8 +10,10 @@ type FoodCardType = {
 export const FoodCard = ({ image, name, price, foodId }: FoodCardType) => {
   return (
     <div className="w-[282px] h-[253px] py-4">
-      <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative ">
-        {image}
+      <div
+        style={{ backgroundImage: `url(${image})` }}
+        className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative bg-cover "
+      >
         <OrderDialog foodId={foodId} />
       </div>
       <div className="mt-4">

@@ -12,7 +12,7 @@ import { EmailInput } from "@/components/EmailInput";
 import { PasswordInput } from "@/components/PasswordInput";
 import { toast } from "sonner";
 import axios from "axios";
-import { useAuthcontext, User } from "@/providers/AuthProvider";
+import { AuthResponse, useAuthcontext } from "@/providers/AuthProvider";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
@@ -31,7 +31,7 @@ const SignInPage = () => {
 
   const signIn = async () => {
     try {
-      const { data } = await axios.post<User>(
+      const { data } = await axios.post<AuthResponse>(
         "http://localhost:8000/users/sign-in",
         {
           email: email,

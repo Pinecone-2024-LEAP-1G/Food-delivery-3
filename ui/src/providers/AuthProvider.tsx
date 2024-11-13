@@ -8,6 +8,11 @@ import {
   useEffect,
 } from "react";
 
+export type AuthResponse = {
+  accessToken: string;
+  user: User;
+};
+
 export type User = {
   _id: string;
   userName: string;
@@ -15,8 +20,8 @@ export type User = {
 };
 
 type Auth = {
-  currentUser: User | null;
-  signin: (_user: User) => void;
+  currentUser: AuthResponse | null;
+  signin: (_user: AuthResponse) => void;
   isLoading: boolean;
 };
 
@@ -29,7 +34,7 @@ const Authcontext = createContext<Auth>({
 export const useAuthcontext = () => useContext(Authcontext);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<AuthResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -41,10 +46,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(false);
   }, [isLoading]);
 
-  const signin = async (user: User) => {
-    localStorage.setItem("user", JSON.stringify(user));
+  const signin = async (response: AuthResponse) => {
+    localStorage.setItem("user", JSON.stringify(response));
 
-    setCurrentUser(user);
+    setCurrentUser(response);
     setIsLoading(false);
   };
 

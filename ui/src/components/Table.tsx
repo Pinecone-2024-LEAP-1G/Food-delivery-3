@@ -1,5 +1,6 @@
 "use client";
 
+import { Food } from "@/app/admin/page";
 import {
   Table,
   TableBody,
@@ -14,7 +15,12 @@ import { useEffect, useState } from "react";
 import { IoMdMore } from "react-icons/io";
 
 type Order = {
-  userId: string;
+  _id: string;
+  userId: {
+    _id: string;
+    email: string;
+    userName: string;
+  };
   orderNumber: number;
   process: string;
   district: string;
@@ -23,16 +29,19 @@ type Order = {
   phoneNumber: number;
   orderStatus: "Ordered" | "PreparingToShip" | "Shipped" | "Delivered";
   totalPrice: string;
-  orderItem: string;
+  orderItem: {
+    foodId: Food;
+  };
 };
 
 export const TableTab = () => {
   const [orders, setOrders] = useState<Order[]>([]);
-  console.log(orders);
 
   const getOrders = async () => {
     try {
-      const response = await axios.get<Order[]>("http://localhost:8000/orders");
+      const response = await axios.get<{ orders: Order[] }>(
+        "http://localhost:8000/orders"
+      );
       console.log(response.data.orders);
       setOrders(response.data.orders);
     } catch (error) {
@@ -43,6 +52,7 @@ export const TableTab = () => {
   useEffect(() => {
     getOrders();
   }, []);
+
   return (
     <Table>
       <TableHeader>
@@ -56,38 +66,46 @@ export const TableTab = () => {
         </TableRow>
       </TableHeader>
       <TableBody className="bg-[white] rounded-b-xl ">
-        {orders.map((invoice) => (
-          <TableRow className="h-[72px]" key={invoice._id}>
+        {orders.map((order) => (
+          <TableRow className="h-[72px]" key={order._id}>
             <div className="px-4 flex w-[259px] gap-2">
               <Image src="/pizza.png" alt="" width={40} height={40} />
               <div className="flex flex-col">
-                <p>{}</p>
+                <p>{order.orderNumber}</p>
                 <p className="text-[#3F4145]">
-                  {invoice.orderItem.foodId.name}
+                  {order.orderItem.map((item) => (
+                    <div key={item._id}>
+                      <p className="text-[#3F4145]">{item.foodId.name}</p>
+                      <p></p>
+                    </div>
+                  ))}
                 </p>
               </div>
-              <div></div>
             </div>
             <TableCell>
-              <p>phone number</p>
-              <p className="text-[#3F4145]">username</p>
+              <p>{order.phoneNumber}</p>
+              <p className="text-[#3F4145]">{order.userId.userName}</p>
             </TableCell>
             <TableCell>
               <div className="flex gap-4">
                 <div className="flex flex-col">
-                  <p>price</p>
+                  <p>{order?.totalPrice}</p>
                   <p>moment</p>
                 </div>
-                <p className="flex items-center ">tuluw</p>
+                <p className="flex items-center">{order.orderStatus}</p>
               </div>
             </TableCell>
-            <TableCell className="text-right w-fit">address</TableCell>
-            <TableCell className="text-right ">
-              <p className="w-[73px] h-[24px] rounded-lg min-w-[24px] bg-green-200 flex justify-center items-center ml-24 ">
-                progress
+            <TableCell className="text-right w-fit">
+              {order.apartment}
+            </TableCell>
+            <TableCell className="text-right">
+              <p className="w-[73px] h-[24px] rounded-lg min-w-[24px] bg-green-200 flex justify-center items-center ml-24">
+                {order.orderStatus}
               </p>
             </TableCell>
-            <IoMdMore className="flex mt-8" />
+            <TableCell className="relative text-right">
+              <IoMdMore className="flex mt-8 cursor-pointer" />
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

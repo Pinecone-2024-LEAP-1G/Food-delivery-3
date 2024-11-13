@@ -20,8 +20,10 @@ export const DiscountCard = ({
   discountedPrice = Number(price) * ((100 - discount) / 100);
   return (
     <div className="w-[282px] h-[253px] py-4">
-      <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative ">
-        {image}
+      <div
+        style={{ backgroundImage: `url(${image})` }}
+        className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative bg-cover"
+      >
         <OrderDialog foodId={foodId} />
         <div className="w-[69px] h-[35px] bg-green-500 border border-white rounded-2xl z-50 absolute right-4 top-4 ">
           <p className="font-semibold text-white text-lg items-center justify-center flex ">

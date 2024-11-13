@@ -81,7 +81,7 @@ const Page = () => {
   });
 
   return (
-    <div className="flex mx-auto w-[1440px] ">
+    <div className="flex mx-auto w-[1440px] h-[100vh]">
       <Categories
         categories={filteredCategories}
         setCategoryName={setCategoryName}
@@ -104,10 +104,11 @@ const Page = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {categoryFoods.map((item) => (
               <EditableCard
-                foods={foods}
                 key={item._id}
                 name={item.name}
                 price={item.price}
+                foodId={item._id}
+                image={item.image}
               />
             ))}
           </div>

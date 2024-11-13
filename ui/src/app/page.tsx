@@ -25,11 +25,11 @@ const Home = () => {
 
   const saleFoods = foods.filter((food) => food.salePercent > 0);
   const mainCourses = foods.filter(
-    (food) => food.categoryId.categoryName === "Main Course"
+    (food) => food.categoryId.categoryName === "main"
   );
-  const soups = foods.filter((food) => food.categoryId.categoryName === "Soup");
+  const soups = foods.filter((food) => food.categoryId.categoryName === "soup");
   const desserts = foods.filter(
-    (food) => food.categoryId.categoryName === "Dessert"
+    (food) => food.categoryId.categoryName === "dessert"
   );
 
   useEffect(() => {
@@ -50,6 +50,7 @@ const Home = () => {
               price={food.price}
               name={food.name}
               foodId={food._id}
+              image={food.image}
             />
           ))}
         </div>
@@ -62,6 +63,7 @@ const Home = () => {
               name={food.name}
               price={food.price}
               foodId={food._id}
+              image={food.image}
             />
           ))}
         </div>

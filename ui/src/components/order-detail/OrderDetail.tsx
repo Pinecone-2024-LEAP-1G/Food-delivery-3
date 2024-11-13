@@ -7,6 +7,7 @@ import { OrderDetailAddressInfo } from "./OrderDetailAddressInfo";
 // import { useAuthcontext } from "@/providers/AuthProvider";
 import { useOrder } from "@/providers/OrderProvider";
 import { toast } from "sonner";
+import { useAuthcontext } from "@/providers/AuthProvider";
 
 export type OrderSelectOptions = {
   userId: string;
@@ -19,7 +20,8 @@ export type OrderSelectOptions = {
 };
 
 export const OrderDetail = () => {
-  // const { currentUser } = useAuthcontext();
+  const { currentUser } = useAuthcontext();
+
   const { order } = useOrder();
 
   const orderItem = order.orderItems.map((item) => {
@@ -42,14 +44,17 @@ export const OrderDetail = () => {
 
   const createOrder = async () => {
     try {
-      await axios.post("http://localhost:8000/orders", {
-        userId: "672c16f7bc261e4121551328",
-        district: selectedOptions.district,
-        khoroo: selectedOptions.khoroo,
-        apartment: selectedOptions.apartment,
-        phoneNumber: selectedOptions.phoneNumber,
-        orderItems: orderItem,
-      });
+      await axios.post(
+        "http://localhost:8000/orders",
+        {
+          district: selectedOptions.district,
+          khoroo: selectedOptions.khoroo,
+          apartment: selectedOptions.apartment,
+          phoneNumber: selectedOptions.phoneNumber,
+          orderItems: orderItem,
+        },
+        { headers: { authorization: `Bearer ${currentUser?.accessToken}` } }
+      );
       toast.success("Huselt amjilttai");
     } catch (error) {
       console.log(error);
