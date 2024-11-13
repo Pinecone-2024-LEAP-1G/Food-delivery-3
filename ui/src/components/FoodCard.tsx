@@ -2,7 +2,7 @@ import { Food } from "@/app/admin/page";
 import { OrderDialog } from "./OrderDialog";
 
 type FoodCardType = {
-  name: string;
+  name?: string;
   image?: string;
   price: string;
   basePrice?: string;
