@@ -43,7 +43,7 @@ const FoodCategoryPage = () => {
         <Link href="/foods/breakfast">
           <p
             className={`px-4 py-2 w-[280px] h-11  border-[2px] border-[#D6D8DB] flex justify-center items-center rounded-lg ${category ===
-              "breakfast" && "bg-[#18BA51] text-white"}`}
+              "breakfast" && "bg-green-500"}`}
           >
             Breakfast
           </p>
@@ -51,7 +51,7 @@ const FoodCategoryPage = () => {
         <Link href="/foods/soup">
           <p
             className={`px-4 py-2 w-[280px] h-11  border-[2px] border-[#D6D8DB] flex justify-center items-center rounded-lg ${category ===
-              "soup" && "bg-[#18BA51] text-white"}`}
+              "soup" && "bg-green-500"}`}
           >
             Soup
           </p>
@@ -59,7 +59,7 @@ const FoodCategoryPage = () => {
         <Link href="/foods/main">
           <p
             className={`px-4 py-2 w-[280px] h-11  border-[2px] border-[#D6D8DB] flex justify-center items-center rounded-lg ${category ===
-              "main" && "bg-[#18BA51] text-white"}`}
+              "main" && "bg-green-500"}`}
           >
             Main Course
           </p>
@@ -67,14 +67,14 @@ const FoodCategoryPage = () => {
         <Link href="/foods/dessert">
           <p
             className={`px-4 py-2 w-[280px] h-11  border-[2px] border-[#D6D8DB] flex justify-center items-center rounded-lg ${category ===
-              "dessert" && "bg-[#18BA51] text-white"}`}
+              "dessert" && "bg-green-500"}`}
           >
             Dessert
           </p>
         </Link>
       </div>
 
-      <div className="flex container gap-6 mt-9 ml-[330px]">
+      <div className="flex container gap-6 mt-9">
         {foods?.map((food) => {
           return (
             <FoodCard key={food._id} name={food.name} price={food.price} />
