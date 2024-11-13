@@ -8,11 +8,9 @@ export const getFoodsByCategoryName = async (
   response: Response
 ) => {
   const { categoryName } = request.params;
-  console.log({ categoryName });
 
   try {
     const category = await CategoryModel.findOne({ categoryName });
-    console.log(category);
 
     if (!category) {
       response.status(400).json({ message: "category not found" });

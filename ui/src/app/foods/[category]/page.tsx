@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FoodCard } from "@/components/FoodCard";
 import { Food } from "@/app/admin/page";
-import { log } from "console";
 
 export type FoodSelectMenu = {
   name: string;
@@ -18,32 +17,10 @@ export type FoodCategoryName = {
   categoryName: string;
 };
 
-const handleClick = () => {
-  console.log("Food card clicked!");
-};
-
 const FoodCategoryPage = () => {
   const params = useParams();
   const { category } = params;
   const [foods, setFoods] = useState<Food[]>([]);
-  const [categoryName, setCategoryName] = useState<FoodCategoryName[]>([]);
-  console.log(categoryName);
-
-  useEffect(() => {
-    const getCategoryName = async () => {
-      try {
-        const { data } = await axios.get<{ categoryName: FoodCategoryName[] }>(
-          `http://localhost:8000/category`
-        );
-
-        setCategoryName(data.categoryName);
-        console.log(data.categoryName);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getCategoryName();
-  });
 
   useEffect(() => {
     const getFoods = async () => {
@@ -52,7 +29,6 @@ const FoodCategoryPage = () => {
           `http://localhost:8000/food/category/${category}`
         );
         setFoods(data.foods);
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -101,12 +77,7 @@ const FoodCategoryPage = () => {
       <div className="flex container gap-6 mt-9">
         {foods?.map((food) => {
           return (
-            <FoodCard
-              onclick={handleClick}
-              key={food._id}
-              name={food.name}
-              price={food.price}
-            />
+            <FoodCard key={food._id} name={food.name} price={food.price} />
           );
         })}
       </div>
