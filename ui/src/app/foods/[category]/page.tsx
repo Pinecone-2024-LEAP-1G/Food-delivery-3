@@ -18,31 +18,38 @@ export type FoodCategoryName = {
   categoryName: string;
 };
 
+const handleClick = () => {
+  console.log("Food card clicked!");
+};
+
 const FoodCategoryPage = () => {
   const params = useParams();
   const { category } = params;
   const [foods, setFoods] = useState<Food[]>([]);
-  const [categoryName, setCategoryName] = useState<categoryName[]>([]);
+  const [categoryName, setCategoryName] = useState<FoodCategoryName[]>([]);
+  console.log(categoryName);
 
   useEffect(() => {
     const getCategoryName = async () => {
       try {
-        const { data } = await axios.get<{ categoryName: Name[] }>(
+        const { data } = await axios.get<{ categoryName: FoodCategoryName[] }>(
           `http://localhost:8000/category`
         );
+
         setCategoryName(data.categoryName);
-        console.log(data);
+        console.log(data.categoryName);
       } catch (error) {
         console.log(error);
       }
     };
+    getCategoryName();
   });
 
   useEffect(() => {
     const getFoods = async () => {
       try {
         const { data } = await axios.get<{ foods: Food[] }>(
-          `http://localhost:8000/food/${category}`
+          `http://localhost:8000/food/category/${category}`
         );
         setFoods(data.foods);
         console.log(data);
@@ -55,7 +62,7 @@ const FoodCategoryPage = () => {
   }, []);
 
   return (
-    <div className="container h-[107px] flex items-center mx-auto flex-col">
+    <div className="container h-[107px] flex items-center mx-auto flex-col mt-8 ">
       <div className=" flex container justify-center gap-7 ">
         <Link href="/foods/breakfast">
           <p
@@ -90,10 +97,16 @@ const FoodCategoryPage = () => {
           </p>
         </Link>
       </div>
-      <div>
+
+      <div className="flex container gap-6 mt-9">
         {foods?.map((food) => {
           return (
-            <FoodCard key={food._id} name={food.name} price={food.price} />
+            <FoodCard
+              onclick={handleClick}
+              key={food._id}
+              name={food.name}
+              price={food.price}
+            />
           );
         })}
       </div>
