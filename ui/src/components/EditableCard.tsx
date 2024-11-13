@@ -11,7 +11,7 @@ export const EditableCard = ({ name, price, foodId, image }: EditCard) => {
   return (
     <div className="flex flex-col p-4 ">
       <div
-        style={{ backgroundImage: `url(${image})` }}
+        style={{ backgroundImage: `url(${image})`, backgroundPosition: "center" }}
         className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative justify-center items-center bg-cover"
       >
         <OrderDialog foodId={foodId} />

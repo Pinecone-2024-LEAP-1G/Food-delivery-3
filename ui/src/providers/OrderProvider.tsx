@@ -31,11 +31,13 @@ const CartContext = createContext<{
   addOrderItem: (_newOrderItem: OrderItem) => void;
   removeFromCart: (_orderId: string) => void;
   clearCart: () => void;
+  updateItemQuantity:(_orderId: string, _newQuantity: number) => void
 }>({
   order: { orderItems: [] },
   addOrderItem: () => {},
   removeFromCart: () => {},
   clearCart: () => {},
+  updateItemQuantity: ()=>{}
 });
 
 const useOrder = () => useContext(CartContext);
@@ -89,11 +91,26 @@ const OrderProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  //   const updateItemQuantity=(newOrderItem: OrderItem)=>{
-  // setOrder((prevOrder)=> {
-  //   const updateQuantity = prevOrder.orderItems.find((order)=> order._id === newOrderItem._id)
-  // })
-  //   }
+  const updateItemQuantity = (orderId: string, newQuantity: number) => {
+    setOrder((prevOrder) => {
+      const existingItem = prevOrder.orderItems.find((order) => order._id === orderId);
+  
+      if (existingItem) {
+        const updatedItems = prevOrder.orderItems.map((item) =>
+          item._id === orderId ? { ...item, quantity: newQuantity } : item
+        );
+  
+        return {
+          ...prevOrder,
+          orderItems: updatedItems,
+        };
+      }
+  
+      return prevOrder;
+    });
+  };
+  
+    
 
   const removeFromCart = (orderId: string) => {
     setOrder((prevOrder) => ({
@@ -108,7 +125,7 @@ const OrderProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <CartContext.Provider
-      value={{ order, addOrderItem, removeFromCart, clearCart }}
+      value={{ order, addOrderItem, removeFromCart, clearCart, updateItemQuantity }}
     >
       {children}
     </CartContext.Provider>

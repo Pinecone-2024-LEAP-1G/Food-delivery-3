@@ -5,34 +5,25 @@ import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import * as React from "react";
-import { Category } from "./AddCategory";
+import { Category } from "../app/admin/page";
 import axios from "axios";
 import { toast } from "sonner";
 
-export const ProfileForm = ({ className }: React.ComponentProps<"form">) => {
+
+type Props ={
+  categories:Category[],
+  className?: string
+  getFoods: ()=> void
+}
+
+export const ProfileForm = ( {categories, className, getFoods}: Props) => {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [price, setPrice] = useState("");
   const [discounted, setDiscounted] = useState(false);
   const [percent, setPercent] = useState("");
-  const [categories, setCategories] = useState<Category[]>([]);
   const [categoryId, setCategoryId] = useState("");
-
-  const getCategories = async () => {
-    try {
-      const response = await axios.get<Category[]>(
-        "http://localhost:8000/category"
-      );
-      setCategories(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  React.useEffect(() => {
-    getCategories();
-  }, []);
+const [image, setImage] = useState("")
 
   const resetValues = () => {
     setName("");
@@ -40,13 +31,14 @@ export const ProfileForm = ({ className }: React.ComponentProps<"form">) => {
     setPrice("");
     setPercent("");
     setCategoryId("");
+    setImage("")
   };
 
   const createFood = async () => {
     try {
       const response = await axios.post("http://localhost:8000/food", {
         name: name,
-        image: "",
+        image:image,
         ingredient: ingredients,
         price: price,
         categoryId: categoryId,
@@ -55,6 +47,7 @@ export const ProfileForm = ({ className }: React.ComponentProps<"form">) => {
       toast.success("amjilttai burtgegdlee");
       console.log(response);
       resetValues();
+      getFoods()
     } catch (error) {
       console.log(error);
       toast.error("medeelel buruu baina");
@@ -64,7 +57,7 @@ export const ProfileForm = ({ className }: React.ComponentProps<"form">) => {
   const clickAdd = () => {
     if (!name || !ingredients || !price || !categories) {
       toast.error("bugluugui medeelel uldsen baina");
-    } else createFood();
+    } else createFood() ;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -142,12 +135,7 @@ export const ProfileForm = ({ className }: React.ComponentProps<"form">) => {
       <div>
         <Label htmlFor="discounted">Хоолны зураг</Label>
         <div className="bg-[#D6D7DC] w-[284px] h-[122px] items-center justify-center mt-2 rounded-md p-4">
-          <p className=" text-[#525252] flex items-center justify-center ">
-            Add image for the food
-          </p>
-          <Button className="bg-[#393939]  h-10 flex justify-center items-center mt-2 text-white">
-            Add image
-          </Button>
+          <Input onChange={(e)=> setImage(e.target.value)} placeholder="Zuragnii link oruulna uu" className=" text-[#525252] flex items-center justify-center "/>
         </div>
       </div>
       <div className="flex ml-auto">

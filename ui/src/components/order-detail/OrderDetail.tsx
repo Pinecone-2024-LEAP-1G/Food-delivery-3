@@ -20,8 +20,12 @@ export type OrderSelectOptions = {
 
 export const OrderDetail = () => {
   const { currentUser } = useAuthcontext();
+const [value, setValue]= useState(false)
+console.log(value);
 
-  const { order } = useOrder();
+
+
+  const { order, clearCart} = useOrder();
 
   const orderItem = order.orderItems.map((item) => {
     return {
@@ -63,6 +67,7 @@ export const OrderDetail = () => {
         phoneNumber: "",
         paymentType: null,
       });
+      clearCart()
       toast.success("Huselt amjilttai");
     } catch (error) {
       console.log(error);
@@ -81,13 +86,18 @@ export const OrderDetail = () => {
       toast.error("buh medeelliig buglunu uu!");
     } else {
       createOrder();
+      
     }
   };
+
 
   const handleSelectColor = (type: string, value: string) => {
     setSelectedOptions((prev) => {
       return { ...prev, [type]: value };
     });
+
+  if(selectedOptions){setValue(true)}
+    
   };
 
   return (
@@ -107,6 +117,7 @@ export const OrderDetail = () => {
           totalPrice={totalPrice}
           setTotalPrice={setTotalPrice}
           createOrder={clickPost}
+          value={value}
         />
       </div>
     </div>
