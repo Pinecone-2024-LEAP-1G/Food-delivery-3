@@ -1,3 +1,6 @@
+"use client";
+
+import { Food } from "@/app/admin/page";
 import {
   Table,
   TableBody,
@@ -6,55 +9,50 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import axios from "axios";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { IoMdMore } from "react-icons/io";
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-];
+type Order = {
+  _id: string;
+  userId: {
+    _id: string;
+    email: string;
+    userName: string;
+  };
+  orderNumber: number;
+  process: string;
+  district: string;
+  khoroo: string;
+  apartment: string;
+  phoneNumber: number;
+  orderStatus: "Ordered" | "PreparingToShip" | "Shipped" | "Delivered";
+  totalPrice: string;
+  orderItem: {
+    foodId: Food;
+  };
+};
 
 export const TableTab = () => {
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  const getOrders = async () => {
+    try {
+      const response = await axios.get<{ orders: Order[] }>(
+        "http://localhost:8000/orders"
+      );
+      console.log(response.data.orders);
+      setOrders(response.data.orders);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getOrders();
+  }, []);
+
   return (
     <Table>
       <TableHeader>
@@ -68,36 +66,46 @@ export const TableTab = () => {
         </TableRow>
       </TableHeader>
       <TableBody className="bg-[white] rounded-b-xl ">
-        {invoices.map((invoice) => (
-          <TableRow className="h-[72px]" key={invoice.invoice}>
+        {orders.map((order) => (
+          <TableRow className="h-[72px]" key={order._id}>
             <div className="px-4 flex w-[259px] gap-2">
               <Image src="/pizza.png" alt="" width={40} height={40} />
               <div className="flex flex-col">
-                <p>food number</p>
-                <p className="text-[#3F4145]">food name</p>
+                <p>{order.orderNumber}</p>
+                <p className="text-[#3F4145]">
+                  {order.orderItem.map((item) => (
+                    <div key={item._id}>
+                      <p className="text-[#3F4145]">{item.foodId.name}</p>
+                      <p></p>
+                    </div>
+                  ))}
+                </p>
               </div>
-              <div></div>
             </div>
             <TableCell>
-              <p>phone number</p>
-              <p className="text-[#3F4145]">username</p>
+              <p>{order.phoneNumber}</p>
+              <p className="text-[#3F4145]">{order.userId.userName}</p>
             </TableCell>
             <TableCell>
               <div className="flex gap-4">
                 <div className="flex flex-col">
-                  <p>price</p>
+                  <p>{order?.totalPrice}</p>
                   <p>moment</p>
                 </div>
-                <p className="flex items-center ">tuluw</p>
+                <p className="flex items-center">{order.orderStatus}</p>
               </div>
             </TableCell>
-            <TableCell className="text-right w-fit">address</TableCell>
-            <TableCell className="text-right ">
-              <p className="w-[73px] h-[24px] rounded-lg min-w-[24px] bg-green-200 flex justify-center items-center ml-24 ">
-                progress
+            <TableCell className="text-right w-fit">
+              {order.apartment}
+            </TableCell>
+            <TableCell className="text-right">
+              <p className="w-[73px] h-[24px] rounded-lg min-w-[24px] bg-green-200 flex justify-center items-center ml-24">
+                {order.orderStatus}
               </p>
             </TableCell>
-            <IoMdMore className="flex mt-8" />
+            <TableCell className="relative text-right">
+              <IoMdMore className="flex mt-8 cursor-pointer" />
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

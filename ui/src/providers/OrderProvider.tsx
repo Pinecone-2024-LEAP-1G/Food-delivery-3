@@ -1,6 +1,12 @@
-import { createContext, useState, useEffect, useContext, ReactNode } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  ReactNode,
+} from "react";
 
-type OrderItem = {
+export type OrderItem = {
   _id: string;
   name: string;
   image: string;
@@ -26,7 +32,7 @@ const CartContext = createContext<{
   removeFromCart: (_orderId: string) => void;
   clearCart: () => void;
 }>({
-  order: { orderItems: [] }, 
+  order: { orderItems: [] },
   addOrderItem: () => {},
   removeFromCart: () => {},
   clearCart: () => {},
@@ -38,15 +44,21 @@ const OrderProvider = ({ children }: { children: ReactNode }) => {
   const [order, setOrder] = useState<Order>({ orderItems: [] });
 
   useEffect(() => {
-    const storedOrderItems = localStorage.getItem("orderDetails");
-    if (storedOrderItems) {
-      setOrder({ orderItems: JSON.parse(storedOrderItems) });
+    const orderedItems = localStorage.getItem("orderDetails");
+    if (orderedItems) {
+      try {
+        setOrder(JSON.parse(orderedItems));
+      } catch (e) {
+        console.error("Failed to parse order items from localStorage:", e);
+      }
     }
   }, []);
 
   useEffect(() => {
     if (order.orderItems.length > 0) {
-      localStorage.setItem("orderDetails", JSON.stringify(order.orderItems));
+      localStorage.setItem("orderDetails", JSON.stringify(order));
+    } else {
+      localStorage.removeItem("orderDetails");
     }
   }, [order]);
 
@@ -55,23 +67,33 @@ const OrderProvider = ({ children }: { children: ReactNode }) => {
       const existingItem = prevOrder.orderItems.find(
         (order) => order._id === newOrderItem._id
       );
+
       if (existingItem) {
         return {
           ...prevOrder,
-          orderItems: prevOrder.orderItems.map((order) => {
-            if (order._id === newOrderItem._id) {
-              return { ...order, quantity: order.quantity + 1 };
-            }
-            return order;
-          }),
+          orderItems: prevOrder.orderItems.map((order) =>
+            order._id === newOrderItem._id
+              ? { ...order, quantity: order.quantity + newOrderItem.quantity }
+              : order
+          ),
+        };
+      } else {
+        return {
+          ...prevOrder,
+          orderItems: [
+            ...prevOrder.orderItems,
+            { ...newOrderItem, quantity: newOrderItem.quantity },
+          ],
         };
       }
-      return {
-        ...prevOrder,
-        orderItems: [...prevOrder.orderItems, { ...newOrderItem, quantity: 1 }],
-      };
     });
   };
+
+  //   const updateItemQuantity=(newOrderItem: OrderItem)=>{
+  // setOrder((prevOrder)=> {
+  //   const updateQuantity = prevOrder.orderItems.find((order)=> order._id === newOrderItem._id)
+  // })
+  //   }
 
   const removeFromCart = (orderId: string) => {
     setOrder((prevOrder) => ({
@@ -85,7 +107,9 @@ const OrderProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <CartContext.Provider value={{ order, addOrderItem, removeFromCart, clearCart }}>
+    <CartContext.Provider
+      value={{ order, addOrderItem, removeFromCart, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   );

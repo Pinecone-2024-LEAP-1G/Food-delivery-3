@@ -1,10 +1,12 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import axios from 'axios';
-import OrderVerify from './OrderVerify';
-import { OrderDetailAddressInfo } from './OrderDetailAddressInfo';
-import { useAuthcontext } from '@/providers/AuthProvider';
+import { useState } from "react";
+import axios from "axios";
+import OrderVerify from "./OrderVerify";
+import { OrderDetailAddressInfo } from "./OrderDetailAddressInfo";
+import { useOrder } from "@/providers/OrderProvider";
+import { toast } from "sonner";
+import { useAuthcontext } from "@/providers/AuthProvider";
 
 export type OrderSelectOptions = {
   userId: string;
@@ -13,45 +15,74 @@ export type OrderSelectOptions = {
   apartment: string;
   description: string;
   phoneNumber: string;
-  paymentType: 'CART' | 'CASH' | null;
+  paymentType: "CART" | "CASH" | null;
 };
 
 export const OrderDetail = () => {
   const { currentUser } = useAuthcontext();
 
+  const { order } = useOrder();
+
+  const orderItem = order.orderItems.map((item) => {
+    return {
+      foodId: item._id,
+      quantity: item.quantity,
+    };
+  });
+  const [totalPrice, setTotalPrice] = useState(0);
+
   const [selectedOptions, setSelectedOptions] = useState<OrderSelectOptions>({
-    userId: '',
-    district: '',
-    khoroo: '',
-    apartment: '',
-    description: '',
-    phoneNumber: '',
+    userId: "",
+    district: "",
+    khoroo: "",
+    apartment: "",
+    description: "",
+    phoneNumber: "",
     paymentType: null,
   });
 
   const createOrder = async () => {
-    // console.log({
-    //   userId: currentUser?._id,
-    //   district: selectedOptions.district,
-    //   khoroo: selectedOptions.khoroo,
-    //   apartment: selectedOptions.apartment,
-    //   phoneNumber: selectedOptions.phoneNumber,
-    // });
-
     try {
-      const { data } = await axios.post('http://localhost:8000/orders', {
-        userId: currentUser?._id,
-        district: selectedOptions.district,
-        khoroo: selectedOptions.khoroo,
-        apartment: selectedOptions.apartment,
-        phoneNumber: selectedOptions.phoneNumber,
+      await axios.post(
+        "http://localhost:8000/orders",
+        {
+          district: selectedOptions.district,
+          khoroo: selectedOptions.khoroo,
+          apartment: selectedOptions.apartment,
+          phoneNumber: selectedOptions.phoneNumber,
+          orderItems: orderItem,
+        },
+        { headers: { authorization: `Bearer ${currentUser?.accessToken}` } }
+      );
+      setSelectedOptions({
+        userId: "",
+        district: "",
+        khoroo: "",
+        apartment: "",
+        description: "",
+        phoneNumber: "",
+        paymentType: null,
       });
-      console.log(data);
+      toast.success("Huselt amjilttai");
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(selectedOptions);
+
+  const clickPost = () => {
+    if (
+      !selectedOptions.description ||
+      !selectedOptions.apartment ||
+      !selectedOptions.district ||
+      !selectedOptions.khoroo ||
+      !selectedOptions.phoneNumber ||
+      !selectedOptions.paymentType
+    ) {
+      toast.error("buh medeelliig buglunu uu!");
+    } else {
+      createOrder();
+    }
+  };
 
   const handleSelectColor = (type: string, value: string) => {
     setSelectedOptions((prev) => {
@@ -72,9 +103,12 @@ export const OrderDetail = () => {
         onChange={handleSelectColor}
       />
       <div>
-        <OrderVerify />
+        <OrderVerify
+          totalPrice={totalPrice}
+          setTotalPrice={setTotalPrice}
+          createOrder={clickPost}
+        />
       </div>
-      <button onClick={createOrder}>submit order</button>
     </div>
   );
 };

@@ -22,9 +22,7 @@ export const PreviousNext = () => {
           <PaginationLink href="#">1</PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#" isActive>
-            2
-          </PaginationLink>
+          <PaginationLink href="#" isActive></PaginationLink>
         </PaginationItem>
         <PaginationItem>
           <PaginationLink href="#">3</PaginationLink>

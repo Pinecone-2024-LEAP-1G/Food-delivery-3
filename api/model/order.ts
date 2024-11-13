@@ -16,6 +16,10 @@ type Order = {
 const OrderSchema = new Schema<Order>(
   {
     userId: { type: Schema.Types.ObjectId, required: true, ref: "User" },
+    district: { type: String, required: true },
+    khoroo: { type: String, required: true },
+    apartment: { type: String, required: true },
+    phoneNumber: { type: Number, required: true },
     orderStatus: {
       type: String,
       enum: ["Ordered", "PreparingToShip", "Shipped", "Delivered"],

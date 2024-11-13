@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-type Food = {
+export type Food = {
   name: string;
   image: string;
   ingredient: string;

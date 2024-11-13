@@ -1,4 +1,3 @@
-import { Food } from "@/app/admin/page";
 import { OrderDialog } from "./OrderDialog";
 
 type FoodDiscount = {
@@ -6,25 +5,29 @@ type FoodDiscount = {
   image?: string;
   discount?: number;
   price: string;
-  basePrice?: string;
-  onclick?: () => void;
-  foods?: Food;
+  discountedPrice?: number;
+  foodId: string;
 };
 
 export const DiscountCard = ({
   image,
-  discount,
+  discount = 0,
   name,
   price,
-  basePrice,
-  onclick,
-  foods,
+  discountedPrice,
+  foodId,
 }: FoodDiscount) => {
+  discountedPrice = Number(price) * ((100 - discount) / 100);
   return (
-    <div onClick={onclick} className="w-[282px] h-[253px] py-4">
-      <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative ">
-        {image}
-        <OrderDialog foods={foods} />
+    <div className="w-[282px] h-[253px] py-4">
+      <div
+        style={{
+          backgroundImage: `url(${image})`,
+          backgroundPosition: "center",
+        }}
+        className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative bg-cover"
+      >
+        <OrderDialog foodId={foodId} />
         <div className="w-[69px] h-[35px] bg-green-500 border border-white rounded-2xl z-50 absolute right-4 top-4 ">
           <p className="font-semibold text-white text-lg items-center justify-center flex ">
             {discount}%
@@ -37,7 +40,7 @@ export const DiscountCard = ({
           <p className="font-semibold text-lg text-green-500 leading-7">
             {price}₮
           </p>
-          <p className="font-normal text-lg">{basePrice}₮</p>
+          <p className="font-normal text-lg">{discountedPrice}₮</p>
         </div>
       </div>
     </div>

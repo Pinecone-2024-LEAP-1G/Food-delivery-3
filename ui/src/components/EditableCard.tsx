@@ -1,17 +1,20 @@
-import { Food } from "@/app/admin/page";
 import { OrderDialog } from "./OrderDialog";
 
 type EditCard = {
+  foodId: string;
   name: string;
   price: string;
-  foods: Food;
+  image: string;
 };
 
-export const EditableCard = ({ name, price, foods }: EditCard) => {
+export const EditableCard = ({ name, price, foodId, image }: EditCard) => {
   return (
     <div className="flex flex-col p-4 ">
-      <div className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative justify-center items-center">
-        <OrderDialog foods={foods} />
+      <div
+        style={{ backgroundImage: `url(${image})` }}
+        className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative justify-center items-center bg-cover"
+      >
+        <OrderDialog foodId={foodId} />
       </div>
       <div className="mt-4 items-start p-2">
         <p className="font-semibold text-xl leading-5">{name}</p>

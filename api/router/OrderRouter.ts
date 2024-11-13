@@ -5,10 +5,11 @@ import { getOrder } from "../controller/order/getOrder";
 import { getOrders } from "../controller/order/getOrders";
 
 import { deleteOrder } from "../controller/order/deleteOrder";
+import { authMiddleware } from "../middleware/auth-middleware";
 
 export const OrderRouter = express.Router();
 
-OrderRouter.post("/", createOrder);
+OrderRouter.post("/", authMiddleware, createOrder);
 OrderRouter.get("/getOrder", getOrder);
 OrderRouter.get("/", getOrders);
 OrderRouter.delete("/:id", deleteOrder);

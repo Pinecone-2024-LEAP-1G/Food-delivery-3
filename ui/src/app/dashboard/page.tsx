@@ -1,7 +1,6 @@
 "use client";
 
 import { SearchIcon } from "@/components/icons";
-import { PreviousNext } from "@/components/PreviousNext";
 import { TableTab } from "@/components/Table";
 import { useState } from "react";
 
@@ -32,7 +31,6 @@ const Page = () => {
         </div>
         <TableTab />
       </div>
-      <PreviousNext />
     </div>
   );
 };

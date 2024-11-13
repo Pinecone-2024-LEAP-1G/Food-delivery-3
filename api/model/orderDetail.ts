@@ -11,8 +11,9 @@ export type OrderDetail = {
 
 const OrderDetails = new Schema<OrderDetail>(
   {
-    foodId: { type: Schema.Types.ObjectId, required: true, ref: "Food" },
+    foodId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Food" }, 
     quantity: { type: Number, required: true },
+    amount: { type: Number },
     orderId: { type: Schema.Types.ObjectId, ref: "Order" },
   },
   {

@@ -11,18 +11,6 @@ import MenuImage from "@/components/MenuImage";
 
 const Home = () => {
   const [foods, setFoods] = useState<Food[]>([]);
-  const [foodDetail, setFoodDetail] = useState<Food | undefined>(undefined);
-
-  const getFood = async (id: string) => {
-    try {
-      const response = await axios.get<{ food: Food }>(
-        `http://localhost:8000/food/${id}`
-      );
-      setFoodDetail(response.data.food);
-    } catch (error) {
-      console.error("Error fetching food detail:", error);
-    }
-  };
 
   const getFoods = async () => {
     try {
@@ -37,17 +25,16 @@ const Home = () => {
 
   const saleFoods = foods.filter((food) => food.salePercent > 0);
   const mainCourses = foods.filter(
-    (food) => food.categoryId.categoryName === "Main Course"
+    (food) => food.categoryId.categoryName === "main"
   );
-  const soups = foods.filter((food) => food.categoryId.categoryName === "Soup");
+  const soups = foods.filter((food) => food.categoryId.categoryName === "soup");
   const desserts = foods.filter(
-    (food) => food.categoryId.categoryName === "Dessert"
+    (food) => food.categoryId.categoryName === "dessert"
   );
 
   useEffect(() => {
     getFoods();
   }, []);
-
   return (
     <div className="container mx-auto">
       <MenuImage />
@@ -62,8 +49,8 @@ const Home = () => {
               discount={food.salePercent}
               price={food.price}
               name={food.name}
-              onclick={() => getFood(food._id)}
-              foods={foodDetail}
+              foodId={food._id}
+              image={food.image}
             />
           ))}
         </div>
@@ -75,8 +62,8 @@ const Home = () => {
               key={food._id}
               name={food.name}
               price={food.price}
-              onclick={() => getFood(food._id)}
-              foodDetail={foodDetail}
+              foodId={food._id}
+              image={food.image}
             />
           ))}
         </div>
@@ -88,8 +75,8 @@ const Home = () => {
               key={food._id}
               name={food.name}
               price={food.price}
-              onclick={() => getFood(food._id)}
-              foodDetail={foodDetail}
+              foodId={food._id}
+              image={food.image}
             />
           ))}
         </div>
@@ -101,8 +88,7 @@ const Home = () => {
               key={food._id}
               name={food.name}
               price={food.price}
-              onclick={() => getFood(food._id)}
-              foodDetail={foodDetail}
+              foodId={food._id}
             />
           ))}
         </div>
