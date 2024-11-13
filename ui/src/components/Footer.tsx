@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
   const router = useRouter();
   return (
     <div
-      className="h-[545px] bg-[#18BA51] container mx-auto  "
+      className="h-[545px] bg-[#18BA51] container mx-auto "
       style={{
         backgroundImage: "url('Footer.png')",
         backgroundRepeat: "no-repeat",

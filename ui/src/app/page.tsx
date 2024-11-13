@@ -14,10 +14,10 @@ const Home = () => {
 
   const getFoods = async () => {
     try {
-      const response = await axios.get<{ food: Food[] }>(
+      const response = await axios.get<{ foods: Food[] }>(
         "http://localhost:8000/food"
       );
-      setFoods(response.data.food);
+      setFoods(response.data.foods);
     } catch (error) {
       console.error("Error fetching foods:", error);
     }

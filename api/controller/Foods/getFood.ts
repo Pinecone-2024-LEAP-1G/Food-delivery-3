@@ -5,7 +5,7 @@ export const getFood = async (request: Request, response: Response) => {
   try {
     const foods = await FoodModel.find().populate("categoryId");
 
-    response.json({ food: foods });
+    response.json({ foods: foods });
   } catch (error) {
     response.json({ message: error });
   }

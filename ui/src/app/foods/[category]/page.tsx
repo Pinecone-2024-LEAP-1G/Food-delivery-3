@@ -20,25 +20,33 @@ export type FoodCategoryName = {
 const FoodCategoryPage = () => {
   const params = useParams();
   const { category } = params;
+  console.log("Category from useParams:", category);
   const [foods, setFoods] = useState<Food[]>([]);
 
   useEffect(() => {
-    const getFoods = async () => {
+    const getFoodsByCategory = async () => {
       try {
-        const { data } = await axios.get<{ foods: Food[] }>(
-          `http://localhost:8000/food/category/${category}`
-        );
-        setFoods(data.foods);
+        if (category === "category") {
+          const { data } = await axios.get<{ foods: Food[] }>(
+            `http://localhost:8000/food`
+          );
+          setFoods(data.foods);
+        } else {
+          const { data } = await axios.get<{ foods: Food[] }>(
+            `http://localhost:8000/food/category/${category}`
+          );
+          setFoods(data.foods);
+        }
       } catch (error) {
         console.log(error);
       }
     };
 
-    getFoods();
-  }, []);
+    getFoodsByCategory();
+  }, [category]);
 
   return (
-    <div className="container h-[107px] flex items-center mx-auto flex-col mt-8 flex-grow  ">
+    <div className="container h-[107px] flex items-center mx-auto flex-col mt-8 max-h-[calc(100vh-545px)]  ">
       <div className=" flex container justify-center gap-7 ">
         <Link href="/foods/breakfast">
           <p
@@ -74,7 +82,7 @@ const FoodCategoryPage = () => {
         </Link>
       </div>
 
-      <div className="flex max-w-[1200px] flex-wrap items-center gap-6 mt-14 ">
+      <div className="grid grid-cols-4 max-w-[1200px] gap-6 mt-14   ">
         {foods?.map((food) => {
           return (
             <FoodCard
