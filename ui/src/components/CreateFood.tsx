@@ -9,8 +9,14 @@ import {
 } from "@/components/ui/dialog";
 
 import { ProfileForm } from "./ProfileForm";
+import { Category } from "../app/admin/page";
 
-export const CreateFood = () => {
+type Props={
+  categories: Category[]
+  getFoods: ()=> void
+}
+
+export const CreateFood = ({categories, getFoods}: Props) => {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -24,7 +30,7 @@ export const CreateFood = () => {
         <DialogHeader>
           <DialogTitle className="text-center">Create Category</DialogTitle>
         </DialogHeader>
-        <ProfileForm />
+        <ProfileForm categories={categories} getFoods={getFoods}/>
       </DialogContent>
     </Dialog>
   );

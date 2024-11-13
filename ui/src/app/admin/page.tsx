@@ -20,7 +20,7 @@ export type Food = {
   salePercent: number;
 };
 
-interface Category {
+ export interface Category {
   _id: string;
   categoryName: string;
 }
@@ -94,7 +94,7 @@ const Page = () => {
             onClick={onclickAdd}
             className="h-[35px] bg-[#18BA51] text-white py-2 items-center rounded justify-center flex cursor-pointer"
           >
-            <CreateFood />
+            <CreateFood categories={categories} getFoods={getFoods}/>
           </p>
         </div>
 

@@ -15,23 +15,40 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Description } from "@radix-ui/react-dialog";
 
+type QuantitiesType = { [value: string]: number };
+
 export const OrderSheet = () => {
-  const { order } = useOrder();
+  const { order, removeFromCart, updateItemQuantity } = useOrder();
   const router = useRouter();
   const [totalPrice, setTotalPrice] = useState(0);
-  const [quantity, setQuantity] = useState(0);
-  const { removeFromCart } = useOrder();
-
-  const updateQuantity = () => {
-    setQuantity(quantity);
-  };
+  const [quantities, setQuantities] = useState<QuantitiesType>({});
 
   useEffect(() => {
-    const sum: number = order.orderItems.reduce((acc, item) => {
-      return acc + Number(item.price) * item.quantity;
-    }, 0);
-    setTotalPrice(sum);
+    const initialQuantities = order.orderItems.reduce((acc, item) => {
+      acc[item._id] = item.quantity;
+      return acc;
+    }, {} as QuantitiesType);
+    setQuantities(initialQuantities);
   }, [order]);
+
+  useEffect(() => {
+    const sum = order.orderItems.reduce((acc, item) => {
+      const basePrice = Number(item.price);
+      const discountedPrice =
+        item.salePercent > 0
+          ? basePrice * (1 - item.salePercent / 100)
+          : basePrice;
+
+      return acc + discountedPrice * item.quantity;
+    }, 0);
+
+    setTotalPrice(sum);
+  }, [order, setTotalPrice]);
+
+  const handleQuantityChange = (itemId: string, newQuantity: number) => {
+    setQuantities((prev) => ({ ...prev, [itemId]: newQuantity }));
+    updateItemQuantity(itemId, newQuantity);
+  };
 
   return (
     <Sheet>
@@ -48,34 +65,34 @@ export const OrderSheet = () => {
           <SheetTitle className="text-center">Таны сагс</SheetTitle>
         </SheetHeader>
         <div className="flex flex-col flex-grow">
-          {order.orderItems.map((item) => {
-            return (
-              <div key={item._id} className="flex py-12 gap-4">
-                <div
-                  style={{
-                    backgroundImage: `url(${item.image})`,
-                    backgroundPosition: "center",
-                  }}
-                  className="w-[245px] h-[150px]"
-                ></div>
-                <div className="flex-1 gap-4">
-                  <h1 className="font-bold text-black">{item.name}</h1>
-                  <p className="text-[#18BA51]">{item.price}₮</p>
-                  <Description className="text-[#767676] mt-4 p-2">
-                    {item.ingredient}
-                  </Description>
-                  <Quantity
-                    className="mt-2"
-                    quantity={item.quantity}
-                    setQuantity={updateQuantity}
-                  />
-                </div>
-                <Button onClick={() => removeFromCart(item._id)}>x</Button>
+          {order.orderItems.map((item) => (
+            <div key={item._id} className="flex py-12 gap-4">
+              <div
+                style={{
+                  backgroundImage: `url(${item.image})`,
+                  backgroundPosition: "center",
+                }}
+                className="w-[245px] h-[150px] bg-cover"
+              ></div>
+              <div className="flex-1 gap-4">
+                <h1 className="font-bold text-black">{item.name}</h1>
+                <p className="text-[#18BA51]">{item.price}₮</p>
+                <Description className="text-[#767676] mt-4 p-2">
+                  {item.ingredient}
+                </Description>
+                <Quantity
+                  className="mt-2"
+                  quantity={quantities[item._id] || item.quantity}
+                  setQuantity={(newQuantity) =>
+                    handleQuantityChange(item._id, newQuantity)
+                  }
+                />
               </div>
-            );
-          })}
+              <Button onClick={() => removeFromCart(item._id)}>x</Button>
+            </div>
+          ))}
         </div>
-        <SheetFooter className="border-t mt-auto pt-4 flex justify-between">
+        <SheetFooter className="border-t mt-auto pt-4 flex gap-24">
           <div>
             <p className="text-[#5E6166]">Нийт төлөх дүн</p>
             <p className="text-lg font-semibold">{totalPrice} ₮</p>

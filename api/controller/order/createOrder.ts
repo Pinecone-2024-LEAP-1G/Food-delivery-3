@@ -5,7 +5,7 @@ import { Food } from "../../model/food";
 import currency from "currency.js";
 import { UserAuthInfoRequest } from "../../middleware/auth-middleware";
 
-type BodyType = {
+export type BodyType = {
   userId: string;
   district: string;
   khoroo: string;

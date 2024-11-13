@@ -20,7 +20,6 @@ export const Categories = ({
   setCategoryName,
   categoryName,
 }: CategoriesProps) => {
-  console.log(categories);
 
   return (
     <div className=" h-[100%] bg-white px-10">
