@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { OrderSheet } from "./OrderSheet";
+import Link from "next/link";
 
 const Header = () => {
   const router = useRouter();
@@ -30,24 +31,28 @@ const Header = () => {
             >
               НҮҮР
             </p>
-            <p
-              onClick={() => handleHeaderTextColor("ХООЛНЫ ЦЭС")}
-              style={{
-                color: activeText === "ХООЛНЫ ЦЭС" ? "#18BA51" : "black",
-              }}
-              className="w-[170px] text-center text-[16px] mr-6"
-            >
-              ХООЛНЫ ЦЭС
-            </p>
-            <p
-              onClick={() => handleHeaderTextColor("ХҮРГЭЛТИЙН БҮС")}
-              style={{
-                color: activeText === "ХҮРГЭЛТИЙН БҮС" ? "#18BA51" : "black",
-              }}
-              className="w-[189px] text-center text-[16px] mr-6"
-            >
-              ХҮРГЭЛТИЙН БҮС
-            </p>
+            <Link href="foods/category">
+              <p
+                onClick={() => handleHeaderTextColor("ХООЛНЫ ЦЭС")}
+                style={{
+                  color: activeText === "ХООЛНЫ ЦЭС" ? "#18BA51" : "black",
+                }}
+                className="w-[170px] text-center text-[16px] mr-6"
+              >
+                ХООЛНЫ ЦЭС
+              </p>
+            </Link>
+            <Link href="/deliveryZone">
+              <p
+                onClick={() => handleHeaderTextColor("ХҮРГЭЛТИЙН БҮС")}
+                style={{
+                  color: activeText === "ХҮРГЭЛТИЙН БҮС" ? "#18BA51" : "black",
+                }}
+                className="w-[185px] text-center text-[16px] mr-6"
+              >
+                ХҮРГЭЛТИЙН БҮС
+              </p>
+            </Link>
           </div>
         </div>
         <div className="flex">

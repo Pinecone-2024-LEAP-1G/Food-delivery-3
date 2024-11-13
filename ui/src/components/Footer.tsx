@@ -41,17 +41,26 @@ const Footer: React.FC = () => {
                 <u>Хоолны цэс</u>
               </p>
               <p>
-                <u onClick={() => router.push("/termsOfService")}>
+                <u
+                  onClick={() => router.push("/termsOfService")}
+                  className="cursor-pointer"
+                >
                   Үйлчилгээний нөхцөл
                 </u>
               </p>
               <p>
-                <u onClick={() => router.push("/deliveryZone")}>
+                <u
+                  onClick={() => router.push("/deliveryZone")}
+                  className="cursor-pointer"
+                >
                   Хүргэлтийн бүс
                 </u>
               </p>
               <p>
-                <u onClick={() => router.push("/privacyPolicy")}>
+                <u
+                  onClick={() => router.push("/privacyPolicy")}
+                  className="cursor-pointer"
+                >
                   Нууцлалын бодлого
                 </u>
               </p>

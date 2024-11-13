@@ -13,10 +13,11 @@ const Home = () => {
   const [foods, setFoods] = useState<Food[]>([]);
   const [foodDetail, setFoodDetail] = useState<Food | undefined>(undefined);
 
-
   const getFood = async (id: string) => {
     try {
-      const response = await axios.get<{ food: Food }>(`http://localhost:8000/food/${id}`);
+      const response = await axios.get<{ food: Food }>(
+        `http://localhost:8000/food/${id}`
+      );
       setFoodDetail(response.data.food);
     } catch (error) {
       console.error("Error fetching food detail:", error);
@@ -25,17 +26,23 @@ const Home = () => {
 
   const getFoods = async () => {
     try {
-      const response = await axios.get<{ food: Food[] }>("http://localhost:8000/food");
+      const response = await axios.get<{ food: Food[] }>(
+        "http://localhost:8000/food"
+      );
       setFoods(response.data.food);
     } catch (error) {
       console.error("Error fetching foods:", error);
     }
   };
 
-  const saleFoods = foods.filter(food => food.salePercent > 0);
-  const mainCourses = foods.filter(food => food.categoryId.categoryName === "Main Course");
-  const soups = foods.filter(food => food.categoryId.categoryName === "Soup");
-  const desserts = foods.filter(food => food.categoryId.categoryName === "Dessert");
+  const saleFoods = foods.filter((food) => food.salePercent > 0);
+  const mainCourses = foods.filter(
+    (food) => food.categoryId.categoryName === "Main Course"
+  );
+  const soups = foods.filter((food) => food.categoryId.categoryName === "Soup");
+  const desserts = foods.filter(
+    (food) => food.categoryId.categoryName === "Dessert"
+  );
 
   useEffect(() => {
     getFoods();
@@ -49,61 +56,53 @@ const Home = () => {
 
         <FoodCategory category="Хямдралтай" />
         <div className="flex mb-20 gap-4">
-          {saleFoods.map(food => (
+          {saleFoods.map((food) => (
             <DiscountCard
               key={food._id}
               discount={food.salePercent}
               price={food.price}
               name={food.name}
-              onclick={() => 
-                getFood(food._id)
-              }
-              foods={foodDetail} 
+              onclick={() => getFood(food._id)}
+              foods={foodDetail}
             />
           ))}
         </div>
 
         <FoodCategory category="Үндсэн хоол" />
         <div className="mb-20 flex gap-4">
-          {mainCourses.map(food => (
+          {mainCourses.map((food) => (
             <FoodCard
               key={food._id}
               name={food.name}
               price={food.price}
-              onclick={() => 
-                getFood(food._id)
-              }
-              foodDetail={foodDetail} 
+              onclick={() => getFood(food._id)}
+              foodDetail={foodDetail}
             />
           ))}
         </div>
 
         <FoodCategory category="Салад ба зууш" />
         <div className="mb-20 flex gap-4">
-          {soups.map(food => (
+          {soups.map((food) => (
             <FoodCard
               key={food._id}
               name={food.name}
               price={food.price}
-              onclick={() => 
-                getFood(food._id)
-              }
-              foodDetail={foodDetail} 
+              onclick={() => getFood(food._id)}
+              foodDetail={foodDetail}
             />
           ))}
         </div>
 
         <FoodCategory category="Амттан" />
         <div className="mb-20 flex gap-4">
-          {desserts.map(food => (
+          {desserts.map((food) => (
             <FoodCard
               key={food._id}
               name={food.name}
               price={food.price}
-              onclick={() => 
-                getFood(food._id)
-              }
-              foodDetail={foodDetail} 
+              onclick={() => getFood(food._id)}
+              foodDetail={foodDetail}
             />
           ))}
         </div>

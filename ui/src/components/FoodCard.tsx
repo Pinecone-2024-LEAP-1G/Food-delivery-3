@@ -6,7 +6,7 @@ type FoodCardType = {
   image?: string;
   price: string;
   basePrice?: string;
-  onclick: () => void;
+  onclick?: () => void;
   foodDetail?: Food;
 };
 
