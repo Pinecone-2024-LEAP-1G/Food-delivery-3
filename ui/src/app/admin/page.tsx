@@ -92,7 +92,7 @@ const Page = () => {
           <h1 className="font-bold text-2xl">{categoryName}</h1>
           <p
             onClick={onclickAdd}
-            className="h-[35px] bg-green-500 text-white py-2 items-center rounded justify-center flex cursor-pointer"
+            className="h-[35px] bg-[#18BA51] text-white py-2 items-center rounded justify-center flex cursor-pointer"
           >
             <CreateFood />
           </p>
