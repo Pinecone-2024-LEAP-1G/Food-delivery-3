@@ -2,6 +2,7 @@ import { BlueDotIcon } from "@/components/icons";
 // import moment from "moment";
 
 const page = () => {
+  // const { order } = useOrder();
   // const tenDaysAgo = moment().format("L");
 
   return (
@@ -29,12 +30,18 @@ const page = () => {
           </p>
           <div className="w-[384px] h-[68px] flex items-center">
             <div className="w-[384px] h-[36px] px-4 pl-4 flex items-center">
-              <p className="font-normal text-[16px] text-[#272727] w-[324px] h-[19px] px-2">
-                Main pizza
-              </p>
-              <p className="w-5 h-5 font-normal text-[16px] text-[#272727]">
-                (1)
-              </p>
+              {/* {order.map((order) => {
+                return (
+                  <div key={order._id}>
+                    <p className="font-normal text-[16px] text-[#272727] w-[324px] h-[19px] px-2">
+                    {order.}
+                    </p>
+                    <p className="w-5 h-5 font-normal text-[16px] text-[#272727]">
+                    {order.quantity}
+                    </p>
+                  </div>
+                );
+              })} */}
             </div>
           </div>
           <div className="border-[1px] w-[384px] border-[#D6D8DB]  mx-auto mt-4 "></div>

@@ -7,6 +7,7 @@ import { OrderDetailAddressInfo } from "./OrderDetailAddressInfo";
 import { useOrder } from "@/providers/OrderProvider";
 import { toast } from "sonner";
 import { useAuthcontext } from "@/providers/AuthProvider";
+import { useRouter } from "next/navigation";
 
 export type OrderSelectOptions = {
   userId: string;
@@ -20,8 +21,8 @@ export type OrderSelectOptions = {
 
 export const OrderDetail = () => {
   const { currentUser } = useAuthcontext();
-
-  const { order } = useOrder();
+  const { order, clearCart } = useOrder();
+  const router = useRouter();
 
   const orderItem = order.orderItems.map((item) => {
     return {
@@ -63,6 +64,8 @@ export const OrderDetail = () => {
         phoneNumber: "",
         paymentType: null,
       });
+      clearCart();
+      router.push("orderwaiting");
       toast.success("Huselt amjilttai");
     } catch (error) {
       console.log(error);

@@ -27,11 +27,18 @@ export const OrderSheet = () => {
   };
 
   useEffect(() => {
-    const sum: number = order.orderItems.reduce((acc, item) => {
-      return acc + Number(item.price) * item.quantity;
+    const sum = order.orderItems.reduce((acc, item) => {
+      const basePrice = Number(item.price);
+      const discountedPrice =
+        item.salePercent > 0
+          ? basePrice * (1 - item.salePercent / 100)
+          : basePrice;
+
+      return acc + discountedPrice * item.quantity;
     }, 0);
+
     setTotalPrice(sum);
-  }, [order]);
+  }, [order, setTotalPrice]);
 
   return (
     <Sheet>
@@ -56,7 +63,7 @@ export const OrderSheet = () => {
                     backgroundImage: `url(${item.image})`,
                     backgroundPosition: "center",
                   }}
-                  className="w-[245px] h-[150px]"
+                  className="w-[245px] h-[150px] bg-cover"
                 ></div>
                 <div className="flex-1 gap-4">
                   <h1 className="font-bold text-black">{item.name}</h1>
@@ -75,7 +82,7 @@ export const OrderSheet = () => {
             );
           })}
         </div>
-        <SheetFooter className="border-t mt-auto pt-4 flex justify-between">
+        <SheetFooter className="border-t mt-auto pt-4 flex gap-24">
           <div>
             <p className="text-[#5E6166]">Нийт төлөх дүн</p>
             <p className="text-lg font-semibold">{totalPrice} ₮</p>

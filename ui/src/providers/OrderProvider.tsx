@@ -89,12 +89,6 @@ const OrderProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  //   const updateItemQuantity=(newOrderItem: OrderItem)=>{
-  // setOrder((prevOrder)=> {
-  //   const updateQuantity = prevOrder.orderItems.find((order)=> order._id === newOrderItem._id)
-  // })
-  //   }
-
   const removeFromCart = (orderId: string) => {
     setOrder((prevOrder) => ({
       ...prevOrder,
