@@ -21,7 +21,10 @@ export const DiscountCard = ({
   return (
     <div className="w-[282px] h-[253px] py-4">
       <div
-        style={{ backgroundImage: `url(${image})` }}
+        style={{
+          backgroundImage: `url(${image})`,
+          backgroundPosition: "center",
+        }}
         className="w-[282px] h-[186px] rounded-2xl bg-gray-300 relative bg-cover"
       >
         <OrderDialog foodId={foodId} />

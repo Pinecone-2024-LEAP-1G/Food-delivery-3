@@ -8,7 +8,6 @@ import {
   DialogFooter,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import Image from "next/image";
 import { Quantity } from "./Quantity";
 import { Description, DialogClose, DialogTitle } from "@radix-ui/react-dialog";
 import { toast } from "sonner";
@@ -95,13 +94,19 @@ export const OrderDialog = ({ onclick, foodId }: FoodDetail) => {
         </Button>
       </DialogTrigger>
       <DialogContent className=" bg-white flex flex-row">
-        <div>
-          <Image src="/pizza.png" alt="" width={500} height={500} />
-        </div>
-        <div className="flex flex-col gap-8 w-[384px] h-[398px]">
+        <div
+          style={{
+            backgroundImage: `url(${foodById?.image})`,
+            backgroundPosition: "center",
+          }}
+          className="w-[500px] h-[500px] rounded-2xl  relative bg-cover "
+        ></div>
+        <div className="flex flex-col gap-8 w-[384px] h-[398px] mt-20">
           <div>
             <div>
-              <DialogTitle className="font-bold">{foodById?.name}</DialogTitle>
+              <DialogTitle className="font-bold text-2xl">
+                {foodById?.name}
+              </DialogTitle>
               <p className="text-[#18BA51]">{foodById?.price}₮</p>
             </div>
             <div className="flex flex-col gap-1 mt-8">

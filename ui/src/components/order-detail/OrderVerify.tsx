@@ -68,7 +68,6 @@ const OrderVerify = ({
 
         <div className="border-[1px] w-[384px] border-[#D6D8DB] mx-auto mt-4"></div>
 
-        {/* Total Price Section */}
         <div className="w-[384px] mx-auto flex justify-between py-4">
           <div>
             <p className="font-normal text-[18px] text-[#5E6166]">
@@ -80,7 +79,7 @@ const OrderVerify = ({
           </div>
           <button
             onClick={createOrder}
-            className="py-2 px-4 bg-[#EEEFF2] text-[#D6D8DB] rounded hover:bg-[#18BA51]"
+            className={`py-2 px-4  text-[#D6D8DB] rounded  `}
           >
             Захиалах
           </button>

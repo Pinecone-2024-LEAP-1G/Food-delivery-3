@@ -76,6 +76,7 @@ const Home = () => {
               name={food.name}
               price={food.price}
               foodId={food._id}
+              image={food.image}
             />
           ))}
         </div>

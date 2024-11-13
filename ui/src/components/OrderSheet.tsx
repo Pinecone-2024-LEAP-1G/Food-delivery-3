@@ -9,7 +9,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Basket } from "./icons/index";
-import Image from "next/image";
 import { Quantity } from "./Quantity";
 import { useOrder } from "@/providers/OrderProvider";
 import { useRouter } from "next/navigation";
@@ -52,9 +51,13 @@ export const OrderSheet = () => {
           {order.orderItems.map((item) => {
             return (
               <div key={item._id} className="flex py-12 gap-4">
-                <div>
-                  <Image src="/pizza.png" alt="" width={245} height={150} />
-                </div>
+                <div
+                  style={{
+                    backgroundImage: `url(${item.image})`,
+                    backgroundPosition: "center",
+                  }}
+                  className="w-[245px] h-[150px]"
+                ></div>
                 <div className="flex-1 gap-4">
                   <h1 className="font-bold text-black">{item.name}</h1>
                   <p className="text-[#18BA51]">{item.price}₮</p>

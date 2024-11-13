@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import OrderDetailModel, { OrderDetail } from "../../model/orderDetail";
 import { Food } from "../../model/food";
 import currency from "currency.js";
+import { UserAuthInfoRequest } from "../../middleware/auth-middleware";
 
 type BodyType = {
   userId: string;
@@ -13,12 +14,11 @@ type BodyType = {
   orderItems: OrderDetail[];
 };
 
-export const createOrder = async (
-  req: Request<{}, {}, BodyType>,
-  res: Response
-) => {
-  const { userId, orderItems, district, khoroo, apartment, phoneNumber } =
-    req.body;
+export const createOrder = async (req: UserAuthInfoRequest, res: Response) => {
+  const { orderItems, district, khoroo, apartment, phoneNumber } =
+    req.body as BodyType;
+
+  const user = req?.decoded;
 
   try {
     const newOrderItems = await OrderDetailModel.insertMany<OrderDetail>(
@@ -44,7 +44,7 @@ export const createOrder = async (
     }, 0);
 
     const order = await new OrderModel({
-      userId,
+      userId: user._id,
       totalPrice,
       process: "Pending",
       district,

@@ -4,7 +4,6 @@ import { useState } from "react";
 import axios from "axios";
 import OrderVerify from "./OrderVerify";
 import { OrderDetailAddressInfo } from "./OrderDetailAddressInfo";
-// import { useAuthcontext } from "@/providers/AuthProvider";
 import { useOrder } from "@/providers/OrderProvider";
 import { toast } from "sonner";
 import { useAuthcontext } from "@/providers/AuthProvider";
@@ -55,6 +54,15 @@ export const OrderDetail = () => {
         },
         { headers: { authorization: `Bearer ${currentUser?.accessToken}` } }
       );
+      setSelectedOptions({
+        userId: "",
+        district: "",
+        khoroo: "",
+        apartment: "",
+        description: "",
+        phoneNumber: "",
+        paymentType: null,
+      });
       toast.success("Huselt amjilttai");
     } catch (error) {
       console.log(error);
