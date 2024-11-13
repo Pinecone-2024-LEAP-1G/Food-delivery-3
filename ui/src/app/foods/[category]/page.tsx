@@ -77,7 +77,13 @@ const FoodCategoryPage = () => {
       <div className="flex container gap-6 mt-9 ml-[330px]">
         {foods?.map((food) => {
           return (
-            <FoodCard key={food._id} name={food.name} price={food.price} />
+            <FoodCard
+              image={food.image}
+              key={food._id}
+              name={food.name}
+              price={food.price}
+              foodId={food._id}
+            />
           );
         })}
       </div>
