@@ -3,15 +3,18 @@ import UserModel from "../../model/user";
 import { Request, Response } from "express";
 
 export const updateUser = async (req: Request, res: Response) => {
-  const { id, email } = req.body;
+  const { _id, email, phoneNumber, userName } = req.body;
+  console.log(req.body);
+
   try {
-    const objectId = mongoose.Types.ObjectId.createFromHexString(id);
-    const updatedUserer = UserModel.findByIdAndUpdate(
+    const objectId = mongoose.Types.ObjectId.createFromHexString(_id);
+
+    const updateUser = await UserModel.findByIdAndUpdate(
       { _id: objectId },
-      { email: email },
+      { email: email, phoneNumber: phoneNumber, userName: userName },
       { new: true }
     );
-    res.json({ user: updatedUserer });
+    res.json({ user: updateUser });
   } catch (error) {
     res.json({ massege: error });
   }
