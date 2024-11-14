@@ -4,7 +4,6 @@ import { Request, Response } from "express";
 
 export const updateUser = async (req: Request, res: Response) => {
   const { _id, email, phoneNumber, userName } = req.body;
-  console.log(req.body);
 
   try {
     const objectId = mongoose.Types.ObjectId.createFromHexString(_id);
