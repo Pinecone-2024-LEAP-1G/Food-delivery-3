@@ -10,6 +10,6 @@ import { authMiddleware } from "../middleware/auth-middleware";
 export const OrderRouter = express.Router();
 
 OrderRouter.post("/", authMiddleware, createOrder);
-OrderRouter.get("/:_id", getOrder);
+OrderRouter.get("/get/:id", getOrder);
 OrderRouter.get("/", getOrders);
 OrderRouter.delete("/:id", deleteOrder);
