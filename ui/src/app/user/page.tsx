@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-"use client"
-
-=======
 "use client";
->>>>>>> 6496bf2 (profile)
 import { GoPencil } from "react-icons/go";
 import { useAuthcontext } from "@/providers/AuthProvider";
 import axios from "axios";
@@ -15,13 +10,6 @@ import { MdOutlineHistory } from "react-icons/md";
 import { EditPro } from "@/components/EditPro";
 import { LogOutAlert } from "@/components/LogOutAlert";
 
-<<<<<<< HEAD
-
-
-const Page = () => {
- 
-  
-=======
 type User = {
   _id: string;
   email: string;
@@ -73,7 +61,6 @@ const Page = () => {
     return <div>Error: {error}</div>;
   }
 
->>>>>>> 6496bf2 (profile)
   return (
     <div className="container mx-auto w-[432px] mb-[131px]">
       <div className="flex flex-col justify-center items-center mx-auto mt-[133px] mb-10">
@@ -162,17 +149,6 @@ const Page = () => {
           </div>
         </div>
       </div>
-<<<<<<< HEAD
-      {/* {Person.map((item, index) => (
-        <User
-          key={index}
-          image={item.image}
-          name={item.name}
-          text={item.text}
-        />
-      ))} */}
-=======
->>>>>>> 6496bf2 (profile)
     </div>
   );
 };

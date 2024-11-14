@@ -33,7 +33,6 @@ export const EditPro = ({ onchange, userName, email, phoneNumber }: Props) => {
   const { currentUser } = useAuthcontext();
 
   const userId = currentUser?.user._id;
-  console.log(userId);
 
   const updateUser = () => {
     try {
@@ -43,8 +42,7 @@ export const EditPro = ({ onchange, userName, email, phoneNumber }: Props) => {
         phoneNumber,
         userName,
       });
-      toast.success("");
-      console.log(update);
+      toast.success("amjilttai");
     } catch (error) {
       console.log(error);
     }
