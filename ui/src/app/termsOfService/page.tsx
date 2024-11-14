@@ -1,5 +1,4 @@
 import { StarIcon } from "@/components/icons";
-import { PhoneCall } from "lucide-react";
 
 const Page = () => {
   return (
@@ -8,7 +7,6 @@ const Page = () => {
         <StarIcon />
         <h1 className="font-bold text-2xl">Үйлчилгээний нөхцөл</h1>
       </div>
-
       <p>
         Mstars Food delivery нь Mstars Lab компанийн интернэт худалдааны албан
         ёсны вэбсайт бөгөөд энэхүү нөхцөл, журам нь уг вэбсайтаар үйлчлүүлэх,
