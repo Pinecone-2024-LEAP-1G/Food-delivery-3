@@ -20,7 +20,6 @@ export const Categories = ({
   setCategoryName,
   categoryName,
 }: CategoriesProps) => {
-
   return (
     <div className=" h-[100%] bg-white px-10">
       <div className="mt-[26px] mb-10">
@@ -31,8 +30,8 @@ export const Categories = ({
           <Category
             className={`${
               categoryName === category.categoryName
-                ? "bg-[#18BA51]"
-                : "bg-white"
+                ? "bg-green-500 text-white"
+                : "bg-white text-black"
             }`}
             key={category._id}
             text={category.categoryName}

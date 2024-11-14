@@ -9,7 +9,7 @@ type OrderVerifyProps = {
   totalPrice: number;
   setTotalPrice: (_totalPrice: number) => void;
   createOrder: () => void;
-  value: boolean
+  value: boolean;
 };
 
 const OrderVerify = ({
@@ -81,7 +81,9 @@ const OrderVerify = ({
           </div>
           <button
             onClick={createOrder}
-            className={`py-2 px-4  text-[#D6D8DB] rounded ${value? "bg-green-400" : "bg-slate-50"} `}
+            className={`py-2 px-4  text-[#D6D8DB] rounded ${
+              value ? "bg-[#18BA51] text-white" : "bg-[#ECEDF0] text-black"
+            } `}
           >
             Захиалах
           </button>

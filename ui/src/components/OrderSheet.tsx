@@ -14,6 +14,8 @@ import { useOrder } from "@/providers/OrderProvider";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Description } from "@radix-ui/react-dialog";
+import { useAuthcontext } from "@/providers/AuthProvider";
+import { toast } from "sonner";
 
 type QuantitiesType = { [value: string]: number };
 
@@ -22,6 +24,7 @@ export const OrderSheet = () => {
   const router = useRouter();
   const [totalPrice, setTotalPrice] = useState(0);
   const [quantities, setQuantities] = useState<QuantitiesType>({});
+  const { currentUser, isLoading } = useAuthcontext();
 
   useEffect(() => {
     const initialQuantities = order.orderItems.reduce((acc, item) => {
@@ -48,6 +51,16 @@ export const OrderSheet = () => {
   const handleQuantityChange = (itemId: string, newQuantity: number) => {
     setQuantities((prev) => ({ ...prev, [itemId]: newQuantity }));
     updateItemQuantity(itemId, newQuantity);
+  };
+
+  const fetchUser = () => {
+    if (!currentUser && !isLoading) {
+      router.push("/auth/sign-in");
+    }
+    if (order.orderItems.length === 0) {
+      toast.error("Tand sagsalsan baraa baihgui baina");
+      return;
+    } else router.push("/createorder");
   };
 
   return (
@@ -99,7 +112,7 @@ export const OrderSheet = () => {
           </div>
           <SheetClose asChild>
             <Button
-              onClick={() => router.push("/createorder")}
+              onClick={fetchUser}
               className="py-2 px-4 bg-[#18BA51] rounded-sm w-1/2 text-white font-semibold"
               type="submit"
             >

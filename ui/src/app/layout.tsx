@@ -13,6 +13,10 @@ const RootLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const pathname = usePathname();
+
+  const isAdminPage = pathname.startsWith("/admin");
+
   return (
     <NuqsAdapter>
       <html lang="en">
@@ -30,4 +34,5 @@ const RootLayout = ({
     </NuqsAdapter>
   );
 };
+
 export default RootLayout;
