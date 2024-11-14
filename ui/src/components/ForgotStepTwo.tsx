@@ -15,7 +15,10 @@ import {
 import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
-  code: z.string().min(2).max(50),
+  code: z
+    .string()
+    .min(2)
+    .max(50),
 });
 
 type Type = {
