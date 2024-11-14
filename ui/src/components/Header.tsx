@@ -1,19 +1,45 @@
 "use client";
 
 import { PineIcon, SearchIcon, UserIcon } from "./icons/index";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { OrderSheet } from "./OrderSheet";
 import Link from "next/link";
+import axios from "axios";
+import { Food } from "@/app/admin/page";
+import { useQueryState } from "nuqs";
 
 const Header = () => {
   const router = useRouter();
   const [activeText, setActiveText] = useState<string>("НҮҮР");
+  const [searchValue, setSearchVlaue] = useQueryState("food", {
+    defaultValue: "",
+  });
+  const [search, setSearch] = useState<Food[]>([]);
 
   const handleHeaderTextColor = (name: string) => {
     setActiveText(name);
     router.push("/");
+  };
+
+  useEffect(() => {
+    const searchFood = async () => {
+      try {
+        const response = await axios.get<{ foods: Food[] }>(
+          "http://localhost:8000/food"
+        );
+
+        setSearch(response.data.foods);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    searchFood();
+  }, []);
+
+  const handleSearchSection = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchVlaue(event.target.value);
   };
 
   return (
@@ -61,6 +87,8 @@ const Header = () => {
               className="border-[2px] border-[#8B8E95] rounded-md w-[260px] h-[40px] text-[17px] font-medium pl-10 pr-4"
               type="search"
               placeholder="Хайх"
+              onChange={handleSearchSection}
+              value={searchValue}
             />
             <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
               <SearchIcon />
