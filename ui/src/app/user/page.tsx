@@ -21,31 +21,31 @@ const Page = () => {
   const { currentUser } = useAuthcontext();
   const [user, setUser] = useState<User>();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error] = useState(null);
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [userName, setUserName] = useState("");
 
-  const getUser = async () => {
-    const id = currentUser?.user?._id;
-    if (!id) {
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const response = await axios.get<{ user: User }>(
-        `http://localhost:8000/users/${id}`
-      );
-      setUser(response.data.user);
-      setLoading(false);
-    } catch (error) {
-      console.error("Failed to fetch user:", error);
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const getUser = async () => {
+      const id = currentUser?.user?._id;
+      if (!id) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await axios.get<{ user: User }>(
+          `http://localhost:8000/users/${id}`
+        );
+        setUser(response.data.user);
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+        setLoading(false);
+      }
+    };
+
     if (currentUser?.user?._id) {
       getUser();
     } else {
