@@ -7,6 +7,7 @@ import { AuthProvider } from "@/providers/AuthProvider";
 import { Toaster } from "sonner";
 import { OrderProvider } from "@/providers/OrderProvider";
 import { NuqsAdapter } from "nuqs/adapters/next";
+import { usePathname } from "next/navigation";
 
 const RootLayout = ({
   children,
@@ -26,7 +27,7 @@ const RootLayout = ({
               <Header />
               <main className="flex-grow ">{children}</main>
               <Toaster />
-              <Footer />
+              {isAdminPage && <Footer />}
             </OrderProvider>
           </AuthProvider>
         </body>
