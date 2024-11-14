@@ -23,12 +23,14 @@ type Auth = {
   currentUser: AuthResponse | null;
   signin: (_user: AuthResponse) => void;
   isLoading: boolean;
+  clearUser: () => void;
 };
 
 const Authcontext = createContext<Auth>({
   currentUser: null,
   signin: () => {},
   isLoading: false,
+  clearUser: () => {},
 });
 
 export const useAuthcontext = () => useContext(Authcontext);
@@ -53,8 +55,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(false);
   };
 
+  const clearUser = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("order");
+  };
+
   return (
-    <Authcontext.Provider value={{ currentUser, signin, isLoading }}>
+    <Authcontext.Provider value={{ currentUser, signin, isLoading, clearUser }}>
       {children}
     </Authcontext.Provider>
   );
