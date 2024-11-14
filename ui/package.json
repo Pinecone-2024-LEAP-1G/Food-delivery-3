@@ -33,6 +33,7 @@
     "lucide-react": "^0.453.0",
     "moment": "^2.30.1",
     "next": "15.0.0",
+    "nuqs": "^2.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.53.1",

@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FoodCard } from "@/components/FoodCard";
 import { Food } from "@/app/admin/page";
+import { useQueryState } from "nuqs";
 
 export type FoodSelectMenu = {
   name: string;
@@ -20,8 +21,9 @@ export type FoodCategoryName = {
 const FoodCategoryPage = () => {
   const params = useParams();
   const { category } = params;
-  console.log("Category from useParams:", category);
   const [foods, setFoods] = useState<Food[]>([]);
+  const [searchValue] = useQueryState("food");
+  console.log(searchValue);
 
   useEffect(() => {
     const getFoodsByCategory = async () => {
@@ -43,7 +45,12 @@ const FoodCategoryPage = () => {
     };
 
     getFoodsByCategory();
-  }, [category]);
+  }, []);
+
+  const allFoods = foods.filter((food) => {
+    if (!searchValue) return true;
+    return food.name.toLowerCase().includes(searchValue.toLowerCase());
+  });
 
   return (
     <div className="container flex items-center mx-auto flex-col mt-8 mb-[82px]  ">
@@ -83,7 +90,7 @@ const FoodCategoryPage = () => {
       </div>
 
       <div className="grid grid-cols-4 max-w-[1200px] gap-6 mt-14   ">
-        {foods?.map((food) => {
+        {allFoods?.map((food) => {
           return (
             <FoodCard
               image={food.image}
