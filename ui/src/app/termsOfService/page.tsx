@@ -1,13 +1,8 @@
 import { StarIcon } from "@/components/icons";
-import { PhoneCall } from "lucide-react";
-import { toast, Toaster } from "sonner";
 
 const Page = () => {
-  // toast.error("Event has not been created");
-
   return (
     <div className="container mt-[40px] gap-[24px] mx-auto flex flex-col justify-center mb-14">
-      <Toaster position="top-center" />
       <div className="flex gap-2 container h-[65px] py-4">
         <StarIcon />
         <h1 className="font-bold text-2xl">Үйлчилгээний нөхцөл</h1>
