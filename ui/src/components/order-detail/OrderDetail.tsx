@@ -58,7 +58,7 @@ export const OrderDetail = () => {
         },
         { headers: { authorization: `Bearer ${currentUser?.accessToken}` } }
       );
-      localStorage.setItem("order", JSON.stringify(order.data));
+      localStorage.setItem("order", JSON.stringify(order.data._id));
       setSelectedOptions({
         _id: "",
         userId: "",
