@@ -46,7 +46,7 @@ const FoodCategoryPage = () => {
   }, [category]);
 
   return (
-    <div className="container h-[107px] flex items-center mx-auto flex-col mt-8 max-h-[calc(100vh-545px)]  ">
+    <div className="container flex items-center mx-auto flex-col mt-8 mb-[82px]  ">
       <div className=" flex container justify-center gap-7 ">
         <Link href="/foods/breakfast">
           <p
