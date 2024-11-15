@@ -7,27 +7,30 @@ import { useEffect, useState } from "react";
 import { TiTickOutline } from "react-icons/ti";
 import { format } from "date-fns";
 
-type OrderDetail = {
-  orderItem: [
-    {
-      foodId: {
-        name: string;
-        image: string;
-        ingredient: string;
-        price: number;
-        categoryId: string;
-        createdAt: Date;
-        updatedAt: Date;
-        salePercent?: number;
-      };
+export type OrderDetail = [
+  {
+    _id: string;
+    orderItem: [
+      {
+        foodId: {
+          name: string;
+          image: string;
+          ingredient: string;
+          price: number;
+          categoryId: string;
+          createdAt: Date;
+          updatedAt: Date;
+          salePercent?: number;
+        };
 
-      quantity: number;
-      _id: string;
-    }
-  ];
+        quantity: number;
+        _id: string;
+      }
+    ];
 
-  updatedAt: string;
-};
+    updatedAt: string;
+  }
+];
 
 const Page = () => {
   const { currentUser } = useAuthcontext();
@@ -43,6 +46,8 @@ const Page = () => {
           const response = await axios.get<{ order: OrderDetail }>(
             `http://localhost:8000/orders/get/${id}`
           );
+          console.log(response);
+
           setOrder(response.data.order);
         } catch (error) {
           console.error("Error fetching order:", error);
@@ -93,33 +98,42 @@ const Page = () => {
           </div>
         </div>
       </div>
-      {order?.orderItem.map((item) => {
-        return (
-          <div
-            key={item._id}
-            className="w-[432px] h-[720px] shadow-custom flex justify-center pt-6 rounded-lg"
-          >
-            <div className="w-[384px] h-[120px]">
-              <p className="font-normal text-[20px] font-mono">
-                Захиалгын дэлгэрэнгүй
-              </p>
-              <div className="w-[384px] h-[68px] flex items-center">
-                <div className="w-[384px] h-[36px] px-4 pl-4 flex items-center">
-                  <div className="flex flex-col">
-                    <p className="font-normal  text-[16px] text-[#272727] w-[324px] h-[19px] px-2">
-                      {item.foodId.name}
-                    </p>
-                  </div>
-                  <p className="w-5 h-5 font-normal text-[16px] text-[#272727]">
-                    ({item.quantity})
-                  </p>
-                </div>
+
+      <div className="w-[432px] h-[720px] shadow-custom flex justify-center pt-6 rounded-lg">
+        <div className="w-[384px] h-[120px]">
+          <p className="font-normal text-[20px] font-mono">
+            Захиалгын дэлгэрэнгүй
+          </p>
+          <div className="border-[1px] w-[384px] border-[#D6D8DB] mx-auto mt-4"></div>
+          {order?.map((item) => {
+            return (
+              <div key={item._id} className="w-[384px] h-[68px]  items-center">
+                {item.orderItem.map((element) => {
+                  return (
+                    <div
+                      key={element._id}
+                      className="w-[384px] h-[36px] px-4 pl-4 flex items-center"
+                    >
+                      <div className="flex flex-col gap-2 ">
+                        <p className="font-bold  text-[16px] text-[#272727] px-2">
+                          {element.foodId.name}
+                        </p>
+                      </div>
+                      <p className="text-gray-400">
+                        {format(new Date(item.updatedAt), "yyyy-MM-dd")}
+                      </p>
+                      <p className="w-5 h-5 font-normal text-[16px] text-[#272727] ml-auto">
+                        ({element.quantity})
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
-              <div className="border-[1px] w-[384px] border-[#D6D8DB] mx-auto mt-4"></div>
-            </div>
-          </div>
-        );
-      })}
+            );
+          })}
+          <div className="border-[1px] w-[384px] border-[#D6D8DB] mx-auto mt-4"></div>
+        </div>
+      </div>
     </div>
   );
 };
