@@ -8,7 +8,7 @@ export const getOrder = async (request: Request, response: Response) => {
   try {
     const orderId = mongoose.Types.ObjectId.createFromHexString(id);
 
-    const order = await OrderModel.findOne({
+    const order = await OrderModel.find({
       userId: orderId,
     }).populate({ path: "orderItem", populate: { path: "foodId" } });
 
