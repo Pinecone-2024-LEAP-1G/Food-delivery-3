@@ -78,7 +78,7 @@ export const OrderDialog = ({ onclick, foodId }: FoodDetail) => {
     };
 
     addOrderItem(orderItem);
-
+    setQuantity(0);
     toast.success("Захиалсан хоол нэмэгдлээ");
   };
 
@@ -90,7 +90,7 @@ export const OrderDialog = ({ onclick, foodId }: FoodDetail) => {
           className="absolute top-16 left-14 w-[166px] h-[40px] opacity-0 hover:opacity-55"
           variant="outline"
         >
-          Edit
+          Сагслах
         </Button>
       </DialogTrigger>
       <DialogContent className=" bg-white flex flex-row">

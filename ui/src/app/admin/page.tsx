@@ -4,6 +4,7 @@ import { CreateFood } from "@/components/CreateFood";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Categories } from "@/components/Categories";
+import { Button } from "@/components/ui/button";
 
 export type Food = {
   _id: string;
@@ -20,7 +21,7 @@ export type Food = {
   salePercent: number;
 };
 
- export interface Category {
+export interface Category {
   _id: string;
   categoryName: string;
 }
@@ -31,6 +32,7 @@ const Page = () => {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [categoryName, setCategoryName] = useState("All foods");
+  const [load, setLoad] = useState(9);
 
   const getCategories = async () => {
     try {
@@ -73,12 +75,18 @@ const Page = () => {
     setShowCategory(!showCategory);
   };
 
-  const categoryFoods = foods.filter((food) => {
-    if (categoryName === "All foods") {
-      return foods;
-    }
-    if (food.categoryId.categoryName === categoryName) return foods;
-  });
+  const someFoods = foods.slice(0, load);
+
+  const clickLoad = () => {
+    setLoad((prev) => prev + 9);
+  };
+
+  const categoryFoods =
+    categoryName === "All foods"
+      ? someFoods
+      : someFoods.filter(
+          (food) => food.categoryId.categoryName === categoryName
+        );
 
   return (
     <div className="flex mx-auto w-[1440px] h-[100vh]">
@@ -87,14 +95,14 @@ const Page = () => {
         setCategoryName={setCategoryName}
         categoryName={categoryName}
       />
-      <div className="flex flex-col bg-gray-50 w-full ">
+      <div className="flex flex-col bg-gray-50 w-full">
         <div className="flex mt-6 mb-8 justify-between px-4">
           <h1 className="font-bold text-2xl">{categoryName}</h1>
           <p
             onClick={onclickAdd}
             className="h-[35px] bg-[#18BA51] text-white py-2 items-center rounded justify-center flex cursor-pointer"
           >
-            <CreateFood categories={categories} getFoods={getFoods}/>
+            <CreateFood categories={categories} getFoods={getFoods} />
           </p>
         </div>
 
@@ -113,6 +121,12 @@ const Page = () => {
             ))}
           </div>
         )}
+        <Button
+          onClick={clickLoad}
+          className="p-4 bg-gray-300 h-10 w-fit justify-center items-center mt-4 ml-[600px]"
+        >
+          Load More
+        </Button>
       </div>
     </div>
   );

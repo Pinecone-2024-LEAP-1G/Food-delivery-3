@@ -1,14 +1,13 @@
 "use client";
 
 import { PineIcon, SearchIcon, UserIcon } from "./icons/index";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { OrderSheet } from "./OrderSheet";
 import Link from "next/link";
-import axios from "axios";
-import { Food } from "@/app/admin/page";
 import { useQueryState } from "nuqs";
+import { useAuthcontext } from "@/providers/AuthProvider";
 
 const Header = () => {
   const router = useRouter();
@@ -16,27 +15,12 @@ const Header = () => {
   const [searchValue, setSearchVlaue] = useQueryState("food", {
     defaultValue: "",
   });
-  const [search, setSearch] = useState<Food[]>([]);
+  const { currentUser } = useAuthcontext();
 
   const handleHeaderTextColor = (name: string) => {
     setActiveText(name);
     router.push("/");
   };
-
-  useEffect(() => {
-    const searchFood = async () => {
-      try {
-        const response = await axios.get<{ foods: Food[] }>(
-          "http://localhost:8000/food"
-        );
-
-        setSearch(response.data.foods);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    searchFood();
-  }, []);
 
   const handleSearchSection = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchVlaue(event.target.value);
@@ -95,14 +79,25 @@ const Header = () => {
             </div>
           </div>
           <OrderSheet />
+
           <div className="flex items-center  h-[40px] justify-center gap-2">
             <UserIcon />
-            <Button
-              onClick={() => router.push("/auth/sign-in")}
-              className="font-bold p-0"
-            >
-              Нэвтрэх
-            </Button>
+            {currentUser ? (
+              <Button
+                onClick={() => router.push("/user")}
+                className="font-bold p-0 text-green-500
+                "
+              >
+                Хэрэглэгч
+              </Button>
+            ) : (
+              <Button
+                onClick={() => router.push("/auth/sign-in")}
+                className="font-bold p-0"
+              >
+                Нэвтрэх
+              </Button>
+            )}
           </div>
         </div>
       </div>

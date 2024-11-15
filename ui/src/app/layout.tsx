@@ -7,12 +7,17 @@ import { AuthProvider } from "@/providers/AuthProvider";
 import { Toaster } from "sonner";
 import { OrderProvider } from "@/providers/OrderProvider";
 import { NuqsAdapter } from "nuqs/adapters/next";
+import { usePathname } from "next/navigation";
 
 const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const pathname = usePathname();
+
+  const isAdminPage = pathname.startsWith("/admin");
+
   return (
     <NuqsAdapter>
       <html lang="en">
@@ -22,7 +27,7 @@ const RootLayout = ({
               <Header />
               <main className="flex-grow ">{children}</main>
               <Toaster />
-              <Footer />
+              {isAdminPage && <Footer />}
             </OrderProvider>
           </AuthProvider>
         </body>
@@ -30,4 +35,5 @@ const RootLayout = ({
     </NuqsAdapter>
   );
 };
+
 export default RootLayout;

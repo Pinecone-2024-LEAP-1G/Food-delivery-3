@@ -14,13 +14,12 @@ import { Button } from "@/components/ui/button";
 import { GoPencil } from "react-icons/go";
 import { Input } from "./ui/input";
 import axios from "axios";
-import { useState } from "react";
 import { toast } from "sonner";
 import { useAuthcontext } from "@/providers/AuthProvider";
 
 type Props = {
   onchange: (
-    e:
+    _e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => void;
@@ -36,7 +35,7 @@ export const EditPro = ({ onchange, userName, email, phoneNumber }: Props) => {
 
   const updateUser = () => {
     try {
-      const update = axios.put("http://localhost:8000/users/", {
+      axios.put("http://localhost:8000/users/", {
         _id: userId,
         email,
         phoneNumber,

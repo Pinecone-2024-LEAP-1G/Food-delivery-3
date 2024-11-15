@@ -7,8 +7,10 @@ import { OrderDetailAddressInfo } from "./OrderDetailAddressInfo";
 import { useOrder } from "@/providers/OrderProvider";
 import { toast } from "sonner";
 import { useAuthcontext } from "@/providers/AuthProvider";
+import { useRouter } from "next/navigation";
 
 export type OrderSelectOptions = {
+  _id: string;
   userId: string;
   district: string;
   khoroo: string;
@@ -20,12 +22,9 @@ export type OrderSelectOptions = {
 
 export const OrderDetail = () => {
   const { currentUser } = useAuthcontext();
-const [value, setValue]= useState(false)
-console.log(value);
-
-
-
-  const { order, clearCart} = useOrder();
+  const [value, setValue] = useState(false);
+  const { order, clearCart } = useOrder();
+  const router = useRouter();
 
   const orderItem = order.orderItems.map((item) => {
     return {
@@ -36,6 +35,7 @@ console.log(value);
   const [totalPrice, setTotalPrice] = useState(0);
 
   const [selectedOptions, setSelectedOptions] = useState<OrderSelectOptions>({
+    _id: "",
     userId: "",
     district: "",
     khoroo: "",
@@ -47,7 +47,7 @@ console.log(value);
 
   const createOrder = async () => {
     try {
-      await axios.post(
+      const order = await axios.post<OrderSelectOptions>(
         "http://localhost:8000/orders",
         {
           district: selectedOptions.district,
@@ -58,7 +58,9 @@ console.log(value);
         },
         { headers: { authorization: `Bearer ${currentUser?.accessToken}` } }
       );
+      localStorage.setItem("order", JSON.stringify(order.data._id));
       setSelectedOptions({
+        _id: "",
         userId: "",
         district: "",
         khoroo: "",
@@ -67,7 +69,8 @@ console.log(value);
         phoneNumber: "",
         paymentType: null,
       });
-      clearCart()
+      clearCart();
+      router.push("/orderwaiting");
       toast.success("Huselt amjilttai");
     } catch (error) {
       console.log(error);
@@ -84,25 +87,23 @@ console.log(value);
       !selectedOptions.paymentType
     ) {
       toast.error("buh medeelliig buglunu uu!");
-    } else {
-      createOrder();
-      
-    }
+    } else createOrder();
   };
-
 
   const handleSelectColor = (type: string, value: string) => {
     setSelectedOptions((prev) => {
       return { ...prev, [type]: value };
     });
 
-  if(selectedOptions){setValue(true)}
-    
+    if (selectedOptions) {
+      setValue(true);
+    }
   };
 
   return (
     <div className="flex justify-center gap-48 mt-12 mx-auto">
       <OrderDetailAddressInfo
+        _id={selectedOptions._id}
         userId={selectedOptions.userId}
         district={selectedOptions.district}
         khoroo={selectedOptions.khoroo}

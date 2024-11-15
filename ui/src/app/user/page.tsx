@@ -9,6 +9,7 @@ import { TbMailForward } from "react-icons/tb";
 import { MdOutlineHistory } from "react-icons/md";
 import { EditPro } from "@/components/EditPro";
 import { LogOutAlert } from "@/components/LogOutAlert";
+import Link from "next/link";
 
 type User = {
   _id: string;
@@ -21,31 +22,32 @@ const Page = () => {
   const { currentUser } = useAuthcontext();
   const [user, setUser] = useState<User>();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error] = useState(null);
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [userName, setUserName] = useState("");
-
-  const getUser = async () => {
-    const id = currentUser?.user?._id;
-    if (!id) {
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const response = await axios.get<{ user: User }>(
-        `http://localhost:8000/users/${id}`
-      );
-      setUser(response.data.user);
-      setLoading(false);
-    } catch (error) {
-      console.error("Failed to fetch user:", error);
-      setLoading(false);
-    }
-  };
+  const { clearUser } = useAuthcontext();
 
   useEffect(() => {
+    const getUser = async () => {
+      const id = currentUser?.user?._id;
+      if (!id) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await axios.get<{ user: User }>(
+          `http://localhost:8000/users/${id}`
+        );
+        setUser(response.data.user);
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+        setLoading(false);
+      }
+    };
+
     if (currentUser?.user?._id) {
       getUser();
     } else {
@@ -140,9 +142,9 @@ const Page = () => {
         </div>
         <div className="flex h-16  w-[392px] rounded items-center p-2">
           <div className="bg-white rounded-full">
-            <div>
+            <Link onClick={clearUser} href={"/"}>
               <LogOutAlert />
-            </div>
+            </Link>
           </div>
           <div className="p-2">
             <p className="text-base leading-5 font-normal">Гарах</p>

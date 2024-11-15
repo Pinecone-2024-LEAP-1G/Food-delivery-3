@@ -11,6 +11,10 @@ import MenuImage from "@/components/MenuImage";
 
 const Home = () => {
   const [foods, setFoods] = useState<Food[]>([]);
+  const [saleLoad, setSaleLoad] = useState(4);
+  const [mainCourseLoad, setMainCourseLoad] = useState(4);
+  const [soupLoad, setSoupLoad] = useState(4);
+  const [dessertLoad, setDessertLoad] = useState(4);
 
   const getFoods = async () => {
     try {
@@ -23,25 +27,35 @@ const Home = () => {
     }
   };
 
-  const saleFoods = foods.filter((food) => food.salePercent > 0);
-  const mainCourses = foods.filter(
-    (food) => food.categoryId.categoryName === "main"
-  );
-  const soups = foods.filter((food) => food.categoryId.categoryName === "soup");
-  const desserts = foods.filter(
-    (food) => food.categoryId.categoryName === "dessert"
-  );
+  const clickLoadSale = () => setSaleLoad(saleLoad + 4);
+  const clickLoadMainCourse = () => setMainCourseLoad(mainCourseLoad + 4);
+  const clickLoadSoup = () => setSoupLoad(soupLoad + 4);
+  const clickLoadDessert = () => setDessertLoad(dessertLoad + 4);
+
+  const saleFoods = foods
+    .filter((food) => food.salePercent > 0)
+    .slice(0, saleLoad);
+  const mainCourses = foods
+    .filter((food) => food.categoryId.categoryName === "main")
+    .slice(0, mainCourseLoad);
+  const soups = foods
+    .filter((food) => food.categoryId.categoryName === "soup")
+    .slice(0, soupLoad);
+  const desserts = foods
+    .filter((food) => food.categoryId.categoryName === "dessert")
+    .slice(0, dessertLoad);
 
   useEffect(() => {
     getFoods();
   }, []);
+
   return (
     <div className="container mx-auto">
       <MenuImage />
       <div className="w-[1200px] mx-auto">
         <FastDelivery />
 
-        <FoodCategory category="Хямдралтай" />
+        <FoodCategory clickLoad={clickLoadSale} category="Хямдралтай" />
         <div className="flex mb-20 gap-4">
           {saleFoods.map((food) => (
             <DiscountCard
@@ -55,7 +69,7 @@ const Home = () => {
           ))}
         </div>
 
-        <FoodCategory category="Үндсэн хоол" />
+        <FoodCategory clickLoad={clickLoadMainCourse} category="Үндсэн хоол" />
         <div className="mb-20 flex gap-4">
           {mainCourses.map((food) => (
             <FoodCard
@@ -68,7 +82,7 @@ const Home = () => {
           ))}
         </div>
 
-        <FoodCategory category="Салад ба зууш" />
+        <FoodCategory clickLoad={clickLoadSoup} category="Салад ба зууш" />
         <div className="mb-20 flex gap-4">
           {soups.map((food) => (
             <FoodCard
@@ -81,7 +95,7 @@ const Home = () => {
           ))}
         </div>
 
-        <FoodCategory category="Амттан" />
+        <FoodCategory clickLoad={clickLoadDessert} category="Амттан" />
         <div className="mb-20 flex gap-4">
           {desserts.map((food) => (
             <FoodCard
