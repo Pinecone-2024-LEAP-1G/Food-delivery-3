@@ -46,7 +46,6 @@ const Page = () => {
           const response = await axios.get<{ order: OrderDetail }>(
             `http://localhost:8000/orders/get/${id}`
           );
-          console.log(response);
 
           setOrder(response.data.order);
         } catch (error) {

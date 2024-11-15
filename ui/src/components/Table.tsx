@@ -1,6 +1,5 @@
 "use client";
 
-import { Food } from "@/app/admin/page";
 import {
   Table,
   TableBody,
@@ -10,7 +9,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import axios from "axios";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { IoMdMore } from "react-icons/io";
 
@@ -29,9 +27,23 @@ type Order = {
   phoneNumber: number;
   orderStatus: "Ordered" | "PreparingToShip" | "Shipped" | "Delivered";
   totalPrice: string;
-  orderItem: {
-    foodId: Food;
-  };
+  orderItem: [
+    {
+      foodId: {
+        name: string;
+        image: string;
+        ingredient: string;
+        price: number;
+        categoryId: string;
+        createdAt: Date;
+        updatedAt: Date;
+        salePercent?: number;
+      };
+
+      quantity: number;
+      _id: string;
+    }
+  ];
 };
 
 export const TableTab = () => {
@@ -42,7 +54,6 @@ export const TableTab = () => {
       const response = await axios.get<{ orders: Order[] }>(
         "http://localhost:8000/orders"
       );
-      console.log(response.data.orders);
       setOrders(response.data.orders);
     } catch (error) {
       console.log(error);
@@ -68,20 +79,18 @@ export const TableTab = () => {
       <TableBody className="bg-[white] rounded-b-xl ">
         {orders.map((order) => (
           <TableRow className="h-[72px]" key={order._id}>
-            <div className="px-4 flex w-[259px] gap-2">
-              <Image src="/pizza.png" alt="" width={40} height={40} />
-              <div className="flex flex-col">
-                <p>{order.orderNumber}</p>
-                <p className="text-[#3F4145]">
-                  {order.orderItem.map((item) => (
-                    <div key={item._id}>
+            {order.orderItem.map((item) => (
+              <div key={item._id} className="px-4 flex  w-[259px] gap-4">
+                <div className="flex flex-col">
+                  <p>{order.orderNumber}</p>
+                  <p className="text-[#3F4145]">
+                    <div className="font-bold items-center h-full mt-4">
                       <p className="text-[#3F4145]">{item.foodId.name}</p>
-                      <p></p>
                     </div>
-                  ))}
-                </p>
+                  </p>
+                </div>
               </div>
-            </div>
+            ))}
             <TableCell>
               <p>{order.phoneNumber}</p>
               <p className="text-[#3F4145]">{order.userId.userName}</p>
@@ -92,7 +101,7 @@ export const TableTab = () => {
                   <p>{order?.totalPrice}</p>
                   <p>moment</p>
                 </div>
-                <p className="flex items-center">{order.orderStatus}</p>
+                <p className="flex items-center"></p>
               </div>
             </TableCell>
             <TableCell className="text-right w-fit">
