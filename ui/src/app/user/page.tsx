@@ -9,6 +9,7 @@ import { TbMailForward } from "react-icons/tb";
 import { MdOutlineHistory } from "react-icons/md";
 import { EditPro } from "@/components/EditPro";
 import { LogOutAlert } from "@/components/LogOutAlert";
+import Link from "next/link";
 
 type User = {
   _id: string;
@@ -25,6 +26,7 @@ const Page = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [userName, setUserName] = useState("");
+  const { clearUser } = useAuthcontext();
 
   useEffect(() => {
     const getUser = async () => {
@@ -140,9 +142,9 @@ const Page = () => {
         </div>
         <div className="flex h-16  w-[392px] rounded items-center p-2">
           <div className="bg-white rounded-full">
-            <div>
+            <Link onClick={clearUser} href={"/"}>
               <LogOutAlert />
-            </div>
+            </Link>
           </div>
           <div className="p-2">
             <p className="text-base leading-5 font-normal">Гарах</p>

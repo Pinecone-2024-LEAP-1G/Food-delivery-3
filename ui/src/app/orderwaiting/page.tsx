@@ -8,36 +8,42 @@ import { TiTickOutline } from "react-icons/ti";
 import { format } from "date-fns";
 
 type OrderDetail = {
-  foodId: {
-    name: string;
-    image: string;
-    ingredient: string;
-    price: number;
-    categoryId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    salePercent?: number;
-  };
-  quantity: number;
+  orderItem: [
+    {
+      foodId: {
+        name: string;
+        image: string;
+        ingredient: string;
+        price: number;
+        categoryId: string;
+        createdAt: Date;
+        updatedAt: Date;
+        salePercent?: number;
+      };
+
+      quantity: number;
+      _id: string;
+    }
+  ];
+
   updatedAt: string;
 };
 
 const Page = () => {
   const { currentUser } = useAuthcontext();
-  const [orderItem, setOrderItem] = useState<OrderDetail>();
+  const [order, setOrder] = useState<OrderDetail>();
   const [loading, setLoading] = useState(true);
 
   const id = currentUser?.user._id;
 
   useEffect(() => {
     const getOrder = async () => {
-      if (id) {
+      {
         try {
-          const response = await axios.get<{ orderItem: OrderDetail }>(
+          const response = await axios.get<{ order: OrderDetail }>(
             `http://localhost:8000/orders/get/${id}`
           );
-          console.log("API Response:", response.data); // Log to verify structure
-          setOrderItem(response.data.orderItem);
+          setOrder(response.data.order);
         } catch (error) {
           console.error("Error fetching order:", error);
         } finally {
@@ -45,15 +51,18 @@ const Page = () => {
         }
       }
     };
-
-    if (id) {
+    if (currentUser?.user?._id) {
       getOrder();
+    } else {
+      setLoading(false);
     }
   }, [id]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  console.log(order);
 
   return (
     <div className="flex justify-center gap-44 mt-16 mb-20">
@@ -84,24 +93,33 @@ const Page = () => {
           </div>
         </div>
       </div>
-      {/* <div className="w-[432px] h-[720px] shadow-custom flex justify-center pt-6 rounded-lg"> */}
-      {/* <div className="w-[384px] h-[120px]">
-          <p className="font-normal text-[20px] font-mono">
-            Захиалгын дэлгэрэнгүй
-          </p>
-          <div className="w-[384px] h-[68px] flex items-center">
-            <div className="w-[384px] h-[36px] px-4 pl-4 flex items-center">
-              <p className="font-normal text-[16px] text-[#272727] w-[324px] h-[19px] px-2">
-                {orderItem?.foodId?.name || "Item name not available"}
+      {order?.orderItem.map((item) => {
+        return (
+          <div
+            key={item._id}
+            className="w-[432px] h-[720px] shadow-custom flex justify-center pt-6 rounded-lg"
+          >
+            <div className="w-[384px] h-[120px]">
+              <p className="font-normal text-[20px] font-mono">
+                Захиалгын дэлгэрэнгүй
               </p>
-              <p className="w-5 h-5 font-normal text-[16px] text-[#272727]">
-                ({orderItem?.quantity || 0})
-              </p>
+              <div className="w-[384px] h-[68px] flex items-center">
+                <div className="w-[384px] h-[36px] px-4 pl-4 flex items-center">
+                  <div className="flex flex-col">
+                    <p className="font-normal  text-[16px] text-[#272727] w-[324px] h-[19px] px-2">
+                      {item.foodId.name}
+                    </p>
+                  </div>
+                  <p className="w-5 h-5 font-normal text-[16px] text-[#272727]">
+                    ({item.quantity})
+                  </p>
+                </div>
+              </div>
+              <div className="border-[1px] w-[384px] border-[#D6D8DB] mx-auto mt-4"></div>
             </div>
           </div>
-          <div className="border-[1px] w-[384px] border-[#D6D8DB] mx-auto mt-4"></div>
-        </div> */}
-      {/* </div> */}
+        );
+      })}
     </div>
   );
 };
