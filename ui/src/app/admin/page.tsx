@@ -75,7 +75,7 @@ const Page = () => {
     setShowCategory(!showCategory);
   };
 
-  const someFoods = foods.slice(0, load);
+  const someFoods = Array.isArray(foods) ? foods.slice(0, load) : [];
 
   const clickLoad = () => {
     setLoad((prev) => prev + 9);

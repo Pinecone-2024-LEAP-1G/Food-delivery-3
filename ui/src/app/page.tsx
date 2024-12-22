@@ -10,7 +10,7 @@ import { FoodCard } from "@/components/FoodCard";
 import MenuImage from "@/components/MenuImage";
 
 const Home = () => {
-  const [foods, setFoods] = useState<Food[]>([]);
+  const [foods, setFoods] = useState<Food[]>([]); // Ensure `foods` is initialized as an array
   const [saleLoad, setSaleLoad] = useState(4);
   const [mainCourseLoad, setMainCourseLoad] = useState(4);
   const [soupLoad, setSoupLoad] = useState(4);
@@ -21,7 +21,7 @@ const Home = () => {
       const response = await axios.get<{ foods: Food[] }>(
         "http://localhost:8000/food"
       );
-      setFoods(response.data.foods);
+      setFoods(response.data.foods || []); // Safeguard if `response.data.foods` is undefined
     } catch (error) {
       console.error("Error fetching foods:", error);
     }
@@ -32,18 +32,25 @@ const Home = () => {
   const clickLoadSoup = () => setSoupLoad(soupLoad + 4);
   const clickLoadDessert = () => setDessertLoad(dessertLoad + 4);
 
-  const saleFoods = foods
-    .filter((food) => food.salePercent > 0)
-    .slice(0, saleLoad);
-  const mainCourses = foods
-    .filter((food) => food.categoryId.categoryName === "main")
-    .slice(0, mainCourseLoad);
-  const soups = foods
-    .filter((food) => food.categoryId.categoryName === "soup")
-    .slice(0, soupLoad);
-  const desserts = foods
-    .filter((food) => food.categoryId.categoryName === "dessert")
-    .slice(0, dessertLoad);
+  // Safeguard: Check `foods` is an array before filtering
+  const saleFoods = Array.isArray(foods)
+    ? foods.filter((food) => food.salePercent > 0).slice(0, saleLoad)
+    : [];
+  const mainCourses = Array.isArray(foods)
+    ? foods
+        .filter((food) => food.categoryId?.categoryName === "main")
+        .slice(0, mainCourseLoad)
+    : [];
+  const soups = Array.isArray(foods)
+    ? foods
+        .filter((food) => food.categoryId?.categoryName === "soup")
+        .slice(0, soupLoad)
+    : [];
+  const desserts = Array.isArray(foods)
+    ? foods
+        .filter((food) => food.categoryId?.categoryName === "dessert")
+        .slice(0, dessertLoad)
+    : [];
 
   useEffect(() => {
     getFoods();
