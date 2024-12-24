@@ -35,14 +35,17 @@ export const ProfileForm = ({ categories, className, getFoods }: Props) => {
 
   const createFood = async () => {
     try {
-      const response = await axios.post(`${process.env.MONGODB_URI}/food`, {
-        name: name,
-        image: image,
-        ingredient: ingredients,
-        price: price,
-        categoryId: categoryId,
-        salePercent: percent,
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/food`,
+        {
+          name: name,
+          image: image,
+          ingredient: ingredients,
+          price: price,
+          categoryId: categoryId,
+          salePercent: percent,
+        }
+      );
       toast.success("amjilttai burtgegdlee");
       console.log(response);
       resetValues();

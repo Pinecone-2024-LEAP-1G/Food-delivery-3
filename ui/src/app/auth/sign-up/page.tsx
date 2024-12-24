@@ -39,7 +39,7 @@ const HomePage = () => {
 
   const createUser = async () => {
     try {
-      await axios.post(`${process.env.MONGODB_URI}/users`, {
+      await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users`, {
         userName: name,
         email: email,
         address: address,

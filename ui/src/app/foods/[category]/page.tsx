@@ -30,12 +30,12 @@ const FoodCategoryPage = () => {
       try {
         if (category === "category") {
           const { data } = await axios.get<{ foods: Food[] }>(
-            `${process.env.MONGODB_URI}/food`
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/food`
           );
           setFoods(data.foods);
         } else {
           const { data } = await axios.get<{ foods: Food[] }>(
-            `${process.env.MONGODB_URI}/food/category/${category}`
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/food/category/${category}`
           );
           setFoods(data.foods);
         }

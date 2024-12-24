@@ -38,7 +38,7 @@ const Page = () => {
 
       try {
         const response = await axios.get<{ user: User }>(
-          `${process.env.MONGODB_URI}/users/${id}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${id}`
         );
         setUser(response.data.user);
         setLoading(false);

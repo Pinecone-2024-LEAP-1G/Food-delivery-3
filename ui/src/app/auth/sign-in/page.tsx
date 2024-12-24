@@ -32,7 +32,7 @@ const SignInPage = () => {
   const signIn = async () => {
     try {
       const { data } = await axios.post<AuthResponse>(
-        `${process.env.MONGODB_URI}/users/sign-in`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/sign-in`,
         {
           email: email,
           password: password,

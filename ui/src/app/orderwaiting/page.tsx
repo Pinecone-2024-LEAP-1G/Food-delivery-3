@@ -44,7 +44,7 @@ const Page = () => {
       {
         try {
           const response = await axios.get<{ order: OrderDetail }>(
-            `${process.env.MONGODB_URI}/orders/get/${id}`
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/orders/get/${id}`
           );
 
           setOrder(response.data.order);

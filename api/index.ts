@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const port = 8000;
+const port = 3000;
 
 app.use("/users", UserRouter);
 app.use("/orders", OrderRouter);

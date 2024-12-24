@@ -19,7 +19,7 @@ const Home = () => {
   const getFoods = async () => {
     try {
       const response = await axios.get<{ foods: Food[] }>(
-        `https://api-b6m5qw20w-huduugaray.vercel.app/food`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/food`
       );
       setFoods(response.data.foods || []);
     } catch (error) {
