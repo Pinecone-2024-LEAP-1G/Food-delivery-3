@@ -54,6 +54,7 @@ export const SaladsProducts = () => {
               name={item.name}
               image={item.image}
               price={item.price}
+              foodId=""
             />
           );
         })}

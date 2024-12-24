@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const MenuImage = () => {
   return (
     <div
@@ -20,7 +22,7 @@ const MenuImage = () => {
           </p>
         </div>
         <div className="ml-[400px] mt-[170px]">
-          <img className="w-[588px] h-[438px]" src="HoolniiZurag.png"></img>
+          <Image alt="" width={588} height={438} src="/HoolniiZurag.png" />
         </div>
       </div>
     </div>

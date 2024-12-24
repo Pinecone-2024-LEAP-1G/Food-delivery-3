@@ -3,7 +3,7 @@ import { OrderDialog } from "./OrderDialog";
 type FoodCardType = {
   name: string;
   image?: string;
-  price: string;
+  price: number | string;
   foodId: string;
 };
 

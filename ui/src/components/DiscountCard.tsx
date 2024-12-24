@@ -4,8 +4,8 @@ type FoodDiscount = {
   name: string;
   image?: string;
   discount?: number;
-  price: string;
-  discountedPrice?: number;
+  price: number | string;
+  discountedPrice?: number | string;
   foodId: string;
 };
 

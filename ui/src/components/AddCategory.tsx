@@ -23,9 +23,12 @@ export const AddCategory = () => {
 
   const createCategory = async () => {
     try {
-      const category = await axios.post("http://localhost:8000/category", {
-        categoryName: name,
-      });
+      const category = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}category`,
+        {
+          categoryName: name,
+        }
+      );
       toast.success("amjilttai burtgegdlee");
       resetValues();
       console.log(category);

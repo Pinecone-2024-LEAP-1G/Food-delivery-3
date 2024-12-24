@@ -35,7 +35,7 @@ export const EditPro = ({ onchange, userName, email, phoneNumber }: Props) => {
 
   const updateUser = () => {
     try {
-      axios.put("http://localhost:8000/users/", {
+      axios.put(`${process.env.MONGODB_URI}/users/`, {
         _id: userId,
         email,
         phoneNumber,

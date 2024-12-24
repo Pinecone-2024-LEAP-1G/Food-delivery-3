@@ -34,7 +34,7 @@ export const OrderDialog = ({ onclick, foodId }: FoodDetail) => {
     const getFood = async () => {
       try {
         const response = await axios.get<{ food: Food }>(
-          `http://localhost:8000/food/${foodId}`
+          `${process.env.MONGODB_URI}/food/${foodId}`
         );
 
         setFoodById(response.data.food);

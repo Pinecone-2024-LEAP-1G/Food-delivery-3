@@ -19,8 +19,8 @@ export const ForgotStepThree = ({ handleNextStep }: Type) => {
   const form = useForm<z.infer<typeof useCreationFormSchema>>({
     resolver: zodResolver(useCreationFormSchema),
     defaultValues: {
-      password: "",
-      repassword: "",
+      password: password,
+      repassword: repassword,
     },
   });
 

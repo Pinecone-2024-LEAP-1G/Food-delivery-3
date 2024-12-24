@@ -59,7 +59,8 @@ export const DiscountedProducts = () => {
               image={item.image}
               discount={item.discount}
               price={item.price}
-              basePrice={item.basePrice}
+              discountedPrice={item.basePrice}
+              foodId=""
             />
           );
         })}

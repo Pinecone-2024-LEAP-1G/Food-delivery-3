@@ -30,12 +30,12 @@ const FoodCategoryPage = () => {
       try {
         if (category === "category") {
           const { data } = await axios.get<{ foods: Food[] }>(
-            `http://localhost:8000/food`
+            `${process.env.MONGODB_URI}/food`
           );
           setFoods(data.foods);
         } else {
           const { data } = await axios.get<{ foods: Food[] }>(
-            `http://localhost:8000/food/category/${category}`
+            `${process.env.MONGODB_URI}/food/category/${category}`
           );
           setFoods(data.foods);
         }
@@ -45,7 +45,7 @@ const FoodCategoryPage = () => {
     };
 
     getFoodsByCategory();
-  }, []);
+  }, [category]);
 
   const allFoods = foods.filter((food) => {
     if (!searchValue) return true;

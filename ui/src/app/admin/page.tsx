@@ -37,7 +37,7 @@ const Page = () => {
   const getCategories = async () => {
     try {
       const response = await axios.get<Category[]>(
-        "http://localhost:8000/category"
+        `${process.env.MONGODB_URI}/category`
       );
       setCategories(response.data);
     } catch (error) {
@@ -49,7 +49,7 @@ const Page = () => {
     setLoading(true);
     try {
       const response = await axios.get<{ food: Food[] }>(
-        "http://localhost:8000/food"
+        `${process.env.MONGODB_URI}/food`
       );
       setFoods(response.data.food);
     } catch (error) {

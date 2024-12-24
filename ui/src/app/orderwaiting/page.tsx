@@ -44,7 +44,7 @@ const Page = () => {
       {
         try {
           const response = await axios.get<{ order: OrderDetail }>(
-            `http://localhost:8000/orders/get/${id}`
+            `${process.env.MONGODB_URI}/orders/get/${id}`
           );
 
           setOrder(response.data.order);
@@ -60,7 +60,7 @@ const Page = () => {
     } else {
       setLoading(false);
     }
-  }, [id]);
+  }, [currentUser?.user._id, id]);
 
   if (loading) {
     return <div>Loading...</div>;

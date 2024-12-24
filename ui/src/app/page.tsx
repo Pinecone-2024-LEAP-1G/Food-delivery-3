@@ -10,7 +10,7 @@ import { FoodCard } from "@/components/FoodCard";
 import MenuImage from "@/components/MenuImage";
 
 const Home = () => {
-  const [foods, setFoods] = useState<Food[]>([]); // Ensure `foods` is initialized as an array
+  const [foods, setFoods] = useState<Food[]>([]);
   const [saleLoad, setSaleLoad] = useState(4);
   const [mainCourseLoad, setMainCourseLoad] = useState(4);
   const [soupLoad, setSoupLoad] = useState(4);
@@ -19,9 +19,9 @@ const Home = () => {
   const getFoods = async () => {
     try {
       const response = await axios.get<{ foods: Food[] }>(
-        "http://localhost:8000/food"
+        `https://api-b6m5qw20w-huduugaray.vercel.app/food`
       );
-      setFoods(response.data.foods || []); // Safeguard if `response.data.foods` is undefined
+      setFoods(response.data.foods || []);
     } catch (error) {
       console.error("Error fetching foods:", error);
     }
@@ -32,7 +32,6 @@ const Home = () => {
   const clickLoadSoup = () => setSoupLoad(soupLoad + 4);
   const clickLoadDessert = () => setDessertLoad(dessertLoad + 4);
 
-  // Safeguard: Check `foods` is an array before filtering
   const saleFoods = Array.isArray(foods)
     ? foods.filter((food) => food.salePercent > 0).slice(0, saleLoad)
     : [];

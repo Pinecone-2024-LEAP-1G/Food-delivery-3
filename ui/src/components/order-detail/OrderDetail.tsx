@@ -48,7 +48,7 @@ export const OrderDetail = () => {
   const createOrder = async () => {
     try {
       const order = await axios.post<OrderSelectOptions>(
-        "http://localhost:8000/orders",
+        `${process.env.MONGODB_URI}/orders`,
         {
           district: selectedOptions.district,
           khoroo: selectedOptions.khoroo,

@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import { OrderProvider } from "@/providers/OrderProvider";
 import { NuqsAdapter } from "nuqs/adapters/next";
 import { usePathname } from "next/navigation";
+import { Suspense } from "react";
 
 const RootLayout = ({
   children,
@@ -19,20 +20,22 @@ const RootLayout = ({
   const isAdminPage = pathname.startsWith("/admin");
 
   return (
-    <NuqsAdapter>
-      <html lang="en">
-        <body className="flex flex-col min-h-screen">
-          <AuthProvider>
-            <OrderProvider>
-              <Header />
-              <main className="flex-grow ">{children}</main>
-              <Toaster />
-              {isAdminPage && <Footer />}
-            </OrderProvider>
-          </AuthProvider>
-        </body>
-      </html>
-    </NuqsAdapter>
+    <Suspense>
+      <NuqsAdapter>
+        <html lang="en">
+          <body className="flex flex-col min-h-screen">
+            <AuthProvider>
+              <OrderProvider>
+                <Header />
+                <main className="flex-grow ">{children}</main>
+                <Toaster />
+                {isAdminPage && <Footer />}
+              </OrderProvider>
+            </AuthProvider>
+          </body>
+        </html>
+      </NuqsAdapter>
+    </Suspense>
   );
 };
 

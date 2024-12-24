@@ -32,7 +32,7 @@ const SignInPage = () => {
   const signIn = async () => {
     try {
       const { data } = await axios.post<AuthResponse>(
-        "http://localhost:8000/users/sign-in",
+        `${process.env.MONGODB_URI}/users/sign-in`,
         {
           email: email,
           password: password,

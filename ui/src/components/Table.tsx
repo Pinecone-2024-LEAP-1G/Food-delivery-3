@@ -52,7 +52,7 @@ export const TableTab = () => {
   const getOrders = async () => {
     try {
       const response = await axios.get<{ orders: Order[] }>(
-        "http://localhost:8000/orders"
+        `${process.env.MONGODB_URI}/orders`
       );
       setOrders(response.data.orders);
     } catch (error) {

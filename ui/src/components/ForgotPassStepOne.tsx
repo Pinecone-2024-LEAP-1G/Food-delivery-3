@@ -5,9 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { EmailInput } from "./EmailInput";
-import { use, useState } from "react";
+import { useState } from "react";
 
 const formSchema = z.object({
   email: z.string().email("И-мэйл хаягаа зөв оруулна уу"),
@@ -18,7 +17,7 @@ type Type = {
 };
 
 export const ForgotStepOne = ({ handleNextStep }: Type) => {
-  const [email, setEmail] = useState("");
+  const [, setEmail] = useState("");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
