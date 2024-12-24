@@ -98,6 +98,12 @@ const Header = () => {
                 Нэвтрэх
               </Button>
             )}
+            <Button
+              onClick={() => router.push("/admin")}
+              className="font-bold p-0"
+            >
+              Админ
+            </Button>
           </div>
         </div>
       </div>

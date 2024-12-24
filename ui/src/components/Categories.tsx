@@ -3,6 +3,7 @@
 import { AddCategory } from "./AddCategory";
 import { Plus } from "./icons";
 import { Category } from "./Category";
+import { useRouter } from "next/navigation";
 
 type Category = {
   _id: string;
@@ -20,6 +21,7 @@ export const Categories = ({
   setCategoryName,
   categoryName,
 }: CategoriesProps) => {
+  const router = useRouter();
   return (
     <div className=" h-[100%] bg-white px-10">
       <div className="mt-[26px] mb-10">
@@ -43,6 +45,12 @@ export const Categories = ({
           <AddCategory />
         </div>
       </div>
+      <button
+        onClick={() => router.push("/dashboard")}
+        className="flex w-[258px] h-10 rounded-lg border font-medium text-lg items-center justify-center px-4 py-2 mb-[26px]"
+      >
+        Захиалга хянах самбар
+      </button>
     </div>
   );
 };

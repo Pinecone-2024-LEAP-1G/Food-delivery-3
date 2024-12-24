@@ -48,10 +48,10 @@ const Page = () => {
   const getFoods = async () => {
     setLoading(true);
     try {
-      const response = await axios.get<{ food: Food[] }>(
+      const response = await axios.get<{ foods: Food[] }>(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/food`
       );
-      setFoods(response.data.food);
+      setFoods(response.data.foods);
     } catch (error) {
       console.log(error);
     } finally {
@@ -95,6 +95,7 @@ const Page = () => {
         setCategoryName={setCategoryName}
         categoryName={categoryName}
       />
+
       <div className="flex flex-col bg-gray-50 w-full">
         <div className="flex mt-6 mb-8 justify-between px-4">
           <h1 className="font-bold text-2xl">{categoryName}</h1>
