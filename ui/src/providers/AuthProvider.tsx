@@ -24,6 +24,7 @@ type Auth = {
   signin: (_user: AuthResponse) => void;
   isLoading: boolean;
   clearUser: () => void;
+  setCurrentUser: (_currentUser: AuthResponse) => void;
 };
 
 const Authcontext = createContext<Auth>({
@@ -31,6 +32,7 @@ const Authcontext = createContext<Auth>({
   signin: () => {},
   isLoading: false,
   clearUser: () => {},
+  setCurrentUser: () => {},
 });
 
 export const useAuthcontext = () => useContext(Authcontext);
@@ -61,7 +63,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <Authcontext.Provider value={{ currentUser, signin, isLoading, clearUser }}>
+    <Authcontext.Provider
+      value={{ currentUser, signin, isLoading, clearUser, setCurrentUser }}
+    >
       {children}
     </Authcontext.Provider>
   );

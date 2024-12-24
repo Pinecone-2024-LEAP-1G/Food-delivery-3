@@ -74,6 +74,7 @@ export const OrderDetail = () => {
       toast.success("Huselt amjilttai");
     } catch (error) {
       console.log(error);
+      toast.error("захиалга хийхэд алдаа гарлаа.");
     }
   };
 

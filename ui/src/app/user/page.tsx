@@ -10,7 +10,7 @@ import { MdOutlineHistory } from "react-icons/md";
 import { EditPro } from "@/components/EditPro";
 import { LogOutAlert } from "@/components/LogOutAlert";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 type User = {
   _id: string;
   email: string;
@@ -19,6 +19,7 @@ type User = {
   address: string;
 };
 const Page = () => {
+  const router = useRouter();
   const { currentUser } = useAuthcontext();
   const [user, setUser] = useState<User>();
   const [loading, setLoading] = useState(true);
@@ -35,7 +36,6 @@ const Page = () => {
         setLoading(false);
         return;
       }
-
       try {
         const response = await axios.get<{ user: User }>(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${id}`
@@ -62,7 +62,6 @@ const Page = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
   return (
     <div className="container mx-auto w-[432px] mb-[131px]">
       <div className="flex flex-col justify-center items-center mx-auto mt-[133px] mb-10">
@@ -132,7 +131,10 @@ const Page = () => {
             phoneNumber={user?.phoneNumber}
           />
         </div>
-        <div className="flex h-16  w-[392px] rounded items-center p-2 ">
+        <div
+          onClick={() => router.push("/orderdetail")}
+          className="flex h-16  w-[392px] rounded items-center p-2 "
+        >
           <div className="bg-white rounded-full">
             <MdOutlineHistory className="w-12 h-12 p-3 border rounded-full" />
           </div>

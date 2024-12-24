@@ -55,7 +55,7 @@ export const OrderSheet = () => {
 
   const fetchUser = () => {
     if (!currentUser && !isLoading) {
-      router.push("/auth/sign-in");
+      return router.push("/auth/sign-in");
     }
     if (order.orderItems.length === 0) {
       toast.error("Tand sagsalsan baraa baihgui baina");

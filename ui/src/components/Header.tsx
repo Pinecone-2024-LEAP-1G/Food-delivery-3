@@ -1,7 +1,7 @@
 "use client";
 
 import { PineIcon, SearchIcon, UserIcon } from "./icons/index";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { OrderSheet } from "./OrderSheet";
@@ -25,6 +25,7 @@ const Header = () => {
   const handleSearchSection = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchVlaue(event.target.value);
   };
+  useEffect(() => {}, [currentUser]);
 
   return (
     <div className=" m-auto flex h-14  ">
