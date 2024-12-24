@@ -28,7 +28,6 @@ const SignInPage = () => {
     },
     mode: "onChange",
   });
-
   const signIn = async () => {
     try {
       const { data } = await axios.post<AuthResponse>(
